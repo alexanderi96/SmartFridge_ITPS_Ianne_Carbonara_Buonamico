@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include <stdbool.h>
+//grazie al grande Niccolo ora so che per i bool non serve importare la seguente libreria...
+//#include <stdbool.h>
 
 int main() {
-    bool flag=true;
+    //ma basta fare:
+    _Bool flag=1;
     char scelta;
     printf("Smart Fridge 0.01 Alpha\n\n");
     do{
@@ -18,7 +20,7 @@ int main() {
                 break;
             case '0':
                 //esci
-                flag=false;
+                flag=0;
                 break;
             default:
                 //default non fare nulla
