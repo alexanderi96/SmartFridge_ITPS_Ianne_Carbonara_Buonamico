@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <stdbool.h>
+//#include <stdbool.h>
 
 int main() {
-    bool flag=true;
+    _Bool flag=1;
     printf("Hello World!\n");
     if(flag){
         printf("ciao\n");
