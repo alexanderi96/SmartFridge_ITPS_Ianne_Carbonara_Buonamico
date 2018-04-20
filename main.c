@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main() {
-    cccc
+    printf("daniela scema\n");
     return 0;
 }
 
