@@ -1,5 +1,6 @@
-#include "stdio.h"
+#include <stdio.h>
 #include "account.h"
+#include "file.h"
 //grazie al grande Niccolo ora so che per i bool non serve importare la seguente libreria...
 //#include <stdbool.h>
 
@@ -23,20 +24,18 @@ int main() {
                 //avvia il programma vero e proprio
                 //se è la prima volta va alla creazione di un account amministratore, altrimenti chiede username e password
                 //per vedere se è il primo avvio andremo a leggere un file binario dove ci sarà 0 se è il primo avvio, altrimenti 1 se esiste almeno un account
-                pf=fopen("fboot.bin","r");
-                if(pf){
-                    fscanf(pf, "%d\t", &first);
+                if(NULL==(pf=fopen("fboot.bin","r"))){
+                    printf("suca");
+                    //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
+                    if(!createNewBin("fboot")){
+                        printf("errore\n");
+                    }
+                    //poi avvio la procedura per creare un account
+                }else {
                     fclose(pf);
-                }else{
-                    printf("Errore 01 chiusura del programma in corso..\n");
-                }
-                if(first){
                     //richiesta username e password
                     //vado al menù principale
                     printf("sas");
-                }else{
-                    //avvio la procedura per creare un account
-
                 }
                 break;
             case '0':
