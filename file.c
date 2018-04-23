@@ -11,8 +11,10 @@ int createNewCsv(char nome[]){
     pf=fopen(nome,"w");
     if(pf==NULL){
         printf("Errore durante la creazione del file.\n");
+        return 0;
     }else{
         fclose(pf);
+        return 1;
     }
-    return 1;
+
 }

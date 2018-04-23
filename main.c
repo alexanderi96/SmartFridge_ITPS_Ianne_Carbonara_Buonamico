@@ -21,6 +21,7 @@ int main() {
 
     do{
         printf("Inserire una delle scelte possibili: \n");
+        printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai.\n")
         scanf("%c", &scelta);
         flag=1;
         switch(scelta){
