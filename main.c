@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "account.h"
+#include "mainmenu.h"
 #include "file.h"
 //grazie al grande Niccolo ora so che per i bool non serve importare la seguente libreria...
 //#include <stdbool.h>
@@ -21,8 +22,9 @@ int main() {
 
     do{
         printf("Inserire una delle scelte possibili: \n");
-        printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai.\n")
+        printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai\n\n");
         scanf("%c", &scelta);
+        fflush(stdin);  //Permette di svuotare il buffer della tastiera
         flag=1;
         switch(scelta){
             case '1':
@@ -43,7 +45,10 @@ int main() {
                 }else {
                     fclose(pf);
                     //richiesta username e password
-                    //vado al menù principale
+                    //passaggio a menù principale
+                    if(mainmenu("g", "sas")){
+
+                    }
                     printf("sas");
                 }
                 break;
@@ -57,7 +62,6 @@ int main() {
                 flag=0;
                 break;
         }
-        fflush(stdin);  //Permette di svuotare il buffer della tastiera
     }while(!flag);
     return 0;
     }
