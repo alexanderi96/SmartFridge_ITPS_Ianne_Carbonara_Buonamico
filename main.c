@@ -24,10 +24,10 @@ int main() {
                 //avvia il programma vero e proprio
                 //se è la prima volta va alla creazione di un account amministratore, altrimenti chiede username e password
                 //per vedere se è il primo avvio andremo a leggere un file binario dove ci sarà 0 se è il primo avvio, altrimenti 1 se esiste almeno un account
-                if(NULL==(pf=fopen("fboot.bin","r"))){
+                if(NULL==(pf=fopen("account.csv","r"))){
                     printf("suca");
                     //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
-                    if(!createNewBin("fboot")){
+                    if(!createNewCsv("account.csv")){
                         printf("errore\n");
                     }
                     //poi avvio la procedura per creare un account

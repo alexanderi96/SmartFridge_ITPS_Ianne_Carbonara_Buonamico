@@ -5,11 +5,9 @@
 #include <mem.h>
 #include <stdio.h>
 
-int createNewBin(char nome[9]){
+int createNewCsv(char nome[]){
     FILE *pf;
-    //devo sistemare la concatenazione
-    strcat(nome,".bin");
-    printf("cioa");
+
     pf=fopen(nome,"w");
     if(pf==NULL){
         printf("Errore durante la creazione del file.\n");
