@@ -21,7 +21,7 @@ int main() {
 
     do{
         printf("Inserire una delle scelte possibili: \n");
-        printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai.\n")
+        printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai.\n");
         scanf("%c", &scelta);
         flag=1;
         switch(scelta){
@@ -38,6 +38,8 @@ int main() {
                     //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
                     if(!createNewCsv("account.csv")){
                         printf("errore\n");
+                    }else{
+                        //crea un nuovo account
                     }
                     //poi avvio la procedura per creare un account
                 }else {
