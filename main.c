@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "account.h"
 #include "file.h"
 //grazie al grande Niccolo ora so che per i bool non serve importare la seguente libreria...
@@ -8,12 +9,19 @@ int main() {
     //ma basta fare:
     _Bool flag;
     char scelta;
-    int first;
     FILE *pf;
     printf("Smart Fridge 0.01 Alpha\n\n");
+    // Visualizzazione delle scelte che potrà effettuare l'utente
+    printf("Visualizzazione del menu' delle scelte \n");
+    printf("----------------------------------\n");
+    printf("1. Avviare la modalita' DEMO\n");
+    printf("2. Avviare il programma\n");
+    printf("----------------------------------\n");
+    printf("0. Termina programma\n\n");
+
     do{
-        printf("Premi 1 per la demo o 2 per avviare il programma\nAltrimenti premi 0 per uscire\n");
-        scanf("%1s", &scelta);
+        printf("Inserire una delle scelte possibili: \n");
+        scanf("%c", &scelta);
         flag=1;
         switch(scelta){
             case '1':
@@ -39,14 +47,16 @@ int main() {
                 }
                 break;
             case '0':
-                //esci
+                //escita dal programma
+                printf("Programma terminato\n");
                 break;
             default:
                 //default non fare nulla
-                printf("Inserisci un valore corretto\n");
+                printf("Per favore, inserisci un valore corretto\n");
                 flag=0;
                 break;
         }
+        fflush(stdin);  //Permette di svuotare il buffer della tastiera
     }while(!flag);
     return 0;
-}
+    }
