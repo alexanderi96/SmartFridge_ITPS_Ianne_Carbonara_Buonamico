@@ -19,10 +19,9 @@ int main() {
     printf("2. Avviare il programma\n");
     printf("----------------------------------\n");
     printf("0. Termina programma\n\n");
-
+    printf("Inserire una delle scelte possibili:\n");
+    printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai\n\n");
     do{
-        printf("Inserire una delle scelte possibili: \n");
-        printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai\n\n");
         scanf("%c", &scelta);
         fflush(stdin);  //Permette di svuotare il buffer della tastiera
         flag=1;
@@ -49,7 +48,6 @@ int main() {
                     if(mainmenu("g", "sas")){
 
                     }
-                    printf("sas");
                 }
                 break;
             case '0':

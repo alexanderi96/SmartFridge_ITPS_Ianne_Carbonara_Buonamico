@@ -15,7 +15,7 @@ int mainmenu(char username[], char password[]){
     printf("2. Gestione del menu' della settimana\n");
     printf("3. Gestione della lista della spesa\n");
     printf("-------------------------------------------\n");
-    printf("2. Termina programma\n");
+    printf("0. Logout\n");
 
     printf("Inserire una delle scelte possibili: \n");
     printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai\n\n");
@@ -36,7 +36,7 @@ int mainmenu(char username[], char password[]){
                 printf("Avvio gestione della lista della spesa\n");
                 break;
             case '0':
-                printf("Programma terminato\n");
+                printf("Logout effettuato\n");
                 break;
             default:
                 //caso di default
