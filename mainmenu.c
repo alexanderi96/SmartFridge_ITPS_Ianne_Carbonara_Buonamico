@@ -9,7 +9,7 @@ int mainmenu(char username[], char password[]){
     char scelta;
     _Bool flag;
 
-    printf("Menu' principale:\n");
+    printf("Menu' principale degli account\n");
     printf("-------------------------------------------\n");
     printf("1. Aggiungere nuova intolleranza\n");
     printf("2. Gestione del menu' della settimana\n");
