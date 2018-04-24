@@ -39,8 +39,11 @@ int main() {
                     //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
                     if(!createNewCsv("account.csv")){
                         printf("errore\n");
+                    }else{
+                        create("account", "prova", "meni", "admn");
                     }
                     //poi avvio la procedura per creare un account
+
                 }else {
                     fclose(pf);
                     //richiesta username e password
@@ -51,11 +54,11 @@ int main() {
                 }
                 break;
             case '0':
-                //escita dal programma
+                //uscita dal programma
                 printf("Programma terminato\n");
                 break;
             default:
-                //default non fare nulla
+                //caso di default
                 printf("Per favore, inserisci un valore corretto\n");
                 flag=0;
                 break;
