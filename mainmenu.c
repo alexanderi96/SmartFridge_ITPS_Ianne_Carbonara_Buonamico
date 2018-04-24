@@ -37,11 +37,11 @@ int mainmenu(char username[], char password[]){
                 break;
             case '0':
                 printf("Logout effettuato\n");
+                flag=0;
                 break;
             default:
                 //caso di default
                 printf("Per favore, inserisci un valore corretto\n");
-                flag=0;
                 break;
         }
     }while(flag);
