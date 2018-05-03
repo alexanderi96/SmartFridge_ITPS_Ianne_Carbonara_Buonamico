@@ -9,11 +9,17 @@ int mainmenu(char username[], char password[]){
     char scelta;
     _Bool flag;
 
-    printf("Menu' principale degli account\n");
+    printf("Seleziona la scelta desiderata\n");
     printf("-------------------------------------------\n");
-    printf("1. Aggiungere nuova intolleranza\n");
-    printf("2. Gestione del menu' della settimana\n");
-    printf("3. Gestione della lista della spesa\n");
+    printf("1: Inserimento nuovo account\n");
+    printf("2: Nomina amministratore secondario\n");
+    printf("3: Inserimento nuova ricetta\n");
+    printf("4: Comunica intolleranza\n");
+    printf("5: Suggerisci alimento da inserire nella lista della spesa\n");
+    printf("6: Inserisci alimenti acquistati\n");
+    printf("7: Visualizza menu settimanale\n");
+    printf("8: Suggerimento nuova ricetta sulla base degli alimenti in scadenza\n");
+    printf("9: Comunica alimento e visualizza ricette\n");
     printf("-------------------------------------------\n");
     printf("0. Logout\n");
 
@@ -27,14 +33,41 @@ int mainmenu(char username[], char password[]){
 
         switch(scelta){
             case '1':
-                printf("Avvio funzione per le intolleranze\n");
+                printf("1: Inserimento nuovo account\n");
+                //aggiungi_account
                 break;
             case '2':
-                printf("Avvio gestione del menu' della settimana\n");
+                printf("2: Nomina amministratore secondario\n");
+                //nomina_amm_secondario
                 break;
             case '3':
-                printf("Avvio gestione della lista della spesa\n");
+                printf("3: Inserimento nuova ricetta\n");
+                //nuova_ricetta
                 break;
+            case '4':
+                printf("4: Comunica intolleranza");
+                //intolleranza
+            break;
+            case '5':
+                printf("5: Suggerisci alimento da inserire nella lista della spesa\n");
+                //suggerisci_spesa
+            break;
+            case '6':
+                printf("6: Inserisci alimenti acquistati\n");
+                //inserisci_acquisto
+            break;
+            case '7':
+                printf("7: Visualizza menù settimanale");
+                //menu_settimanale
+            break;
+            case '8':
+                printf("8: Suggerimento nuova ricetta sulla base degli alimenti in scadenza\n");
+                //ricetta_scadenza
+            break;
+            case '9':
+                printf("9: Comunica alimento e visualizza ricette\n");
+                //alimento_input
+            break;
             case '0':
                 printf("Logout effettuato\n");
                 flag=0;

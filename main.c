@@ -3,6 +3,7 @@
 #include "account.h"
 #include "mainmenu.h"
 #include "file.h"
+#include "funzioni_switch.h"
 //grazie al grande Niccolo ora so che per i bool non serve importare la seguente libreria...
 //#include <stdbool.h>
 
@@ -60,7 +61,7 @@ int main() {
                     if(!createNewFile("account.csv")){
                         printf("errore\n");
                     }else{
-                        create("account.csv");
+                        //create("account.csv");
                     }
                     //poi avvio la procedura per creare un account
 
