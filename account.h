@@ -7,6 +7,6 @@
 
 #endif //SMARTFRIDGE_ITPS_IANNE_CARBONARA_BUONAMICO_ACCOUNT_H
 
-int create(char file_name[]);
+int createAccount(char file_name[]);
 int delete(char file_name[]);
 int setAdmin(char file_name[]);

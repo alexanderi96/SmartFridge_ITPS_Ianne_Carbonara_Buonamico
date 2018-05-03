@@ -5,7 +5,7 @@
 #include <mem.h>
 #include <stdio.h>
 
-int createNewCsv(char nome[]){
+int createNewFile(char nome[]){
     FILE *pf;
 
     pf=fopen(nome,"w");

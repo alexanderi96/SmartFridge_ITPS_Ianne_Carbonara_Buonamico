@@ -7,5 +7,5 @@
 
 #endif //SMARTFRIDGE_ITPS_IANNE_CARBONARA_BUONAMICO_FILE_H
 
-int createNewCsv(char nome[]);
+int createNewFile(char nome[]);
 int searchOnFile(char word[]);

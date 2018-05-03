@@ -37,7 +37,7 @@ int main() {
                 if(NULL==(pf=fopen("account.csv","r"))){
                     printf("suca");
                     //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
-                    if(!createNewCsv("account.csv")){
+                    if(!createNewFile("account.csv")){
                         printf("errore\n");
                     }else{
                         create("account.csv");

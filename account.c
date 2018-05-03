@@ -7,22 +7,23 @@
 #include "passwd.h"
 #include "file.h"
 
-int create(char file_name[]){
+int createAccount(char file_name[]){
     //permette di creare un nuovo account
     char user[10];
 
-    FILE *pf=fopen(file_name, "w");
-    if(pf==NULL){
-        printf("errore\n");
-    }else{
-        printf("Inserisci il nome utente:\n");
-        scanf("%s", user);
-        if(searchOnFile(user)){
-
+    printf("Inserisci il nome utente:\n");
+    scanf("%s", user);
+    if(searchOnFile(user)){
+        FILE *pf=fopen(file_name, "a");
+        if(pf==NULL){
+            printf("errore\n");
         }else{
-            printf("username già esistente\n");
+
         }
+    }else{
+        printf("username già esistente\n");
     }
+
 
     printf("Inserisci il nome utente:\n");
     scanf("%s", user);
