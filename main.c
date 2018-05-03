@@ -40,7 +40,7 @@ int main() {
                     if(!createNewCsv("account.csv")){
                         printf("errore\n");
                     }else{
-                        create("account", "prova", "meni", "admn");
+                        create("account.csv");
                     }
                     //poi avvio la procedura per creare un account
 
@@ -65,4 +65,4 @@ int main() {
         }
     }while(!flag);
     return 0;
-    }
+}

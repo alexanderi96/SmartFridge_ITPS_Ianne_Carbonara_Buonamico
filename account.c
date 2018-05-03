@@ -7,18 +7,26 @@
 #include "passwd.h"
 #include "file.h"
 
-int create(char username[], char passwd[], char file_name[], _Bool admn){
+int create(char file_name[]){
     //permette di creare un nuovo account
     char user[10];
-    char cognome[15];
-    char useraccount[20];
-    char scelta;
-    char password[30];
+
+    FILE *pf=fopen(file_name, "w");
+    if(pf==NULL){
+        printf("errore\n");
+    }else{
+        printf("Inserisci il nome utente:\n");
+        scanf("%s", user);
+        if(searchOnFile(user)){
+
+        }else{
+            printf("username già esistente\n");
+        }
+    }
+
     printf("Inserisci il nome utente:\n");
-    printf("Max 10 caratteri\n");
     scanf("%s", user);
     printf("Inserire il cognome utente:\n");
-    printf("Max 15 caratteri\n");
     scanf("%s",cognome);
     printf("Inserire un username:\n");
     printf("Max 20 caratteri\n");
@@ -36,12 +44,12 @@ int create(char username[], char passwd[], char file_name[], _Bool admn){
     printf("Visualizzazione della password\n%s",password);
 }
 
-int delete(char username[], char passwd[], char file_name[]){
+int delete(char file_name[]){
 
 
 }
 
-int setAdmin(char username[], char passwd[], char file_name[]){
+int setAdmin(char file_name[]){
 
 
 }

@@ -18,3 +18,7 @@ int createNewCsv(char nome[]){
     }
 
 }
+
+int searchOnFile(char word[]){
+
+}
