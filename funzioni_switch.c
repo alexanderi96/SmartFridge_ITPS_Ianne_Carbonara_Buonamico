@@ -1,6 +1,7 @@
 //
 // Created by DANI on 03/05/2018.
 //
+/*
 #include "stdio.h"
 
 
@@ -54,3 +55,5 @@ void inserisci_acquisto(){}
 void menu_settimanale(){}
 void ricetta_scadenza(){}
 void alimento_input(){}
+
+ */

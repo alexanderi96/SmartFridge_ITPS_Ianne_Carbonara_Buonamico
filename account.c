@@ -10,43 +10,24 @@
 int createAccount(char file_name[]){
     //permette di creare un nuovo account
     char user[10];
-    char cognome[15];
     char useraccount[15];
     int scelta;
     char password[15];
 
     printf("Inserisci il nome utente:\n");
     scanf("%s", user);
-    if(searchOnFile(user)){
+    if(searchOnFile(user, "account.csv")){
         FILE *pf=fopen(file_name, "a");
         if(pf==NULL){
             printf("errore\n");
         }else{
-
+            fprintf(pf, "%s,%s", user, user);
         }
     }else{
         printf("username già esistente\n");
+        return 1;
     }
-
-
-    printf("Inserisci il nome utente:\n");
-    scanf("%s", user);
-    printf("Inserire il cognome utente:\n");
-    scanf("%s",cognome);
-    printf("Inserire un username:\n");
-    printf("Max 20 caratteri\n");
-    scanf("%s",useraccount);
-    printf("Scegliere 1 per generare automaticamente la password e 2 per inserirla manualmente\n");
-    scanf("%c",&scelta);
-    if(scelta==1){
-        //Generazione automatica della password
-    }else{
-        //Inserimento manuale della password
-        printf("Inserire la password per l'account\n");
-        printf("Max 30 caratteri\n");
-        scanf("%s",password);
-    }
-    printf("Visualizzazione della password\n%s",password);
+    return 0;
 }
 
 int delete(char file_name[]){

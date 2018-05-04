@@ -22,7 +22,7 @@ typedef struct{
 
 
 
-void lista_spesa(info_alimenti alimenti[], int i);
+//void lista_spesa(info_alimenti alimenti[], int i);
 
 
 
@@ -54,25 +54,23 @@ int main() {
             case '2':
                 //avvia il programma vero e proprio
                 //se è la prima volta va alla creazione di un account amministratore, altrimenti chiede username e password
-                //per vedere se è il primo avvio andremo a leggere un file binario dove ci sarà 0 se è il primo avvio, altrimenti 1 se esiste almeno un account
                 if(NULL==(pf=fopen("account.csv","r"))){
-                    printf("suca");
-                    //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
-                    if(!createNewFile("account.csv")){
-                        printf("errore\n");
+                    //è la prima volta che si avvia il programma, andiamo a creare un account
+                    if(createNewFile("account.csv")){
+                        while(createAccount("account.csv")!=0){
+                            printf("Prova un altro username\n");
+                        }
                     }else{
-                        //create("account.csv");
+                        printf("errore\n");
                     }
-                    //poi avvio la procedura per creare un account
-
                 }else {
-                    fclose(pf);
                     //richiesta username e password
-                    //passaggio a menù principale
-                    if(mainmenu("g", "sas")){
-
-                    }
+                    printf("inserisci username\n");
+                    printf("inserisci la password\n");
+                    //mainmenu(username, passwd);
                 }
+                fclose(pf);
+
                 break;
             case '0':
                 //uscita dal programma
@@ -90,7 +88,7 @@ int main() {
 
 
 //è da aggiustare e soprattutto popolare la i ma alcune cose non è possibile farle se prima non se ne fanno altre, però è una bozza :)
-void lista_spesa(info_alimenti alimenti[], int i){
+/*void lista_spesa(info_alimenti alimenti[], int i){
 
     printf("Inserire il nome dell'alimento che si intende aggiungere alla lista della spesa");
     scanf("%s", alimenti[i].nome);
@@ -106,4 +104,4 @@ void lista_spesa(info_alimenti alimenti[], int i){
     printf("Inserire i giorni in cui l'alimento può ancora essere utilizzato dopo l'apertura");
     scanf("%d", &alimenti[i].utilizzo);
 
-}
+}*/
