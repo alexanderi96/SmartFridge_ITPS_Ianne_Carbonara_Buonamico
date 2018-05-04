@@ -34,9 +34,9 @@ int searchOnFile(char word[], char file[]){
             //Ricerca della parola digitata precedentemente
             for(int i=0;i<buffer[i]!='\0';i++){
                 if(buffer[i]==word[0]){
-                    if(ricerca(buffer,word,i)==1){
+                    /*if(ricerca(buffer,word,i)==1){
                         //Parola trovata e avvio della funzione ricerca
-                    }
+                    }*/
                 }
             }
         }
@@ -46,7 +46,7 @@ int searchOnFile(char word[], char file[]){
     return 0;
 }
 
-int ricerca(const char *buffer, const char *word, int i){
+/*int ricerca(const char *buffer, const char *word, int i){
     for(;*word!='\0';buffer++,word++){
         if(*(word+buffer)!=*word){
             return 0;
@@ -54,3 +54,4 @@ int ricerca(const char *buffer, const char *word, int i){
     }
     return 1;
 }
+*/

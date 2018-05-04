@@ -1,14 +1,10 @@
 //
-// Created by aless on 20/04/2018.
+// Created by DANI on 03/05/2018.
 //
+#include "stdio.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "passwd.h"
-#include "file.h"
 
-int createAccount(char file_name[]){
-    //permette di creare un nuovo account
+void aggiungi_account(char file_name[]){
     char user[10];
     char cognome[15];
     char useraccount[15];
@@ -49,12 +45,12 @@ int createAccount(char file_name[]){
     printf("Visualizzazione della password\n%s",password);
 }
 
-int delete(char file_name[]){
-
-
+void nomina_amm_secondario(){
 }
-
-int setAdmin(char file_name[]){
-
-
-}
+void nuova_ricetta(){}
+void intolleranza(){}
+void suggerisci_spesa(){}
+void inserisci_acquisto(){}
+void menu_settimanale(){}
+void ricetta_scadenza(){}
+void alimento_input(){}
