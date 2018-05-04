@@ -14,7 +14,7 @@ int createNewFile(char nome[]){
         return 0;
     }else{
         fclose(pf);
-        return 1;
+        return 1;//
     }
 
 }
