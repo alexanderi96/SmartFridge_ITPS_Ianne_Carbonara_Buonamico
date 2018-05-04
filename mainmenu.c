@@ -93,6 +93,23 @@ int mainmenu(char username[], char password[]){
     return 1;
 }
 
+//Funzione per aggiungere una intolleranza, permanente o temporanea (Funzione 4)
+void add_intollerance(char user[], char intollerance[]){
+    int scelta_intolleranza;
+
+    FILE *pf;
+    pf=fopen("intollerance_user","a");
+    if(NULL==(pf=fopen("intollerance_user","a"))){
+        printf("Impossibile aprile il file\n");
+    }else{
+        do{
+            printf("Specificare se l'intolleranza e' temporanea: 1 o permanete: 2\n");
+            scanf("%d",scelta_intolleranza);
+        }while(scelta_intolleranza!=1 || scelta_intolleranza!=2);
+        printf("scpecificare le intolleranze:\n");
+    }
+}
+
 
 //Funzione per ggiungere un elemento alla lista della spesa (Funzione 5)
 //è da aggiustare e soprattutto popolare la i ma alcune cose non è possibile farle se prima non se ne fanno altre, però è una bozza :)

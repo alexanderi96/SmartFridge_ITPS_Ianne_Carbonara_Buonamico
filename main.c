@@ -9,7 +9,7 @@
 
 int main() {
     //ma basta fare:
-    info_alimenti alimenti[100];
+//    info_alimenti alimenti[100];
     _Bool flag;
     char scelta;
     FILE *pf;
