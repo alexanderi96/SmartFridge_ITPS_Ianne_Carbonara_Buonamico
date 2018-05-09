@@ -4,8 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <passwd.h>
-#include <file.h>
+#include "passwd.h"
+#include "file.h"
 
 int createAccount(char file_name[]){
     //permette di creare un nuovo account

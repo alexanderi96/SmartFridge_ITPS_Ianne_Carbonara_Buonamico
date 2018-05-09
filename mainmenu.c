@@ -93,7 +93,7 @@ int mainmenu(char username[], char password[]){
     return 1;
 }
 
-
+/*
 //Funzione per ggiungere un elemento alla lista della spesa (Funzione 5)
 //è da aggiustare e soprattutto popolare la i ma alcune cose non è possibile farle se prima non se ne fanno altre, però è una bozza :)
 void suggerisci_spesa(info_alimenti alimenti[], int i){
@@ -111,3 +111,4 @@ void suggerisci_spesa(info_alimenti alimenti[], int i){
     printf("Inserire i giorni in cui l'alimento può ancora essere utilizzato dopo l'apertura");
     scanf("%d", &alimenti[i].utilizzo);
 }
+ */

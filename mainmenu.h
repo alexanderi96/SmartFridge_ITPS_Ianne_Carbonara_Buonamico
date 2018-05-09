@@ -8,4 +8,4 @@
 #endif //SMARTFRIDGE_ITPS_IANNE_CARBONARA_BUONAMICO_MAINMENU_H
 
 int mainmenu(char username[], char password[]);
-void suggerisci_spesa(info_alimenti alimenti[], int i);
+//void suggerisci_spesa(info_alimenti alimenti[], int i);

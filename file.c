@@ -21,6 +21,6 @@ int createNewFile(char nome[]){
 }
 
 //Ricerca su file (la ricerca verrà eseguita per qualunque parola inserita dall'utente)
-int searchOnFile(const char *word, char file[]){
-
+int searchOnFile(char word[], char file[]){
+    return 0;
 }
