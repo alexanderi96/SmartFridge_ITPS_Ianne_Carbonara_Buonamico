@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include "account.h"
 //Menù per la visualizzazione e la scelta delle funzioni da eseguire da parte dell'utente
 
 typedef struct{
@@ -46,6 +47,7 @@ int mainmenu(char username[], char password[]){
         switch(scelta){
             case '1':
                 printf("1: Inserimento nuovo account\n");
+                createAccount("account.txt");
                 //aggiungi_account
                 break;
             case '2':

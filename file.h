@@ -8,4 +8,5 @@
 #endif //SMARTFRIDGE_ITPS_IANNE_CARBONARA_BUONAMICO_FILE_H
 
 int createNewFile(char nome[]);
-int searchOnFile(const char *word, char file[]){
+int searchOnFile(const char *word, char file[]);
+int searchOnTxt(char word[], char file[]);
