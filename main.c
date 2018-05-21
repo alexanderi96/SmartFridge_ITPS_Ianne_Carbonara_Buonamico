@@ -40,7 +40,7 @@ int main() {
                 if(NULL==(pf=fopen("account.txt","r"))){
                     //è la prima volta che si avvia il programma, andiamo a creare il file fboot.bin
                     if(createNewFile("account.txt")){
-                        if(!createAccount("account.txt")){
+                        if(!createAccount("account.txt", 1)){
                            printf("errore\n");
                         }
                     }else{
@@ -54,7 +54,7 @@ int main() {
                     flag=1;
                     printf("Login: inserisci nome utente\n");
                     scanf("%s", user);
-                    printf("Inserisci la password");
+                    printf("Inserisci la password\n");
                     scanf("%s", passwd);
                     if(!userAuth(user, passwd, "account.txt")){
                         flag=0;
@@ -62,8 +62,9 @@ int main() {
                     }
                 }while (!flag);
                 flag=0;
-                if(!mainmenu(user, "sas")){
-                    printf("errore durante la chiusura del menù principale\n");
+                printf("\n\n");
+                if(!mainmenu(user, passwd)){
+                    printf("Errore durante la chiusura del menù principale\n");
                 }
                 break;
             case '0':

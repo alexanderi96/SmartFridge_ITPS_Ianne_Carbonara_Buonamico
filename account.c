@@ -10,7 +10,7 @@
 #include "account.h"
 
 
-int createAccount(char file_name[]){
+int createAccount(char file_name[], int isadmin){
     //permette di creare un nuovo account
 
     utente utente;
@@ -20,31 +20,21 @@ int createAccount(char file_name[]){
         flag=1;
         printf("Inserisci il nome utente (max 10 caratteri):\n");
         scanf("%s", utente.user);
-        if(!searchOnTxt(utente.user, "account.txt")){
+        if(!searchOnTxt(utente.user, file_name)){
             FILE *pf=fopen(file_name, "a");
             if(pf==NULL){
                 printf("errore\n");
             }else{
-                fprintf(pf, "%s,", utente.user);
-                fflush(stdin);
                 printf("Inserisci il tuo nome\n");
                 scanf("%s", utente.nome);
-                fprintf(pf, "%s,", utente.nome);
-                fflush(stdin);
                 printf("Inserisci il tuo cognome\n");
                 scanf("%s", utente.cognome);
-                fprintf(pf, "%s,", utente.cognome);
-                fflush(stdin);
                 printf("Inserisci la tua età\n");
                 scanf("%d", &utente.eta);
-                fprintf(pf, "%d,", utente.eta);
-                fflush(stdin);
                 printf("Inserisci la password\n"); //vanno integrate le funzioni per la gestione della passwd
                 scanf("%s", utente.password);
-                fprintf(pf, "%s,", utente.password);
-                fflush(stdin),
-                utente.isadmin=1;
-                fprintf(pf, "%d\n", utente.isadmin);
+                utente.isadmin=isadmin;
+                fprintf(pf, "%s\t%s\t%s\t%d\t%s\t%d\n", utente.user,utente.nome,utente.cognome,utente.eta,utente.password,utente.isadmin);
                 printf("Utente salvato correttamente\n");
             }
             fclose(pf);
@@ -71,13 +61,27 @@ int userAuth(char user[], char passwd[], char file_name[]){
     FILE *pf;
     pf=fopen(file_name, "r");
     while(!feof(pf)){
-        printf("ciaone");
-        fscanf(pf,"%s,%s,%s,%d,%s,%d\n", utente.user, utente.nome, utente.cognome, &utente.eta, utente.password, &utente.isadmin);
-        if(0 == strcmp(utente.user, user)&& 0 == strcmp(utente.password, passwd)){
+        fscanf(pf,"%s\t%s\t%s\t%d\t%s\t%d\n", utente.user, utente.nome, utente.cognome, &utente.eta, utente.password, &utente.isadmin);
+        if(0 == strncmp(utente.user, user, strlen(user)) && 0 == strncmp(utente.password, passwd, strlen(passwd))){
             fclose(pf);
             return 1;
         }
     }
     fclose(pf);
     return 0;
+}
+
+int checkAdmin(char user[], char file_name[]){
+    utente utente;
+    FILE *pf;
+    pf=fopen(file_name, "r");
+    while(!feof(pf)){
+        fscanf(pf,"%s\t%s\t%s\t%d\t%s\t%d\n", utente.user, utente.nome, utente.cognome, &utente.eta, utente.password, &utente.isadmin);
+        if(0 == strcmp(utente.user, user)){
+            fclose(pf);
+            return utente.isadmin;
+        }
+    }
+    fclose(pf);
+    return -1;
 }
