@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "various.h"
 #include "ricetta.h"
+#include "file.h"
 
 
 
@@ -15,7 +16,7 @@ void showRecipes(Ricetta ricette[], int totRicette){
 }
 
 int addRecipes(Ricetta ricette[], int totRicette){
-    char ricTemp[25], scelta;
+    char ricTemp[25], scelta, fileTempName[100];
     int pos, num;
     _Bool flag=0;
     printf("Inserisci il nome della ricetta che vuoi aggiungere\n");
@@ -25,7 +26,13 @@ int addRecipes(Ricetta ricette[], int totRicette){
         strcpy(ricette[totRicette].nome, ricTemp);
         printf("Da che paese proviene?\n");
         scanf("%s", ricette[totRicette].paese);
+
         //bisogna andare ad aggiungere la posizione dei file contenenti gli ingredienti ecc...
+        //andiamo a creare il file degli ingredienti per questa ricetta
+        strcpy(fileTempName, ingreDir);
+        strcat(fileTempName, ricTemp);
+        strcat(fileTempName, ".txt");
+        createNewFile(fileTempName);
         return 1;
     }else{
     	return 0;

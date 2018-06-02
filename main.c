@@ -34,6 +34,8 @@ int main() {
                     make_directory(databasedir);
                     make_directory(notificationsdir);
                     make_directory(ricettedir);
+                    make_directory(ingreDir);
+                    make_directory(intoDir);
                     //e creiamo i primi file di archiviazione
                     createNewFile(accountlocation);
                     if(!createAccount(utenti, totUtenti, 1)){

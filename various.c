@@ -10,6 +10,8 @@ const char repiceslocation[] = "./database/ricette/sommarioricette.txt";
 const char databasedir[] = "database";
 const char notificationsdir[] = "notifications";
 const char ricettedir[] = "./database/ricette";
+const char ingreDir[] = "./database/ricette/ingredienti";
+const char intoDir[] = "./database/ricette/intolleranze";
 
 
 //pulisce il buffer imput, non avremo più problemi del tipo "inserisci un valore corretto" dopo aver messo qualcosa in input

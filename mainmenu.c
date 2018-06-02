@@ -96,20 +96,14 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                         case '4':
 
                             
-                            if(totElem>0){
-                                rimRis = rimElem(lista, totElem);
+                            if(totRicette>0){
+     
                                 system("@cls||clear");
-                                if(rimRis == 1){
-                                    puts("<!> L'alimento selezionato e'atato ridotto\n\n");
-                                }else if(rimRis == 2){
-                                    puts("<!> L'elemento selezionato e'stato rimosso\n\n");
-                                    totElem--;
-                                }else{
-                                    puts("<!> Operazione annullata dall'utente\n\n");
-                                }
-                                saveStorage(dispensalocation, dispensa, totAlimenti);
+                                rimrElem(ricette, totRicette);
+                                
+                                saveRecipes(repiceslocation, ricette, totRicette);
                             }else{
-                                puts("<!> Non è presente nessun elemento nella lista della spesa\n\n");
+                                puts("<!> Non è presente alcuna ricetta\n");
                             }
                             
 

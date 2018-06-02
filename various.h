@@ -42,9 +42,9 @@ typedef struct{
 typedef struct{
 	char nome[25];
 	char paese[25];
-	char ingredienti[25]; //collegamento al file degli ingredienti
-	char intolleranze[25]; //collegamento al file contenente le possibili intolleranze
-	char preparazione[25]; //collegamento al nome del file che contiene la preparazione
+	char ingredienti[100]; //collegamento al file degli ingredienti
+	char intolleranze[100]; //collegamento al file contenente le possibili intolleranze
+	char preparazione[100]; //collegamento al nome del file che contiene la preparazione
 }Ricetta;
 
 void clearBuffer();
@@ -57,5 +57,7 @@ extern const char repiceslocation[];
 extern const char databasedir[];
 extern const char notificationsdir[];
 extern const char ricettedir[];
+extern const char ingreDir[];
+extern const char intoDir[];
 
 #endif
