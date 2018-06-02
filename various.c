@@ -7,6 +7,7 @@ const char accountlocation[] = "./database/account.txt";
 const char listlocation[] = "./database/listaspesa.txt";
 const char dispensalocation[] = "./database/dispensa.txt";
 const char repiceslocation[] = "./database/ricette/sommarioricette.txt";
+//definisco globalmente la posizione delle varie sottocartelle
 const char databasedir[] = "database";
 const char notificationsdir[] = "notifications";
 const char ricettedir[] = "./database/ricette";
