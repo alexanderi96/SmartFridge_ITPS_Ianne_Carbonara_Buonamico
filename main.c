@@ -6,11 +6,6 @@
 #include "mainmenu.h"
 #include "various.h"
 
-/*
-dove è presente ogni system("PAUSE") bisogna trovare un corrispettivo per unix 
-visto che sembra funzionare solo con windows
-*/
-
 int main() {
     _Bool flag=1;
     char userTemp[25], passwd[25], userLogin[25], scelta;
@@ -24,12 +19,12 @@ int main() {
             "2. Avviare il programma\n\n"
             "0. Termina programma\n"
             ">>> ", stdout);
-        scelta = getchar();  //Permette di svuotare il buffer della tastiera
-        clearBuffer();
-        system("@cls||clear");
+        scelta = getchar();  
+        clearBuffer(); //Permette di svuotare il buffer della tastiera
+        system("@cls||clear"); //pulisce la schermata video
         switch(scelta){
             case '1':
-                //avvia funzione demo
+                //avvia funzione demo... aggiornamento del 02.06.2018, forse non l'avremo mai hahaha non serve...
                 break;
             case '2':
                 //se è la prima volta va alla creazione di un account amministratore, altrimenti chiede username e password
@@ -39,6 +34,7 @@ int main() {
                     make_directory(databasedir);
                     make_directory(notificationsdir);
                     make_directory(ricettedir);
+                    //e creiamo i primi file di archiviazione
                     createNewFile(accountlocation);
                     if(!createAccount(utenti, totUtenti, 1)){
                         system("@cls||clear");

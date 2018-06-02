@@ -11,10 +11,13 @@ const char databasedir[] = "database";
 const char notificationsdir[] = "notifications";
 const char ricettedir[] = "./database/ricette";
 
+
+//pulisce il buffer imput, non avremo più problemi del tipo "inserisci un valore corretto" dopo aver messo qualcosa in input
 void clearBuffer(){
 	while(getchar()!='\n');
 }
 
+//finzione utilizzata per la creazione di cartelle nella root del sorgente (non volevo avere file testuali messi li a caso...)
 void make_directory(const char* name){
    #ifdef __linux__
        mkdir(name, 777); 
