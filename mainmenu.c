@@ -1,139 +1,284 @@
-//
-// Created by Christian Buonamico on 23/04/2018.
-//
-
 #include <stdio.h>
+#include <stdlib.h>
+#include "file.h"
+#include "various.h"
+#include "spesa.h"
 #include "account.h"
-//Menù per la visualizzazione e la scelta delle funzioni da eseguire da parte dell'utente
+#include "ricetta.h"
 
-typedef struct{
-    char nome[15];
-    char categoria[15];
-    char gg[2];
-    char mese[2];
-    char anno[4];
-    int quantita;
-    int calorie;
-    int utilizzo;
-}info_alimenti;
-
-int mainmenu(char username[], char password[]){
-
+int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
+    Ricetta ricette[maxRicette];
+    Alimento dispensa[maxAlimenti];
+    Spesa lista[maxAlimenti];
     char scelta;
-    int isadmin; //variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
+    char userTemp;
+    FILE *dis, *spe, *ric;
+    
+    /*
+    andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
+    */
+    if(NULL==(dis=fopen(dispensalocation,"r"))){  
+        createNewFile(dispensalocation);
+    }else{
+        loadStorage(dispensalocation, dispensa, &totAlimenti);
+    }
+    fclose(dis);
 
-    printf("Benvenuto %s\n", username);
-    printf("-------------------------------------------\n");
-    printf("3: Inserimento nuova ricetta\n");
-    printf("4: Comunica intolleranza\n");
-    printf("5: Gestione lista della spesa\n");
-    printf("9: Comunica alimento e visualizza ricette\n");
-    printf("9: Impostazioni\n");
+    if(NULL==(ric=fopen(repiceslocation,"r"))){  
+        createNewFile(repiceslocation);
+    }else{
+        loadRecipes(repiceslocation, ricette, &totRicette);
+    }
+    fclose(ric);
 
-    printf("-------------------------------------------\n");
-    printf("0. Logout\n");
+    if(NULL==(spe=fopen(listlocation,"r"))){  
+        createNewFile(listlocation);
+    }else{
+        loadList(listlocation, lista, &totElem);  
+    }
+    fclose(spe);
 
-    printf("Inserire una delle scelte possibili: \n");
-    printf("N.B. Verra' preso in considerazione solo il primo carattere che inserirai\n\n");
-    do{
-        scanf("%c", &scelta);
-        fflush(stdin);  //Permette di svuotare il buffer della tastiera
 
-        flag=1;
-
+    system("@cls||clear");
+    while(1){
+        printf("Benvenuto %s\n\n", username);
+        fputs("1. Gestione ricette\n"
+            "2. Gestione intolleranze\n"
+            "3. Gestione lista della spesa\n"
+            "4. Impostazioni\n\n"
+            "0. Logout\n"
+            ">>> ", stdout);
+        scelta = getchar(); //Permette di svuotare il buffer della tastiera
+        clearBuffer();
+        system("@cls||clear");
         switch(scelta){
             case '1':
-
-
-                //aggiungi_account
-                break;
-            case '3':
-                printf("3: Inserimento nuova ricetta\n");
-                //nuova_ricetta
-                break;
-            case '4':
-                printf("4: Comunica intolleranza");
-                //intolleranza
-            break;
-            case '5':
-                printf("Gestione lista della spasa\n");
-                printf("1: Suggerisci alimento da inserire nella lista della spesa\n");
-                printf("2: Inserisci alimenti da inserire nella lista della spesa\n");
-                //suggerisci_spesa(info_alimenti alimenti[], int i);
-            break;
-            case '7':
-                printf("Menù settimanale");
-                printf("1: Visualizza il menù settimanale");
-                printf("2: Suggerimento nuova ricetta sulla base degli alimenti in scadenza\n");
-            break;
-            case '9':
-                do{
-                    printf("Impostazioni\n");
-                    printf("1: Inserimento nuovo account\n");
-                    printf("2: Nomina amministratore secondario\n");
-                    printf("0: indietro\n");
-                    scanf("%c", scelta);
-                    fflush(stdin);
-                    flag=1;
+                flag=1;
+                while(flag){
+                    fputs("Gestione ricette\n\n"
+                        "1. Aggiungi una nuova ricetta\n"
+                        "2. Visualizza le ricette\n"
+                        "3. Ricerca per ingrediente\n"
+                        "4. Rimuovi ricetta\n\n"
+                        "0. Indietro\n"
+                        ">>> ", stdout);
+                    scelta = getchar();
+                    clearBuffer();
+                    system("@cls||clear");
                     switch (scelta){
                         case '1':
-                            printf("1: Inserimento nuovo account\n");
-                            if(checkAdmin(username, "account.txt")){
-                                createAccount("account.txt", isadmin);
+                            puts("1. Aggiungi una nuova ricetta\n\n");
+                            if(checkAdmin(utenti, *totUtenti, username)){
+                                if (1){
+                                    totRicette++;
+                                    system("@cls||clear");
+                                    puts("<*> Ricetta aggiunta correttamente\n\n");
+                                }
                             }else{
-                                printf("Non si dispone dei diritti di amministrazione necessari per eseguire questa operazione\n");
+                                //altrimenti andrà a fare una richiesta all'admin
+                                //che dovrà decidere se accettarla o meno al prossimo login
                             }
-                            break;
+                            saveRecipes(repiceslocation, ricette, totRicette);
+                            
+                        break;
+                        case '2':
+                            puts("3. Visualizzazione delle ricette disponibili\n");
+                            showRecipes(ricette, totRicette);
+                            puts("\n\nPremi un tasto per tornare indietro...\n");
+                            getchar();
+                            clearBuffer();
+                            system("@cls||clear");
+                        break;
+                        case '3':
+                        break;
+                        case '4':
+
+                            
+                            if(totElem>0){
+                                rimRis = rimElem(lista, totElem);
+                                system("@cls||clear");
+                                if(rimRis == 1){
+                                    puts("<!> L'alimento selezionato e'atato ridotto\n\n");
+                                }else if(rimRis == 2){
+                                    puts("<!> L'elemento selezionato e'stato rimosso\n\n");
+                                    totElem--;
+                                }else{
+                                    puts("<!> Operazione annullata dall'utente\n\n");
+                                }
+                                saveStorage(dispensalocation, dispensa, totAlimenti);
+                            }else{
+                                puts("<!> Non è presente nessun elemento nella lista della spesa\n\n");
+                            }
+                            
+
+                        break;
+                        case '0':
+                            flag=0;
+                        break;
+                        default:
+                            system("@cls||clear");
+                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        break;
                     }
-                }while(flag);
+                }
+
+
+
+
+                
+
+                
+            break; 
+            case '2':
+                puts("4. Comunica intolleranza");
+                //intolleranza
+            break;
+            case '3':
+                flag=1;
+                while(flag){
+                    /* Nicolò Mod */
+                    fputs("Gestione lista della spesa\n\n"
+                        "1. Suggerisci alimento da inserire nella lista\n"
+                        "2. Effettua una modifica su gli elementi da acquistare\n"
+                        "3. Visualizza la lista della spesa\n\n"
+                        "0. Indietro\n"
+                        ">>> ", stdout);
+                    /* end Nicolò Mod */
+
+
+                    scelta = getchar();
+                    clearBuffer();
+                    system("@cls||clear");
+                    switch (scelta){
+                        case '1':
+                            puts("1. Suggerisci alimento da inserire nella lista della spesa\n\n");
+                            if(checkAdmin(utenti, *totUtenti, username)){
+                                if (addtoList(lista ,totElem)){
+                                    totElem++;
+                                    system("@cls||clear");
+                                    puts("<*> Elemento aggiunto con successo alla lista della spesa\n\n");
+                                }
+                            }else{
+                                //altrimenti andrà a fare una richiesta all'admin
+                                //che dovrà decidere se accettarla o meno al prossimo login
+                            }
+                            saveList(listlocation, lista, totElem);
+                        break;
+                        case '2':
+                            if(totElem>0){
+                                rimRis = rimElem(lista, totElem);
+                                system("@cls||clear");
+                                if(rimRis == 1){
+                                    puts("<!> L'alimento selezionato e'atato ridotto\n\n");
+                                }else if(rimRis == 2){
+                                    puts("<!> L'elemento selezionato e'stato rimosso\n\n");
+                                    totElem--;
+                                }else{
+                                    puts("<!> Operazione annullata dall'utente\n\n");
+                                }
+                                saveStorage(dispensalocation, dispensa, totAlimenti);
+                            }else{
+                                puts("<!> Non è presente nessun elemento nella lista della spesa\n\n");
+                            }
+                        break;
+                        case '3':
+                            puts("3. Visualizza la lista della spesa\n");
+                            showList(lista, totElem);
+                            puts("\n\nPremi un tasto per tornare indietro...\n");
+                            getchar();
+                            clearBuffer();
+                            system("@cls||clear");
+                        break;
+                        case '0':
+                            flag=0;
+                        break;
+                        default:
+                            system("@cls||clear");
+                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        break;
+                    }
+                }
+                //suggerisci_spesa(info_alimenti alimenti[], int i);
+            break;
+            case '4':
+                flag=1;
+                while(flag){
+                    flag=1;
+                    fputs("5. Impostazioni\n\n"
+                        "1. Inserimento nuovo account\n"
+                        "2. Modifica grado utente\n"
+                        "0. indietro\n\n"
+                        ">>> ", stdout);
+                    scelta = getchar();
+                    system("@cls||clear");
+                    clearBuffer();
+                    switch (scelta){
+                        case '1':
+                            if(*totUtenti<maxUtenti){    
+                                puts("1. Inserimento nuovo account\n\n");
+                                if(checkAdmin(utenti, *totUtenti, username)){
+                                    while(flag){
+                                        flag=0;
+                                        fputs("Desideri creare un account amministratore?\n"
+                                            "s/n\n"
+                                            ">>> ", stdout);
+                                        scelta = getchar();
+                                        clearBuffer();
+                                        switch (scelta){
+                                           case 's':
+                                                isadmin=1;
+                                            break;
+                                            case 'n':
+                                                isadmin=0;
+                                            break;
+                                            default:
+                                                flag=1;
+                                                system("@cls||clear");
+                                                puts("<!> Seleziona tra s/n\n\n");
+                                            break;
+                                        }
+                                        system("@cls||clear");
+                                    }
+                                    if(createAccount(utenti, *totUtenti, isadmin)){
+                                        puts("<!> Utente salvato correttamente\n\n");
+                                        *totUtenti = *totUtenti + 1;
+                                        saveAccount("account.txt", utenti, *totUtenti);
+                                    }else{
+                                        printf("<!> Username già esistente\n\n");
+                                    }
+                                }else{
+                                    system("@cls||clear");
+                                    printf("<!> Non si dispone dei diritti di amministrazione necessari per eseguire questa operazione\n\n");
+                                }
+                            }else{
+                                system("@cls||clear");
+                                printf("<!> Hai raggiunto il numero massimo di account\n\n");        
+                            }
+                        break;
+                        case '2':
+                            //qualcosa
+                        break;
+                        case '0':
+                            flag=0;
+                            system("@cls||clear");
+                        break;
+                        default:
+                            system("@cls||clear");
+                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        break;
+                    }
+                }
                 //alimento_input
             break;
             case '0':
-                printf("Logout effettuato\n");
-                flag=0;
-                break;
+                return 1;
+            break;
             default:
-                //caso di default
-                printf("Per favore, inserisci un valore corretto\n");
-                break;
+                system("@cls||clear");
+                puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+            break;
         }
-    }while(flag);
-    return 1;
-}
-
-//Funzione per aggiungere una intolleranza, permanente o temporanea (Funzione 4)
-void add_intollerance(char user[], char intollerance[]){
-    int scelta_intolleranza;
-
-    FILE *pf;
-    pf=fopen("intollerance_user","a");
-    if(NULL==(pf=fopen("intollerance_user","a"))){
-        printf("Impossibile aprile il file\n");
-    }else{
-        do{
-            printf("Specificare se l'intolleranza e' temporanea: 1 o permanete: 2\n");
-            scanf("%d",scelta_intolleranza);
-        }while(scelta_intolleranza!=1 || scelta_intolleranza!=2);
-        printf("scpecificare le intolleranze:\n");
     }
-}
-
-
-//Funzione per agiungere un elemento alla lista della spesa (Funzione 5)
-//è da aggiustare e soprattutto popolare la i ma alcune cose non è possibile farle se prima non se ne fanno altre, però è una bozza :)
-void suggerisci_spesa(info_alimenti alimenti[], int i){
-    printf("Inserire il nome dell'alimento che si intende aggiungere alla lista della spesa");
-    scanf("%s", alimenti[i].nome);
-    printf("Inserire la categoria dell'alimento");
-    //è preferibile utilizzare un menù di scelta cosi da evitare errori di battitura
-    scanf("%s", alimenti[i].categoria);
-    printf("Inserire la data di scadenza dell'alimento nel formato gg:mm:aaaa");
-    scanf("%s:%s:%s", alimenti[i].gg, alimenti[i].mese, alimenti[i].anno);
-    printf("Inserire la quantità acquistata in grammi  o  litri");
-    scanf("%d", &alimenti[i].quantita);
-    printf("Inserire le cslorie contenute nell'alimento");
-    scanf("%d", &alimenti[i].calorie);
-    printf("Inserire i giorni in cui l'alimento può ancora essere utilizzato dopo l'apertura");
-    scanf("%d", &alimenti[i].utilizzo);
 }
