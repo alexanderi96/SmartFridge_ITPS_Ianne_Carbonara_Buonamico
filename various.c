@@ -10,9 +10,7 @@ const char repiceslocation[] = "./database/ricette/sommarioricette.txt";
 //definisco globalmente la posizione delle varie sottocartelle
 const char databasedir[] = "database";
 const char notificationsdir[] = "notifications";
-const char ricettedir[] = "./database/ricette";
-const char ingreDir[] = "./database/ricette/ingredienti";
-const char intoDir[] = "./database/ricette/intolleranze";
+const char ricettedir[] = "./database/ricette/";
 
 
 //pulisce il buffer imput, non avremo più problemi del tipo "inserisci un valore corretto" dopo aver messo qualcosa in input

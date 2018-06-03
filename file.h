@@ -17,5 +17,7 @@ int loadStorage(const char nome[], Alimento dispensa[], int *totAlimenti);
 int loadList(const char nome[], Spesa spesa[], int *totElem);
 int loadRecipes(const char nome[], Ricetta ricette[], int *totRicette);
 int saveRecipes(const char nome[], Ricetta ricette[], int totRicette);
+int saveIngredients(const char nome[], Ingredienti ingredienti[], int totIngredienti);
+int loadIngredients(const char nome[], Ingredienti ingredienti[], int totIngredienti);
 
 #endif

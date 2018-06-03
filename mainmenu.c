@@ -71,7 +71,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                         case '1':
                             puts("1. Aggiungi una nuova ricetta\n\n");
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                if (1){
+                                if (addRecipes(ricette, totRicette)){
+        							createNewFile(ricette[totRicette].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
                                     totRicette++;
                                     system("@cls||clear");
                                     puts("<*> Ricetta aggiunta correttamente\n\n");

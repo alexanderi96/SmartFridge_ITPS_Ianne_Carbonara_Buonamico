@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include "various.h"
 #include "ricetta.h"
-#include "file.h"
+#include "ingrediente.h"
 
 
 
 void showRecipes(Ricetta ricette[], int totRicette){
-	printf("\nNome\tPaese\tQuantità\n");
+	printf("\nNome\tPaese\n");
 	for (int i = 0; i < totRicette; ++i){
 		printf("%s\t%s\n", ricette[i].nome, ricette[i].paese);
 	}
@@ -18,7 +18,7 @@ void showRecipes(Ricetta ricette[], int totRicette){
 int addRecipes(Ricetta ricette[], int totRicette){
     char ricTemp[25], scelta, fileTempName[100];
     int pos, num;
-    _Bool flag=0;
+    _Bool flag=1;
     printf("Inserisci il nome della ricetta che vuoi aggiungere\n");
     scanf("%s", ricTemp);
     pos = searchRecipes(ricette, totRicette, ricTemp); 
@@ -26,13 +26,29 @@ int addRecipes(Ricetta ricette[], int totRicette){
         strcpy(ricette[totRicette].nome, ricTemp);
         printf("Da che paese proviene?\n");
         scanf("%s", ricette[totRicette].paese);
-
         //bisogna andare ad aggiungere la posizione dei file contenenti gli ingredienti ecc...
         //andiamo a creare il file degli ingredienti per questa ricetta
-        strcpy(fileTempName, ingreDir);
-        strcat(fileTempName, ricTemp);
-        strcat(fileTempName, ".txt");
-        createNewFile(fileTempName);
+        strcpy(fileTempName, ricettedir);
+    	strcat(fileTempName, ricTemp);
+    	make_directory(fileTempName);
+    	strcat(fileTempName, "/ingredienti.txt");
+    	strcpy(ricette[totRicette].ingrePos, fileTempName);
+    	ricette[totRicette].totIngredienti=0;
+    	while(flag){
+    		flag=1;
+    		puts("Vuoi aggiungere un nuovo ingrediente alla ricetta?");
+    		scelta= getchar();
+
+    		if (scelta=='s'){
+    			addIngredients(ricette[totRicette].ingredienti, ricette[totRicette].totIngredienti);
+    			ricette[totRicette].totIngredienti++;
+    		}else if(scelta=='n'){
+    			flag=0;
+    		}else{
+    			puts("<!> scelta errata");
+    		}
+    	}
+    	
         return 1;
     }else{
     	return 0;
