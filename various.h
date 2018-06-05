@@ -7,6 +7,8 @@
 #define maxAlimenti 50
 #define maxRicette 20
 #define maxIngredienti 20
+#define maxCatLen 25
+#define totCategorie 50
 
 //struttura creata per la gestione delle date
 typedef struct{
@@ -16,8 +18,8 @@ typedef struct{
 }Data;
 
 typedef struct{
-    char nome[25];
-	char categoria[25];
+    char nome[50];
+	char categoria[50];
 	int scadenza; //per ora la data verrà considerata in questo formato intero ggmmaa es: 110796 -> 11 luglio 1996
 	int apertura;
 	int giorniMaxUtil; //permette di capire quanti giorni può rimanere aperto un prodotto dopo l'apertura 
@@ -32,29 +34,29 @@ typedef struct{
     char password[25];
     int eta;
     _Bool isadmin;
+    char intolleranze[maxCatLen][maxCatLen];
 }Utente;
 
 typedef struct{
-	char nome[25];
-	char categoria[25];
+	char nome[50];
+	char categoria[50];
 	int quantita;
 }Spesa;
 
 typedef struct{
-    char nome[25];
-	char categoria[25];
-	char intoPos[100]; //collegamento al file contenente le possibili intolleranze
+    char nome[50];
+	char categoria[50];
 	//Intolleranze intolleranze[maxINtolleranze];
 	int quantita;
 	int kcal;
 }Ingredienti;
 
 typedef struct{
-	char nome[25];
-	char paese[25];
-	char ingrePos[100];
+	char nome[50];
+	char paese[50];
+	char ingrePos[100]; //collegamento al file degli ingredienti
 	Ingredienti ingredienti[maxIngredienti];
-	int totIngredienti; //collegamento al file degli ingredienti
+	int totIngredienti; 
 	char prepaPos[100]; //collegamento al nome del file che contiene la preparazione
 }Ricetta;
 
@@ -70,5 +72,7 @@ extern const char notificationsdir[];
 extern const char ricettedir[];
 extern const char ingreDir[];
 extern const char intoDir[];
+extern const char databaseAlimenti[];
+extern const char catLocation[];
 
 #endif

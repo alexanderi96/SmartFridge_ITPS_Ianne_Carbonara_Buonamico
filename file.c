@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "account.h"
 #include "file.h"
 
@@ -151,7 +152,7 @@ int saveRecipes(const char nome[], Ricetta ricette[], int totRicette){
         fprintf(pf, "%d\n", totRicette);
         for (int i = 0; i < totRicette; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %s %d %s\n", ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, &ricette[i].totIngredienti, ricette[i].prepaPos);
+            fprintf(pf, "%s %s %s %d %s\n", ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, ricette[i].totIngredienti, ricette[i].prepaPos);
             saveIngredients(ricette[i].ingrePos, ricette[i].ingredienti, ricette[i].totIngredienti);
         }
     }
@@ -167,7 +168,7 @@ int saveIngredients(const char nome[], Ingredienti ingredienti[], int totIngredi
     }else{
         for (int i = 0; i < totIngredienti; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %s %d %d\n", ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].intoPos, ingredienti[i].quantita, ingredienti[i].kcal);
+            fprintf(pf, "%s %s %d %d\n", ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].quantita, ingredienti[i].kcal);
         }
     }
     fclose(pf);
@@ -178,10 +179,72 @@ int loadIngredients(const char nome[], Ingredienti ingredienti[], int totIngredi
 	FILE *pf;
     if(NULL==(pf=fopen(nome, "r"))){
         fclose(pf);
+        printf("%s\n", nome);
         return 0;
     }else{
         for (int i = 0; i < totIngredienti; ++i){
-            fscanf(pf, "%s %s %s %d %d\n", ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].intoPos, ingredienti[i].quantita, ingredienti[i].kcal);
+            fscanf(pf, "%s %s %d %d\n", ingredienti[i].nome, ingredienti[i].categoria, &ingredienti[i].quantita, &ingredienti[i].kcal);
+        }
+    }
+    fclose(pf);
+    return 1;
+}
+
+int loadDatabaseAlimenti(const char nome[], Alimento database[], int *numeroAlimenti){
+	FILE *pf;
+    if(NULL==(pf=fopen(nome, "r"))){
+        fclose(pf);
+        return 0;
+    }else{
+    	fscanf(pf, "%d\n", *&numeroAlimenti);
+        for (int i = 0; i < *numeroAlimenti; ++i){
+            fscanf(pf, "%s %s %d %d\n", database[i].categoria, database[i].nome, &database[i].kcal, &database[i].giorniMaxUtil);
+        }
+    }
+    fclose(pf);
+    return 1;
+}
+
+int loadCategories(const char nome[], char categorie[][maxCatLen], int *totCat){
+	FILE *pf;
+	char buffer[maxCatLen];
+	if (NULL==(pf=fopen(nome, "r"))){
+		puts("<!> Non è presente alcuna categoria");
+	}else{
+		fscanf(pf, "%d\n", *&totCat);
+		for (int i = 0; i < *totCat; ++i){
+			fscanf(pf, "%s\n", buffer);
+			strcpy(categorie[i], buffer);
+		}
+	}
+	fclose(pf);
+	return 1;	
+}
+
+int saveCategories(const char nome[], char categorie[][maxCatLen], int totCat){
+    FILE *pf;
+    if(NULL==(pf=fopen(nome, "w"))){
+        fclose(pf);
+        return 0;
+    }else{
+        fprintf(pf, "%d\n", totCat);
+        for (int i = 0; i < totCat; ++i){
+            fprintf(pf, "%s\n", categorie[i]);
+        }
+        fclose(pf);
+        return 1;
+    }
+}
+
+int saveAlim(const char nome[], Alimento database[], int totDatabase){
+	FILE *pf;
+    if(NULL==(pf=fopen(nome, "w"))){
+        fclose(pf);
+        return 0;
+    }else{
+    	fprintf(pf, "%d\n", totDatabase);
+        for (int i = 0; i < totDatabase; ++i){
+            fprintf(pf, "%s %s %d %d\n", database[i].categoria, database[i].nome, database[i].kcal, database[i].giorniMaxUtil);
         }
     }
     fclose(pf);

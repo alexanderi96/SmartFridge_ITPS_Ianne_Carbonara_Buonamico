@@ -51,11 +51,13 @@ int main() {
                 //passaggio a menù principale 
                 flag=0;
                 do{  
+                	puts("Login:\n");
                     //Schermata di login
                     fputs("Username:\n"
                         ">>> ", stdout);
                     scanf("%s", userLogin);
                     system("@cls||clear");
+                    puts("Login:\n");
                     fputs("Password\n"
                         ">>> ", stdout);
                     scanf("%s", passwd);

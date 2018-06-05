@@ -15,17 +15,24 @@ void showRecipes(Ricetta ricette[], int totRicette){
 	printf("\n");
 }
 
-int addRecipes(Ricetta ricette[], int totRicette){
+int addRecipes(Ricetta ricette[], int totRicette, char elencoCattgorie[][maxCatLen], int *totCat, Alimento database[], int *totDatabase){
     char ricTemp[25], scelta, fileTempName[100];
     int pos, num;
     _Bool flag=1;
-    printf("Inserisci il nome della ricetta che vuoi aggiungere\n");
+    fputs("Inserisci il nome della ricetta che vuoi aggiungere\n"
+    	">>> ", stdout);
     scanf("%s", ricTemp);
+    clearBuffer();
+    system("@cls||clear");
     pos = searchRecipes(ricette, totRicette, ricTemp); 
     if(pos==-1){
         strcpy(ricette[totRicette].nome, ricTemp);
-        printf("Da che paese proviene?\n");
+        puts("Inserimento nuova ricetta\n");
+        fputs("Da che paese proviene?\n"
+        	">>> ", stdout);
         scanf("%s", ricette[totRicette].paese);
+    	clearBuffer();
+   		system("@cls||clear");
         //bisogna andare ad aggiungere la posizione dei file contenenti gli ingredienti ecc...
         //andiamo a creare il file degli ingredienti per questa ricetta
         strcpy(fileTempName, ricettedir);
@@ -36,16 +43,20 @@ int addRecipes(Ricetta ricette[], int totRicette){
     	ricette[totRicette].totIngredienti=0;
     	while(flag){
     		flag=1;
-    		puts("Vuoi aggiungere un nuovo ingrediente alla ricetta?");
+    		puts("Inserimento nuova ricetta\n");
+    		fputs("Vuoi aggiungere un nuovo ingrediente alla ricetta? s/n\n"
+    			">>> ", stdout);
     		scelta= getchar();
-
+    		clearBuffer();
+   			system("@cls||clear");
     		if (scelta=='s'){
-    			addIngredients(ricette[totRicette].ingredienti, ricette[totRicette].totIngredienti);
+    			addIngredientsGuided(ricette[totRicette].ingredienti, ricette[totRicette].totIngredienti, elencoCattgorie, *&totCat, database, *&totDatabase);
     			ricette[totRicette].totIngredienti++;
     		}else if(scelta=='n'){
     			flag=0;
     		}else{
-    			puts("<!> scelta errata");
+   				system("@cls||clear");
+    			puts("<!> scelta errata\n");
     		}
     	}
     	

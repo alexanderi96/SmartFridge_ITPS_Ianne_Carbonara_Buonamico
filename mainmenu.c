@@ -9,9 +9,11 @@
 int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
     Ricetta ricette[maxRicette];
     Alimento dispensa[maxAlimenti];
+    Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
+    char elencoCategorie[totCategorie][maxCatLen];
     Spesa lista[maxAlimenti];
     char scelta;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
     FILE *dis, *spe, *ric;
@@ -19,6 +21,14 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
     /*
     andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
     */
+    if(!loadCategories(catLocation, elencoCategorie, &totCat)){
+    	puts("<!> Errore durante il caricamento del database alimenti");
+    }
+
+    if(!loadDatabaseAlimenti(databaseAlimenti, database, &totDatabase)){
+    	puts("<!> Errore durante il caricamento del database alimenti");
+    }
+
     if(NULL==(dis=fopen(dispensalocation,"r"))){  
         createNewFile(dispensalocation);
     }else{
@@ -69,13 +79,13 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                     system("@cls||clear");
                     switch (scelta){
                         case '1':
-                            puts("1. Aggiungi una nuova ricetta\n\n");
+                            puts("Inserimento nuova ricetta\n");
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                if (addRecipes(ricette, totRicette)){
+                                if (addRecipes(ricette, totRicette, elencoCategorie, &totCat, database, &totDatabase)){
         							createNewFile(ricette[totRicette].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
                                     totRicette++;
                                     system("@cls||clear");
-                                    puts("<*> Ricetta aggiunta correttamente\n\n");
+                                    puts("<*> Ricetta aggiunta correttamente\n");
                                 }
                             }else{
                                 //altrimenti andrà a fare una richiesta all'admin
@@ -148,13 +158,13 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                     system("@cls||clear");
                     switch (scelta){
                         case '1':
-                            puts("1. Suggerisci alimento da inserire nella lista della spesa\n\n");
+                            puts("Suggerisci alimento da inserire nella lista della spesa\n\n");
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                if (addtoList(lista ,totElem)){
+                            	if(addtoListGuided(lista, totElem, elencoCategorie, &totCat, database, &totDatabase)){
                                     totElem++;
-                                    system("@cls||clear");
-                                    puts("<*> Elemento aggiunto con successo alla lista della spesa\n\n");
-                                }
+ 		                            system("@cls||clear");
+         		                    puts("<*> Elemento aggiunto con successo alla lista della spesa\n\n");
+                 		        }
                             }else{
                                 //altrimenti andrà a fare una richiesta all'admin
                                 //che dovrà decidere se accettarla o meno al prossimo login
@@ -173,7 +183,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                                 }else{
                                     puts("<!> Operazione annullata dall'utente\n\n");
                                 }
-                                saveStorage(dispensalocation, dispensa, totAlimenti);
+                                saveList(listlocation, lista, totElem);
                             }else{
                                 puts("<!> Non è presente nessun elemento nella lista della spesa\n\n");
                             }
@@ -239,7 +249,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                                     if(createAccount(utenti, *totUtenti, isadmin)){
                                         puts("<!> Utente salvato correttamente\n\n");
                                         *totUtenti = *totUtenti + 1;
-                                        saveAccount("account.txt", utenti, *totUtenti);
+                                        saveAccount(accountlocation, utenti, *totUtenti);
                                     }else{
                                         printf("<!> Username già esistente\n\n");
                                     }

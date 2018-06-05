@@ -19,5 +19,9 @@ int loadRecipes(const char nome[], Ricetta ricette[], int *totRicette);
 int saveRecipes(const char nome[], Ricetta ricette[], int totRicette);
 int saveIngredients(const char nome[], Ingredienti ingredienti[], int totIngredienti);
 int loadIngredients(const char nome[], Ingredienti ingredienti[], int totIngredienti);
+int loadDatabaseAlimenti(const char nome[], Alimento database[], int *numeroAlimenti);
+int loadCategories(const char nome[], char categorie[][maxCatLen], int *totCat);
+int saveCategories(const char nome[], char categorie[][maxCatLen], int totCat);
+int saveAlim(const char nome[], Alimento database[], int totDatabase);
 
 #endif

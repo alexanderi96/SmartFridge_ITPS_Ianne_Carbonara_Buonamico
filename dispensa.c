@@ -11,7 +11,7 @@ int addToStorage(Alimento dispensa[], int totAlimenti){
 
 }
 
-int searchAlim(Alimento dispensa[], int totAlimenti, char alim[]){
+int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]){
 
 	
 }

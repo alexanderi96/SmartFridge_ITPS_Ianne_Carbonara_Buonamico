@@ -3,7 +3,7 @@
 
 #include "various.h"
 
-int addIngredients(Ingredienti ingredienti[], int totIngredienti);
+int addIngredientsGuided(Ingredienti ingredienti[], int totIngredienti, char elencoCattgorie[][maxCatLen], int *totCat, Alimento database[], int *totDatabase);
 int searchIngredient(Ingredienti ingredienti[], int totIngredienti, char elemento[]);
 
 #endif
