@@ -62,6 +62,62 @@ int addRecipes(Ricetta ricette[], int totRicette, char elencoCattgorie[][maxCatL
     	
         return 1;
     }else{
+    	system("@cls||clear");
+    	puts("<!> Ricetta già presente\n");
+    	return 0;
+    }
+}
+
+//inserimento ricette da approvare
+int addReciApp(Ricetta ricette[], int totRicette, Ricetta riceApp[], int totRicApp, char elencoCategorie[][maxCatLen], int totCat, Alimento database[], int totDatabase, char elencoCatApp[][maxCatLen], int *totCatApp, Alimento alimApp[], int *totAlimApp){
+	char ricTemp[25], scelta, fileTempName[100];
+    int pos, num;
+    _Bool flag=1;
+    fputs("Inserisci il nome della ricetta che vuoi aggiungere\n"
+    	">>> ", stdout);
+    scanf("%s", ricTemp);
+    clearBuffer();
+    system("@cls||clear");
+    pos = searchRecipes(ricette, totRicette, ricTemp); 
+    if(pos==-1){
+        strcpy(riceApp[totRicApp].nome, ricTemp);
+        puts("Inserimento nuova ricetta\n");
+        fputs("Da che paese proviene?\n"
+        	">>> ", stdout);
+        scanf("%s", riceApp[totRicApp].paese);
+    	clearBuffer();
+   		system("@cls||clear");
+        //bisogna andare ad aggiungere la posizione dei file contenenti gli ingredienti ecc...
+        //andiamo a creare il file degli ingredienti per questa ricetta
+        strcpy(fileTempName, ricetteAppdir);
+    	strcat(fileTempName, ricTemp);
+    	make_directory(fileTempName);
+    	strcat(fileTempName, "/ingredienti.txt");
+    	strcpy(riceApp[totRicApp].ingrePos, fileTempName);
+    	riceApp[totRicApp].totIngredienti=0;
+    	while(flag){
+    		flag=1;
+    		puts("Inserimento nuova ricetta\n");
+    		fputs("Vuoi aggiungere un nuovo ingrediente alla ricetta? s/n\n"
+    			">>> ", stdout);
+    		scelta= getchar();
+    		clearBuffer();
+   			system("@cls||clear");
+    		if (scelta=='s'){
+    			addIngredientsAppGuided(riceApp[totRicApp].ingredienti, riceApp[totRicApp].totIngredienti, elencoCategorie, totCat, database, totDatabase, elencoCatApp, *&totCatApp, alimApp, *&totAlimApp); 
+    			riceApp[totRicApp].totIngredienti++;
+    		}else if(scelta=='n'){
+    			flag=0;
+    		}else{
+   				system("@cls||clear");
+    			puts("<!> scelta errata\n");
+    		}
+    	}
+    	
+        return 1;
+    }else{
+    	system("@cls||clear");
+    	puts("<!> Ricetta già presente\n");
     	return 0;
     }
 }

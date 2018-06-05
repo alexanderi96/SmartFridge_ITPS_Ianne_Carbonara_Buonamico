@@ -74,5 +74,11 @@ extern const char ingreDir[];
 extern const char intoDir[];
 extern const char databaseAlimenti[];
 extern const char catLocation[];
+extern const char notCatLocation[];
+extern const char notRicLocation[];
+extern const char notAlimLocation[];
+extern const char ricetteAppdir[];
+extern const char databaseAlimApp[];
+extern const char notlistlocation[];
 
 #endif

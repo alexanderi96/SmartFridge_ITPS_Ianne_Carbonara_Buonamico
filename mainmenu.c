@@ -8,26 +8,60 @@
 
 int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
     Ricetta ricette[maxRicette];
+    Ricetta riceApp[maxRicette];
     Alimento dispensa[maxAlimenti];
+    Alimento alimApp[maxAlimenti];
+
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
-    char elencoCategorie[totCategorie][maxCatLen];
+
+    char elencoCategorie[totCategorie][maxCatLen], elencoCatApp[totCategorie][maxCatLen];
     Spesa lista[maxAlimenti];
+    Spesa listaApp[maxAlimenti];
     char scelta;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0, totNotifiche=0, totCatApp=0, totRicApp=0, totAlimApp=0, totElemApp=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
-    FILE *dis, *spe, *ric;
+    FILE *dis, *spe, *ric, *notCat, *notRic, *notAlim, *notSpe;
     
     /*
     andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
     */
-    if(!loadCategories(catLocation, elencoCategorie, &totCat)){
-    	puts("<!> Errore durante il caricamento del database alimenti");
-    }
 
-    if(!loadDatabaseAlimenti(databaseAlimenti, database, &totDatabase)){
-    	puts("<!> Errore durante il caricamento del database alimenti");
+    //carico le gli elementi in attisa di approvazione
+
+    if(NULL==(notCat=fopen(notCatLocation,"r"))){  
+        createNewFile(notCatLocation);
+    }else{
+        loadCategories(notCatLocation, elencoCatApp, &totCatApp);
     }
+    fclose(notCat);
+
+    if(NULL==(notRic=fopen(notRicLocation,"r"))){  
+        createNewFile(notRicLocation);
+    }else{
+        loadRecipes(notRicLocation, riceApp, &totRicApp);
+    }
+    fclose(notRic);
+
+     if(NULL==(notAlim=fopen(notAlimLocation,"r"))){  
+        createNewFile(notAlimLocation);
+    }else{
+        loadDatabaseAlimenti(notAlimLocation, alimApp, &totAlimApp);
+    }
+    fclose(notAlim);
+
+    if(NULL==(notSpe=fopen(notlistlocation,"r"))){  
+        createNewFile(notlistlocation);
+    }else{
+        loadList(notlistlocation, listaApp, &totElemApp);  
+    }
+    fclose(notSpe);
+    
+    //fine caricamento approvazione
+
+    loadCategories(catLocation, elencoCategorie, &totCat);
+
+    loadDatabaseAlimenti(databaseAlimenti, database, &totDatabase);
 
     if(NULL==(dis=fopen(dispensalocation,"r"))){  
         createNewFile(dispensalocation);
@@ -53,7 +87,14 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
 
     system("@cls||clear");
     while(1){
+    	totNotifiche=totCatApp+totRicApp+totAlimApp+totElemApp;
         printf("Benvenuto %s\n\n", username);
+
+        if(checkAdmin(utenti, *totUtenti, username)){
+        	printf("Hai %d notifiche!\n"
+        		"9. Visualizza e gestisci notifiche\n\n", totNotifiche);
+        }
+
         fputs("1. Gestione ricette\n"
             "2. Gestione intolleranze\n"
             "3. Gestione lista della spesa\n"
@@ -88,11 +129,36 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                                     puts("<*> Ricetta aggiunta correttamente\n");
                                 }
                             }else{
-                                //altrimenti andrà a fare una richiesta all'admin
-                                //che dovrà decidere se accettarla o meno al prossimo login
+                            	while(flag){
+                            		fputs("Attenzione, le tue modifiche devono prima essere approvate da un amministratore.\n"
+	                                	"vuoi ovntinuare? s/n\n"
+    	                            	">>> ", stdout);
+                            		scelta=getchar();
+                            		clearBuffer();
+                            		switch(scelta){
+                            			case 's':
+                            				if (addReciApp(ricette, totRicette, riceApp, totRicApp, elencoCategorie, totCat, database, totDatabase, elencoCatApp, &totCatApp, alimApp, &totAlimApp)){
+			        							createNewFile(riceApp[totRicApp].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
+            			                        totRicApp++;
+            			                        system("@cls||clear");
+            			                        puts("<*> Ricetta aggiunta correttamente\n"
+            			                        	"Attendi l'approvazione di un amministratore\n");
+                       				         }
+                       				         /*
+                       				         implementare il salvataggio su file da approvazione
+                       				         continuare l'implementazione delle notifiche per admin per la lista della spesa
+                            				*/
+                            			break;
+                            			case 'n':
+                            				flag=0;
+                            			break;
+                            			default:
+                            			break;
+                            		}
+                            	}
                             }
+                            saveRecipes(notRicLocation, riceApp, totRicApp);
                             saveRecipes(repiceslocation, ricette, totRicette);
-                            
                         break;
                         case '2':
                             puts("3. Visualizzazione delle ricette disponibili\n");
@@ -276,6 +342,17 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                     }
                 }
                 //alimento_input
+            break;
+            case '9':
+            	if(checkAdmin(utenti, *totUtenti, username)){
+            		puts("Approvazione modifiche utenti non amministratri\n");
+                    printf("1. Richieste di nuova categoria (%d)\n"
+                        "2. richieste di nuovi alimenti (%d)\n"
+                        "3. richieste nuova ricetta (%d)\n"
+                        "4. richieste di acquisto (%d)\n\n"
+                        ">>> ", totCatApp, totAlimApp, totRicApp, totElemApp);
+                    scelta = getchar();
+            	}
             break;
             case '0':
                 return 1;
