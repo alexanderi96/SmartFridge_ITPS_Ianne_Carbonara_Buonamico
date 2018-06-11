@@ -6,7 +6,14 @@
 #include "mainmenu.h"
 #include "various.h"
 
+
+
+
 int main() {
+	
+	
+
+
     _Bool flag=1;
     char userTemp[25], passwd[25], userLogin[25], scelta;
     Utente utenti[maxUtenti]; //vettore di utenti
@@ -14,7 +21,10 @@ int main() {
     FILE *pf;
     system("@cls||clear");
     while(flag){
+    	
         fputs("Smart Fridge 0.03 Alpha\n\n"
+
+
             "1. Avviare la modalita' DEMO\n"
             "2. Avviare il programma\n\n"
             "0. Termina programma\n"
@@ -32,7 +42,6 @@ int main() {
                 if(NULL==(pf=fopen(accountlocation,"r"))){
                     //è la prima volta che si avvia il programma, andiamo a creare la struttura delle directory
                     make_directory(databasedir);
-                    make_directory(notificationsdir);
                     make_directory(ricettedir);
                     //e creiamo i primi file di archiviazione
                     createNewFile(accountlocation);

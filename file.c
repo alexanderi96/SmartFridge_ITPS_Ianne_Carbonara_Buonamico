@@ -45,7 +45,7 @@ int saveStorage(const char nome[], Alimento dispensa[], int totAlimenti){
         fprintf(pf, "%d\n", totAlimenti);
         for (int i = 0; i < totAlimenti; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %d %d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza, dispensa[i].apertura, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
+            fprintf(pf, "%s %s %2d%2d%4d %d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -105,7 +105,7 @@ int loadStorage(const char nome[], Alimento dispensa[], int *totAlimenti){
     }else{
         fscanf(pf, "%d", *&totAlimenti);;
         for (int i = 0; i < *totAlimenti; ++i){
-            fscanf(pf, "%s %s %6d %6d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza, &dispensa[i].apertura, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
+            fscanf(pf, "%s %s %2d%2d%4d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
         }
     }
     fclose(pf);

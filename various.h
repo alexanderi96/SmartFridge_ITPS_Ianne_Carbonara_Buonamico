@@ -20,8 +20,7 @@ typedef struct{
 typedef struct{
     char nome[50];
 	char categoria[50];
-	int scadenza; //per ora la data verrà considerata in questo formato intero ggmmaa es: 110796 -> 11 luglio 1996
-	int apertura;
+	Data scadenza;
 	int giorniMaxUtil; //permette di capire quanti giorni può rimanere aperto un prodotto dopo l'apertura 
 	int quantita;
 	int kcal;

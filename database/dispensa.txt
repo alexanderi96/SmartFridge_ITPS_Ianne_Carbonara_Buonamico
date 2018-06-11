@@ -1,0 +1,4 @@
+3
+  11 0   0 0 0 0 1992196490
+banana ortaggi_frutta_verdura 13 0   0 2 2 65 1992196490
+manzo proteine 13 0   0 2 3 217 1992196490

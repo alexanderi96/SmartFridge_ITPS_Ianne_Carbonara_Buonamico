@@ -5,60 +5,30 @@
 #include "spesa.h"
 #include "account.h"
 #include "ricetta.h"
+#include <time.h>
+#include "dispensa.h"
 
 int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
+	//gestione dell'orario
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
     Ricetta ricette[maxRicette];
-    Ricetta riceApp[maxRicette];
     Alimento dispensa[maxAlimenti];
-    Alimento alimApp[maxAlimenti];
 
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
 
-    char elencoCategorie[totCategorie][maxCatLen], elencoCatApp[totCategorie][maxCatLen];
+    char elencoCategorie[totCategorie][maxCatLen];
     Spesa lista[maxAlimenti];
-    Spesa listaApp[maxAlimenti];
     char scelta;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0, totNotifiche=0, totCatApp=0, totRicApp=0, totAlimApp=0, totElemApp=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
-    FILE *dis, *spe, *ric, *notCat, *notRic, *notAlim, *notSpe;
+    FILE *dis, *spe, *ric;
     
     /*
     andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
     */
-
-    //carico le gli elementi in attisa di approvazione
-
-    if(NULL==(notCat=fopen(notCatLocation,"r"))){  
-        createNewFile(notCatLocation);
-    }else{
-        loadCategories(notCatLocation, elencoCatApp, &totCatApp);
-    }
-    fclose(notCat);
-
-    if(NULL==(notRic=fopen(notRicLocation,"r"))){  
-        createNewFile(notRicLocation);
-    }else{
-        loadRecipes(notRicLocation, riceApp, &totRicApp);
-    }
-    fclose(notRic);
-
-     if(NULL==(notAlim=fopen(notAlimLocation,"r"))){  
-        createNewFile(notAlimLocation);
-    }else{
-        loadDatabaseAlimenti(notAlimLocation, alimApp, &totAlimApp);
-    }
-    fclose(notAlim);
-
-    if(NULL==(notSpe=fopen(notlistlocation,"r"))){  
-        createNewFile(notlistlocation);
-    }else{
-        loadList(notlistlocation, listaApp, &totElemApp);  
-    }
-    fclose(notSpe);
-    
-    //fine caricamento approvazione
-
     loadCategories(catLocation, elencoCategorie, &totCat);
 
     loadDatabaseAlimenti(databaseAlimenti, database, &totDatabase);
@@ -87,18 +57,17 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
 
     system("@cls||clear");
     while(1){
-    	totNotifiche=totCatApp+totRicApp+totAlimApp+totElemApp;
+    	
         printf("Benvenuto %s\n\n", username);
+        printf("Oggi e' il: %2d/%2d/%4d e sono le ore: %2d:%2d\nPassa una buona giornata!\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
 
-        if(checkAdmin(utenti, *totUtenti, username)){
-        	printf("Hai %d notifiche!\n"
-        		"9. Visualizza e gestisci notifiche\n\n", totNotifiche);
-        }
+        
 
         fputs("1. Gestione ricette\n"
             "2. Gestione intolleranze\n"
             "3. Gestione lista della spesa\n"
-            "4. Impostazioni\n\n"
+            "4. Gestione della dispensa\n"
+            "5. Impostazioni\n\n"
             "0. Logout\n"
             ">>> ", stdout);
         scelta = getchar(); //Permette di svuotare il buffer della tastiera
@@ -122,43 +91,13 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                         case '1':
                             puts("Inserimento nuova ricetta\n");
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                if (addRecipes(ricette, totRicette, elencoCategorie, &totCat, database, &totDatabase)){
-        							createNewFile(ricette[totRicette].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
-                                    totRicette++;
+                                if (addRecipes(ricette, &totRicette, elencoCategorie, &totCat, database, &totDatabase)){
+        							
                                     system("@cls||clear");
                                     puts("<*> Ricetta aggiunta correttamente\n");
                                 }
-                            }else{
-                            	while(flag){
-                            		fputs("Attenzione, le tue modifiche devono prima essere approvate da un amministratore.\n"
-	                                	"vuoi ovntinuare? s/n\n"
-    	                            	">>> ", stdout);
-                            		scelta=getchar();
-                            		clearBuffer();
-                            		switch(scelta){
-                            			case 's':
-                            				if (addReciApp(ricette, totRicette, riceApp, totRicApp, elencoCategorie, totCat, database, totDatabase, elencoCatApp, &totCatApp, alimApp, &totAlimApp)){
-			        							createNewFile(riceApp[totRicApp].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
-            			                        totRicApp++;
-            			                        system("@cls||clear");
-            			                        puts("<*> Ricetta aggiunta correttamente\n"
-            			                        	"Attendi l'approvazione di un amministratore\n");
-                       				         }
-                       				         /*
-                       				         implementare il salvataggio su file da approvazione
-                       				         continuare l'implementazione delle notifiche per admin per la lista della spesa
-                            				*/
-                            			break;
-                            			case 'n':
-                            				flag=0;
-                            			break;
-                            			default:
-                            			break;
-                            		}
-                            	}
                             }
-                            saveRecipes(notRicLocation, riceApp, totRicApp);
-                            saveRecipes(repiceslocation, ricette, totRicette);
+                            
                         break;
                         case '2':
                             puts("3. Visualizzazione delle ricette disponibili\n");
@@ -176,9 +115,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                             if(totRicette>0){
      
                                 system("@cls||clear");
-                                rimrElem(ricette, totRicette);
+                                rimrElem(ricette, &totRicette);
                                 
-                                saveRecipes(repiceslocation, ricette, totRicette);
+                                
                             }else{
                                 puts("<!> Non è presente alcuna ricetta\n");
                             }
@@ -194,13 +133,6 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                         break;
                     }
                 }
-
-
-
-
-                
-
-                
             break; 
             case '2':
                 puts("4. Comunica intolleranza");
@@ -212,8 +144,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                     /* Nicolò Mod */
                     fputs("Gestione lista della spesa\n\n"
                         "1. Suggerisci alimento da inserire nella lista\n"
-                        "2. Effettua una modifica su gli elementi da acquistare\n"
-                        "3. Visualizza la lista della spesa\n\n"
+                        "2. Riduci o rimuovi elemento dalla lista della spesa\n"
+                        "3. Visualizza la lista della spesa\n"
+                        "4. Comunica alimenti acquistatin\n\n"
                         "0. Indietro\n"
                         ">>> ", stdout);
                     /* end Nicolò Mod */
@@ -225,21 +158,18 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                     switch (scelta){
                         case '1':
                             puts("Suggerisci alimento da inserire nella lista della spesa\n\n");
-                            if(checkAdmin(utenti, *totUtenti, username)){
-                            	if(addtoListGuided(lista, totElem, elencoCategorie, &totCat, database, &totDatabase)){
-                                    totElem++;
- 		                            system("@cls||clear");
-         		                    puts("<*> Elemento aggiunto con successo alla lista della spesa\n\n");
-                 		        }
-                            }else{
-                                //altrimenti andrà a fare una richiesta all'admin
-                                //che dovrà decidere se accettarla o meno al prossimo login
-                            }
-                            saveList(listlocation, lista, totElem);
+                            if(addtoListGuided(lista, &totElem, elencoCategorie, &totCat, database, &totDatabase)){
+ 		                        system("@cls||clear");
+         	                    puts("<*> Elemento aggiunto con successo alla lista della spesa\n\n");
+               		        }else{
+               		        	
+               		        	system("@cls||clear");
+         	                    puts("<!> Operazione annullata dall'utente\n\n");
+               		        }
                         break;
                         case '2':
                             if(totElem>0){
-                                rimRis = rimElem(lista, totElem);
+                                rimRis = rimElem(lista, &totElem);
                                 system("@cls||clear");
                                 if(rimRis == 1){
                                     puts("<!> L'alimento selezionato e'atato ridotto\n\n");
@@ -262,6 +192,38 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                             clearBuffer();
                             system("@cls||clear");
                         break;
+                        case '4':
+                        	flag=1;
+                        	while(flag){
+                        		fputs("Che alimenti hai acquistato?\n"
+                        			"1. Tutti quelli presenti nella lista della spesa\n"
+        	                		"2. Solo parte degli alimenti presenti nella lista della spesa\n"
+           	    	         		"3. Nessun alimento tra quelli presenti nella lista della spesa\n\n"
+           		             		"0. Indietro\n"
+                  		      		">>> ", stdout);
+                    	    	scelta=getchar();
+                    	    	clearBuffer();
+                    	    	system("@cls||clear");
+                       		 	switch(scelta){
+                       		 		case '1':
+                        				addAllToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
+                        			break;
+                        			case '2':
+                        				//addPartialToStorage();
+                        			break;
+                        			case '3':
+                        				//addToStorage();
+                        			break;
+                        			case '0':
+                        				flag=0;
+                        			break;
+                        			default:
+                        				system("@cls||clear");
+                            			puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        			break;
+                        		}
+                        	}
+                        break;
                         case '0':
                             flag=0;
                         break;
@@ -271,9 +233,39 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                         break;
                     }
                 }
-                //suggerisci_spesa(info_alimenti alimenti[], int i);
             break;
             case '4':
+            	flag=1;
+                while(flag){
+                    flag=1;
+                    fputs("5. Gestione dispensa\n\n"
+                        "1. Visualizza gli elementi presenti in dispensa\n"
+                        "0. indietro\n\n"
+                        ">>> ", stdout);
+                    scelta = getchar();
+                    system("@cls||clear");
+                    clearBuffer();
+                    switch (scelta){
+                        case '1':
+                            puts("1. Visualizzazione degli elementi presenti in dispensa\n\n");
+                            showAlimDisp(dispensa, totAlimenti);
+                            puts("\n\nPremi un tasto per tornare indietro...\n");
+                            getchar();
+                            clearBuffer();
+                            system("@cls||clear");
+                        break;
+                        case '0':
+                            flag=0;
+                            system("@cls||clear");
+                        break;
+                        default:
+                            system("@cls||clear");
+                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        break;
+                    }
+                }
+            break;
+            case '5':
                 flag=1;
                 while(flag){
                     flag=1;
@@ -343,19 +335,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                 }
                 //alimento_input
             break;
-            case '9':
-            	if(checkAdmin(utenti, *totUtenti, username)){
-            		puts("Approvazione modifiche utenti non amministratri\n");
-                    printf("1. Richieste di nuova categoria (%d)\n"
-                        "2. richieste di nuovi alimenti (%d)\n"
-                        "3. richieste nuova ricetta (%d)\n"
-                        "4. richieste di acquisto (%d)\n\n"
-                        ">>> ", totCatApp, totAlimApp, totRicApp, totElemApp);
-                    scelta = getchar();
-            	}
-            break;
             case '0':
-                return 1;
+            		return 1;
             break;
             default:
                 system("@cls||clear");

@@ -1,0 +1,11 @@
+10
+proteine
+latticini
+carboidrati
+legumi
+condimento
+ortaggi_frutta_verdura
+bevande
+dolci
+carne
+pesce
