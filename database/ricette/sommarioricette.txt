@@ -1,4 +1,4 @@
 3
-cappuccino_di_topinambour italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt
+cappuccino_di_topinambour italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 6 ./database/ricette/cappuccino_di_topinambour/preparazione.txt
 gnocchi_alla_romana italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt
 merluzzo_con_limone italia ./database/ricette/merluzzo_con_limone/ingredienti.txt 2 ./database/ricette/merluzzo_con_limone/ingredienti.txt/preparazione.txt

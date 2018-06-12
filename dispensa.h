@@ -9,5 +9,7 @@
 int addAllToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase);
 int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]);
 void showAlimDisp(Alimento dispensa[], int totAlimenti);
+int contaProdScad(Alimento dispensa[], int totAlimenti);
+int isInScadenza(Alimento alimento);
 
 #endif

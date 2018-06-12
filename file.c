@@ -45,7 +45,7 @@ int saveStorage(const char nome[], Alimento dispensa[], int totAlimenti){
         fprintf(pf, "%d\n", totAlimenti);
         for (int i = 0; i < totAlimenti; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %2d%2d%4d %d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
+            fprintf(pf, "%s %s %2d.%2d.%4d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -105,7 +105,7 @@ int loadStorage(const char nome[], Alimento dispensa[], int *totAlimenti){
     }else{
         fscanf(pf, "%d", *&totAlimenti);;
         for (int i = 0; i < *totAlimenti; ++i){
-            fscanf(pf, "%s %s %2d%2d%4d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
+            fscanf(pf, "%s %s %2d.%2d.%4d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -137,6 +137,21 @@ int loadRecipes(const char nome[], Ricetta ricette[], int *totRicette){
         for (int i = 0; i < *totRicette; ++i){
             fscanf(pf, "%s %s %s %d %s\n", ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, &ricette[i].totIngredienti, ricette[i].prepaPos);
             loadIngredients(ricette[i].ingrePos, ricette[i].ingredienti, ricette[i].totIngredienti);
+        }
+    }
+    fclose(pf);
+    return 1;
+}
+
+int loadMenu(const char nome[], Ricetta menu[]){
+    FILE *pf;
+    if(NULL==(pf=fopen(nome, "r"))){
+        fclose(pf);
+        return 0;
+    }else{
+        for (int i = 0; i < 7; ++i){
+            fscanf(pf, "%s %s %s %d %s\n", menu[i].nome, menu[i].paese, menu[i].ingrePos, &menu[i].totIngredienti, menu[i].prepaPos);
+            loadIngredients(menu[i].ingrePos, menu[i].ingredienti, menu[i].totIngredienti);
         }
     }
     fclose(pf);

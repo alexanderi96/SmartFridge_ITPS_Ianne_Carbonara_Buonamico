@@ -1,4 +1,7 @@
-3
-  11 0   0 0 0 0 1992196490
-banana ortaggi_frutta_verdura 13 0   0 2 2 65 1992196490
-manzo proteine 13 0   0 2 3 217 1992196490
+6
+banana ortaggi_frutta_verdura 13. 6.2018 2 10 65
+muffin dolci 21. 6.2018 10 5 296
+limone ortaggi_frutta_verdura 13. 6.2018 2 2 14
+manzo proteine 13. 6.2018 2 4 217
+prezzemolo condimento 18. 6.2018 7 2 20
+mela ortaggi_frutta_verdura 13. 6.2018 2 3 38

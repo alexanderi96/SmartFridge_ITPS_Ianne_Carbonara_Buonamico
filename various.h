@@ -61,6 +61,7 @@ typedef struct{
 
 void clearBuffer();
 void make_directory(const char* name);
+void setCurrentDate(Data *data, int giorniSupp);
 
 extern const char accountlocation[];
 extern const char listlocation[];
@@ -79,5 +80,6 @@ extern const char notAlimLocation[];
 extern const char ricetteAppdir[];
 extern const char databaseAlimApp[];
 extern const char notlistlocation[];
+extern const char menulocation[];
 
 #endif

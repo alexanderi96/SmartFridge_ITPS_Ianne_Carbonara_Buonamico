@@ -6,6 +6,7 @@
 #include "ingrediente.h"
 #include "prodotti.h"
 #include "file.h"
+#include "dispensa.h"
 
 
 
@@ -133,4 +134,22 @@ void scalarStruct (Ricetta ricette[], int totRicette, int startPoint){
 	for (int i = startPoint; i < totRicette-1; ++i){
 		ricette[i] = ricette[i+1];
 	}
+}
+
+int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette){
+	int count=0;
+	for (int i = 0; i < totAlimenti; ++i){
+		if(isInScadenza(dispensa[i])){
+			for (int j = 0; j < totRicette; ++j){
+				for (int k = 0; k < ricette[j].totIngredienti; ++k){
+					if(strcmp(dispensa[i].nome, ricette[j].ingredienti[k].nome)==0){
+						printf("%s\t%s\n", dispensa[i].nome, ricette[j].ingredienti[k].nome);
+						system("PAUSE");
+						return j;
+					}
+				}
+			}
+		}
+	}
+	return -1;
 }

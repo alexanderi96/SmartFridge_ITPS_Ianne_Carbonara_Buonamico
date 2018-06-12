@@ -14,6 +14,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
 	struct tm tm = *localtime(&t);
 
     Ricetta ricette[maxRicette];
+    Ricetta menuSettimanale[7];
     Alimento dispensa[maxAlimenti];
 
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
@@ -21,10 +22,10 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
     char elencoCategorie[totCategorie][maxCatLen];
     Spesa lista[maxAlimenti];
     char scelta;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0, prodinscad=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
-    FILE *dis, *spe, *ric;
+    FILE *dis, *spe, *ric, *menu;
     
     /*
     andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
@@ -32,6 +33,22 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
     loadCategories(catLocation, elencoCategorie, &totCat);
 
     loadDatabaseAlimenti(databaseAlimenti, database, &totDatabase);
+
+
+    /*
+    caricamento menù settimanale
+    */
+    
+    if(NULL==(menu=fopen(menulocation,"r"))){  
+        createNewFile(menulocation);
+    }else{
+        loadMenu(menulocation, menuSettimanale);
+    }
+    fclose(menu);
+    
+    /*
+    fine caricamento menù
+    */
 
     if(NULL==(dis=fopen(dispensalocation,"r"))){  
         createNewFile(dispensalocation);
@@ -61,7 +78,10 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
         printf("Benvenuto %s\n\n", username);
         printf("Oggi e' il: %2d/%2d/%4d e sono le ore: %2d:%2d\nPassa una buona giornata!\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
 
-        
+        prodinscad = contaProdScad(dispensa, totAlimenti);
+        if(prodinscad>1){
+        	printf("ci sono %d prodotti in scadenza\ndi coneguenza la ricetta consigliata per consumare questi prodotti e': %s\n\n", prodinscad, ricette[calcolaRicettaConsigliata(dispensa, totAlimenti, ricette, totRicette)].nome);
+        }
 
         fputs("1. Gestione ricette\n"
             "2. Gestione intolleranze\n"
@@ -207,6 +227,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                        		 	switch(scelta){
                        		 		case '1':
                         				addAllToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
+                        				system("@cls||clear");
+                            			puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
                         			break;
                         			case '2':
                         				//addPartialToStorage();

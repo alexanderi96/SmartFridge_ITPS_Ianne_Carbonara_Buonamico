@@ -8,5 +8,6 @@ void showRecipes(Ricetta ricette[], int totRicette);
 int searchRecipes(Ricetta ricette[], int totRicette, char elemento[]);
 int rimrElem(Ricetta ricette[], int *totRicette);
 void scalarStruct (Ricetta ricette[], int totRicette, int startPoint);
+int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette);
 
 #endif
