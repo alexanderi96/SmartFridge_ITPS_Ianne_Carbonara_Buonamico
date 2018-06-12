@@ -1,0 +1,24 @@
+{
+  "name": "Smart Fridge",
+  "description": "piccolo programma per simulare il funzionamento di uno smart fridge",
+  "version": "0.03 Alpha",
+  "keywords": [
+    ""
+  ],
+  "maintainers": [
+    {
+      "name": "Stegosandro",
+      "email": "a.ianne3@studenti.uniba.it",
+      "web": ""
+    }
+  ],
+  "dependencies": {
+    "": ""
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/alexanderi96/SmartFridge_ITPS_Ianne_Carbonara_Buonamico.git"
+    }
+  ]
+}
