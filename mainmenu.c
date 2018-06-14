@@ -104,6 +104,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
             case '1':
                 flag=1;
                 while(flag){
+                    //è proprio qui che voglio inserire un commento!
                     fputs("Gestione ricette\n\n"
                         "1. Aggiungi una nuova ricetta\n"
                         "2. Visualizza le ricette\n"
