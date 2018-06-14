@@ -143,8 +143,6 @@ int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta rice
 			for (int j = 0; j < totRicette; ++j){
 				for (int k = 0; k < ricette[j].totIngredienti; ++k){
 					if(strcmp(dispensa[i].nome, ricette[j].ingredienti[k].nome)==0){
-						printf("%s\t%s\n", dispensa[i].nome, ricette[j].ingredienti[k].nome);
-						system("PAUSE");
 						return j;
 					}
 				}

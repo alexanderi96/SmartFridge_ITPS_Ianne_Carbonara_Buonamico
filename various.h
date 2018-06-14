@@ -33,6 +33,8 @@ typedef struct{
     char password[25];
     int eta;
     _Bool isadmin;
+    char intopos[50];
+    int totinto;
     char intolleranze[maxCatLen][maxCatLen];
 }Utente;
 
@@ -81,5 +83,6 @@ extern const char ricetteAppdir[];
 extern const char databaseAlimApp[];
 extern const char notlistlocation[];
 extern const char menulocation[];
+extern const char accountdir[];
 
 #endif

@@ -8,7 +8,7 @@
 #include <time.h>
 #include "dispensa.h"
 
-int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
+int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], char elencoCategorie[][maxCatLen], int *totCat){
 	//gestione dell'orario
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
@@ -19,10 +19,10 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
 
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
 
-    char elencoCategorie[totCategorie][maxCatLen];
+    
     Spesa lista[maxAlimenti];
     char scelta;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, totCat=0, prodinscad=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
     FILE *dis, *spe, *ric, *menu;
@@ -30,7 +30,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
     /*
     andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
     */
-    loadCategories(catLocation, elencoCategorie, &totCat);
+    
 
     loadDatabaseAlimenti(databaseAlimenti, database, &totDatabase);
 
@@ -78,9 +78,16 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
         printf("Benvenuto %s\n\n", username);
         printf("Oggi e' il: %2d/%2d/%4d e sono le ore: %2d:%2d\nPassa una buona giornata!\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
 
-        prodinscad = contaProdScad(dispensa, totAlimenti);
-        if(prodinscad>1){
-        	printf("ci sono %d prodotti in scadenza\ndi coneguenza la ricetta consigliata per consumare questi prodotti e': %s\n\n", prodinscad, ricette[calcolaRicettaConsigliata(dispensa, totAlimenti, ricette, totRicette)].nome);
+
+
+        contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
+        if(contInScad>0){
+        	printf("Ci sono %d prodotti in scadenza\ndi coneguenza la ricetta consigliata per consumare questi prodotti e': %s\n\n", contInScad, ricette[calcolaRicettaConsigliata(dispensa, totAlimenti, ricette, totRicette)].nome);
+        }
+        if(contScad>0){
+            printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura guidata per l'eleiminazione\n", contScad);
+            system("PAUSE");
+            rimScad(dispensa, &totAlimenti);
         }
 
         fputs("1. Gestione ricette\n"
@@ -111,7 +118,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                         case '1':
                             puts("Inserimento nuova ricetta\n");
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                if (addRecipes(ricette, &totRicette, elencoCategorie, &totCat, database, &totDatabase)){
+                                if (addRecipes(ricette, &totRicette, elencoCategorie, *&totCat, database, &totDatabase)){
         							
                                     system("@cls||clear");
                                     puts("<*> Ricetta aggiunta correttamente\n");
@@ -178,7 +185,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                     switch (scelta){
                         case '1':
                             puts("Suggerisci alimento da inserire nella lista della spesa\n\n");
-                            if(addtoListGuided(lista, &totElem, elencoCategorie, &totCat, database, &totDatabase)){
+                            if(addtoListGuided(lista, &totElem, elencoCategorie, *&totCat, database, &totDatabase)){
  		                        system("@cls||clear");
          	                    puts("<*> Elemento aggiunto con successo alla lista della spesa\n\n");
                		        }else{
@@ -326,11 +333,13 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]){
                                         }
                                         system("@cls||clear");
                                     }
-                                    if(createAccount(utenti, *totUtenti, isadmin)){
+                                    if(createAccount(utenti, *totUtenti, isadmin, elencoCategorie, *&totCat)){
+                                        system("@cls||clear");
                                         puts("<!> Utente salvato correttamente\n\n");
                                         *totUtenti = *totUtenti + 1;
                                         saveAccount(accountlocation, utenti, *totUtenti);
                                     }else{
+                                        system("@cls||clear");
                                         printf("<!> Username già esistente\n\n");
                                     }
                                 }else{

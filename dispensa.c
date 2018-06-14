@@ -65,25 +65,47 @@ void showAlimDisp(Alimento dispensa[], int totAlimenti){
 	}
 }
 
-int contaProdScad(Alimento dispensa[], int totAlimenti){
-	int count=0;
+void contaProdScad(Alimento dispensa[], int totAlimenti, int *countScad, int *countInScad){
+	int ris;
 	for (int i = 0; i < totAlimenti; ++i){
-		if(isInScadenza(dispensa[i])){
-			count++;
+		ris=isInScadenza(dispensa[i]);
+		if(ris==2){
+			*countScad = *countScad + 1;
+		}else if(ris==1){
+			*countInScad = *countInScad + 1;
 		}
 	}
-	return count;
 }
 
 int isInScadenza(Alimento alimento){
 	Data data;
-	setCurrentDate(&data, 3);
+	setCurrentDate(&data, 0);
 	if (alimento.scadenza.aaaa <= data.aaaa){
 		if(alimento.scadenza.mm <= data.mm){
 			if(alimento.scadenza.gg <= data.gg){
+				return 2;
+			}else if(alimento.scadenza.gg <= data.gg + 3){
 				return 1;
 			}
 		}
 	}
 	return 0;
+}
+
+int rimScad(Alimento dispensa[], int *totAlimenti){
+	for (int i = 0; i < *totAlimenti; ++i){
+		if(isInScadenza(dispensa[i])==2){
+			scalaStructA(dispensa, *&totAlimenti, i);
+			i=0;
+		}
+	}
+	saveStorage(dispensalocation, dispensa, *totAlimenti);
+	return 1;
+}
+
+void scalaStructA (Alimento alimento[], int *totAlim, int startPoint){
+	for (int i = startPoint; i < *totAlim-1; ++i){
+		alimento[i] = alimento[i+1];
+	}
+	*totAlim=*totAlim-1;
 }

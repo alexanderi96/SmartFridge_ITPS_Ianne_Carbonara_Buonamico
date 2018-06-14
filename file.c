@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "account.h"
 #include "file.h"
+#include "various.h"
 
 
 int createNewFile(const char nome[]){
@@ -19,7 +21,7 @@ int createNewFile(const char nome[]){
 }
 
 
-int saveAccount(const char nome[], Utente utneti[], int totUtenti){
+int saveAccount(const char nome[], Utente utenti[], int totUtenti){
     FILE *pf;
     if(NULL==(pf=fopen(nome, "w"))){
         fclose(pf);
@@ -27,8 +29,9 @@ int saveAccount(const char nome[], Utente utneti[], int totUtenti){
     }else{
         fprintf(pf, "%d\n", totUtenti);
         for (int i = 0; i < totUtenti; ++i){
-            //stampa di username, password, admin, nome, cognome ed età
-            fprintf(pf, "%s %s %d %s %s %d\n", utneti[i].user, utneti[i].password, utneti[i].isadmin, utneti[i].nome, utneti[i].cognome, utneti[i].eta);
+            //stampa di username, password, admin, nome, cognome ed età     
+            fprintf(pf, "%s %s %d %s %s %d %s %d\n", utenti[i].user, utenti[i].password, utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, utenti[i].eta, utenti[i].intopos, utenti[i].totinto);
+            saveInto(utenti[i].intopos, utenti[i].intolleranze, utenti[i].totinto);
         }
         fclose(pf);
         return 1;
@@ -91,7 +94,9 @@ int loadAccount(const char nome[], Utente utenti[], int *totUtenti){
     }else{
         fscanf(pf, "%d", *&totUtenti);
         for (int i = 0; i < *totUtenti; ++i){
-            fscanf(pf, "%s %s %d %s %s %d\n", utenti[i].user, utenti[i].password, &utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, &utenti[i].eta);
+
+            fscanf(pf, "%s %s %d %s %s %d %s %d\n", utenti[i].user, utenti[i].password, &utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, &utenti[i].eta, utenti[i].intopos, &utenti[i].totinto);
+            loadInto(utenti[i].intopos, utenti[i].intolleranze, utenti[i].totinto);
         }
     }
     return 1;
@@ -264,4 +269,32 @@ int saveAlim(const char nome[], Alimento database[], int totDatabase){
     }
     fclose(pf);
     return 1;
+}
+
+int saveInto(const char nome[], char intolleranze[][maxCatLen], int totInto){
+	FILE *pf;
+    if(NULL==(pf=fopen(nome, "w"))){
+        fclose(pf);
+        return 0;
+    }else{
+        for (int i = 0; i < totInto; ++i){
+            fprintf(pf, "%s\n", intolleranze[i]);
+        }
+    }
+    fclose(pf);
+    return 1;
+}
+
+int loadInto(const char nome[], char intolleranze[][maxCatLen], int totInto){
+	FILE *pf;
+	char buffer[maxCatLen];
+	if (NULL==(pf=fopen(nome, "r"))){
+		return 0;
+	}else{
+		for (int i = 0; i < totInto; ++i){
+			fscanf(pf, "%s\n", intolleranze[i]);
+		}
+	}
+	fclose(pf);
+	return 1;
 }

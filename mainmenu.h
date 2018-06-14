@@ -7,6 +7,6 @@
 
 #include "various.h"
 
-int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[]);
+int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], char elencoCategorie[][maxCatLen], int *totCat);
 
 #endif

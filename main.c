@@ -13,11 +13,11 @@ int main() {
 	
 	
 
-
+    char elencoCategorie[totCategorie][maxCatLen];
     _Bool flag=1;
     char userTemp[25], passwd[25], userLogin[25], scelta;
     Utente utenti[maxUtenti]; //vettore di utenti
-    int totUtenti=0;
+    int totUtenti=0, totCat=0;
     FILE *pf;
     system("@cls||clear");
     while(flag){
@@ -37,18 +37,22 @@ int main() {
                 //avvia funzione demo... aggiornamento del 02.06.2018, forse non l'avremo mai hahaha non serve...
                 break;
             case '2':
+                loadCategories(catLocation, elencoCategorie, &totCat);
                 //se è la prima volta va alla creazione di un account amministratore, altrimenti chiede username e password
                 //per vedere se è il primo avvio andremo a leggere un file binario dove ci sarà 0 se è il primo avvio, altrimenti 1 se esiste almeno un account
                 if(NULL==(pf=fopen(accountlocation,"r"))){
                     //è la prima volta che si avvia il programma, andiamo a creare la struttura delle directory
                     make_directory(databasedir);
                     make_directory(ricettedir);
+                    make_directory(accountdir);
+                    
                     //e creiamo i primi file di archiviazione
                     createNewFile(accountlocation);
-                    if(!createAccount(utenti, totUtenti, 1)){
+                    if(!createAccount(utenti, totUtenti, 1, elencoCategorie, &totCat)){
                         system("@cls||clear");
                         printf("<!> Username già esistente\n\n");
                     }
+                    system("@cls||clear");
                     totUtenti++;
                     saveAccount(accountlocation, utenti, totUtenti);
                 }else{
@@ -73,7 +77,7 @@ int main() {
                     if(userAuth(utenti, totUtenti, userLogin, passwd)){
                         flag=1;
                         clearBuffer();
-                        mainmenu(userLogin, passwd, &totUtenti, utenti);
+                        mainmenu(userLogin, passwd, &totUtenti, utenti, elencoCategorie, &totCat);
                     }else{
                         system("@cls||clear");
                         puts("<!> Username o password errati\n\n");

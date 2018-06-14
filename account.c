@@ -3,18 +3,21 @@
 #include <string.h>
 #include "account.h"
 #include "various.h"
+#include "intolleranze.h"
 
 
 
 
-int createAccount(Utente utenti[], int totUtenti, int isadmin){
-    char userTemp[25];
+int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCategorie[][maxCatLen], int *totCat){
+    _Bool flag=1;
+    char userTemp[25], scelta;
     fputs("Inserisci il nome utente\n"
         ">>> ", stdout);
     scanf("%s", userTemp);
     system("@cls||clear");
     clearBuffer();
     if(!searchAccount(utenti, totUtenti, userTemp)){
+        utenti[totUtenti].totinto=0;
         strcpy(utenti[totUtenti].user, userTemp);
         fputs("Inserisci il tuo nome\n"
             ">>> ", stdout);
@@ -37,6 +40,38 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin){
         system("@cls||clear");
         clearBuffer();
         utenti[totUtenti].isadmin=isadmin;
+        strcpy(utenti[totUtenti].intopos, accountdir);
+        strcat(utenti[totUtenti].intopos, userTemp);
+        make_directory(utenti[totUtenti].intopos);
+        strcat(utenti[totUtenti].intopos, "/intolleranze.txt");
+        while(flag){
+            system("@cls||clear");
+            if(utenti[totUtenti].totinto=0){
+                fputs("Desideri inserire qualche intolleranza?\n"
+                    "s/n\n"
+                    ">>> ", stdout);
+            }else{
+                fputs("Desideri inserire qualche altra intolleranza?\n"
+                    "s/n\n"
+                    ">>> ", stdout);
+            }
+            scelta=getchar();
+            clearBuffer();
+            switch(scelta){
+                case 's':
+                    if(addIntollerance(utenti[totUtenti].intolleranze[utenti[totUtenti].totinto], elencoCategorie, *&totCat)){
+                        utenti[totUtenti].totinto++;
+                    }
+                break;
+                case 'n':
+                    flag=0;
+                break;
+                default:
+                    system("@cls||clear");
+                    puts("<!> Inserisci un valore corretto\n");
+                break;
+            }    
+        }
         return 1;
     }else{
         return 0;

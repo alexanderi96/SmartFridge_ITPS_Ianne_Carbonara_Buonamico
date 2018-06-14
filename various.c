@@ -5,7 +5,7 @@
 #include <time.h>
 
 //definisco globalmente la posizione dei vari file
-const char accountlocation[] = "./database/account.txt";
+const char accountlocation[] = "./database/account/accountlist.txt";
 const char listlocation[] = "./database/listaspesa.txt";
 const char dispensalocation[] = "./database/dispensa.txt";
 const char databaseAlimenti[] = "./database/databaseAlimenti.txt";
@@ -17,7 +17,8 @@ const char menulocation[] = "./database/menusettimanale.txt";
 
 
 //definisco globalmente la posizione delle varie sottocartelle
-const char databasedir[] = "database";
+const char databasedir[] = "./database/";
+const char accountdir[] = "./database/account/";
 const char ricettedir[] = "./database/ricette/";
 
 
