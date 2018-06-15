@@ -1,0 +1,4 @@
+pollo proteine 100 111
+zenzero ortaggi_frutta_verdura 20 16
+mandorle ortaggi_frutta_verdura 40 231
+scalogno ortaggi_frutta_verdura 30 6
