@@ -6,5 +6,14 @@ verrà generato un menù settimanale in comune per tutti, nel momento in cui si 
 #include "various.h"
 
 vodi generaMenu(Alimento dispensa, int totAliemnti, Ricetta ricette, int totricette){
+	/*
+	cosa ci serve ? creare un menù settimanale in maniera casuale adatto a tutti gli utenti
+	nel momento in cui si riscontrano delle intolleranze andiamo a modificare il menù per quella singola persona
+	andando a sostituire gli alimenti problematici con alimenti adatti 
+		METODI DI SALVATAGGIO
+		-su un nuovo file
+		-non salviamo su file, ma nel momento in cui noi avremo bisogno di mostrare un altro alimento
+		 comunicheremo semplcemente l'alimento adatto a quella persona in quella determinata occasione
 
+	*/
 }

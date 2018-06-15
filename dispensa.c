@@ -55,9 +55,11 @@ int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]){
 
 void showAlimDisp(Alimento dispensa[], int totAlimenti){
 	if (totAlimenti>0){
-		printf("Nome\tCategoria\tQuantita'\tScadenza\tkcal per singolo elemento\n");
+		printf("|%-20s|%-20s|%-20s|%-20s|%-20s|\n","Nome","Categoria","Quantita'","Scadenza","kcal X 100g");
+		puts("|--------------------|--------------------|--------------------|--------------------|--------------------|");
+
 		for (int i = 0; i < totAlimenti; ++i){
-			printf("%s\t%s\t%d\t%2d.%2d.%4d\t%d\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].quantita, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].kcal);
+			printf("|%-20s|%-20s|%-20d|%-2d.%2d.%-14d|%-20d|\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].quantita, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].kcal);
 		}
 		printf("\n");
 	}else{

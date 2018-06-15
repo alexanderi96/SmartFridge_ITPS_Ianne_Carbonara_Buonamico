@@ -10,9 +10,6 @@
 
 
 int main() {
-	
-	
-
     char elencoCategorie[totCategorie][maxCatLen];
     _Bool flag=1;
     char userTemp[25], passwd[25], userLogin[25], scelta;

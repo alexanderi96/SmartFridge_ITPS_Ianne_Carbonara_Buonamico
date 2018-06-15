@@ -11,9 +11,10 @@
 
 
 void showRecipes(Ricetta ricette[], int totRicette){
-	printf("\nNome\tPaese\n");
+	printf("\n|%-25s|%-25s|\n", "Nome", "Paese");
+	puts("|-------------------------|-------------------------|");
 	for (int i = 0; i < totRicette; ++i){
-		printf("%s\t%s\n", ricette[i].nome, ricette[i].paese);
+		printf("|%-25s|%-25s|\n", ricette[i].nome, ricette[i].paese);
 	}
 	printf("\n");
 }
