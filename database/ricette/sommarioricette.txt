@@ -1,4 +1,16 @@
-4
-cappuccino_di_topinambour italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 6 ./database/ricette/cappuccino_di_topinambour/preparazione.txt
+15
+cappuccino_di_topinambour italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt
 gnocchi_alla_romana italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt
-merluzzo_con_limone italia ./database/ricette/merluzzo_con_limone/ingredienti.txt 2 ./database/ricette/merluzzo_con_limone/ingredienti.txt/preparazione.txt
+matriciana italia ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+pasta_alla_carbonara ./database/ricette/matriciana/ingredienti.txt 6 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+pasta_alla_crema ./database/ricette/matriciana/ingredienti.txt 5 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+pasta_alla_ortolana ./database/ricette/matriciana/ingredienti.txt 9 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+pasta_con_ratatouille ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+penne_alla_sogliola ./database/ricette/matriciana/ingredienti.txt 4 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+pennette_alla_siciliana ./database/ricette/matriciana/ingredienti.txt 4 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+pollo_alle_mandorle ./database/ricette/matriciana/ingredienti.txt 4 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+quinoa_fantasia_di_verdure ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+riso_con_tofu ./database/ricette/matriciana/ingredienti.txt 4 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+risotto_valdostano ./database/ricette/matriciana/ingredienti.txt 7 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+spatzle_agli_spinaci ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+timballo_di_riso ./database/ricette/matriciana/ingredienti.txt 5 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
