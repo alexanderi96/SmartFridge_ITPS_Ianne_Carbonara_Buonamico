@@ -8,7 +8,10 @@
 #include "file.h"
 #include "dispensa.h"
 
-
+/* @Kri: La seguente funzione permette di visualizzare le ricette
+* La funzione stampa il nome della ricetta e il paese di provenienza
+* ....
+*/
 
 void showRecipes(Ricetta ricette[], int totRicette){
 	printf("\n|%-25s|%-25s|\n", "Nome", "Paese");
