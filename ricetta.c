@@ -8,7 +8,7 @@
 #include "file.h"
 #include "dispensa.h"
 
-/* @Kri: La seguente funzione permette di visualizzare le ricette
+/* @Kri: La seguente funzione permette di visualizzare le tutte ricette presenti
 * La funzione stampa il nome della ricetta e il paese di provenienza
 * ....
 */
