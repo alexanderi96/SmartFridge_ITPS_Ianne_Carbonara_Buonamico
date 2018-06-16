@@ -1,7 +1,7 @@
 15
 cappuccino_di_topinambour italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt
 gnocchi_alla_romana italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt
-matriciana italia ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
+matriciana ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/ingredienti.txt/preparazione.txt
 pasta_alla_carbonara italia ./database/ricette/pasta_alla_carbonara/ingredienti.txt 6 ./database/ricette/pasta_alla_carbonara/ingredienti.txt/preparazione.txt
 pasta_alla_crema italia ./database/ricette/pasta_alla_crema/ingredienti.txt 5 ./database/ricette/pasta_alla_crema/ingredienti.txt/preparazione.txt
 pasta_alla_ortolana italia ./database/ricette/pasta_alla_ortolana/ingredienti.txt 9 ./database/ricette/pasta_alla_ortolana/ingredienti.txt/preparazione.txt
