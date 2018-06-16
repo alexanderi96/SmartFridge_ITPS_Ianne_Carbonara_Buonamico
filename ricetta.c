@@ -22,6 +22,12 @@ void showRecipes(Ricetta ricette[], int totRicette){
 	printf("\n");
 }
 
+/* @Kri: La seguente funzione permette di inserire una nuova ricetta
+* La funzione controllerà se la ricetta esiste confrontando il nome della stesa
+* permette di inserire il nome della ricetta, il paese di provenienza e gli ingredienti
+* ....
+*/
+
 int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCatLen], int *totCat, Alimento database[], int *totDatabase){
     char ricTemp[25], scelta, fileTempNameIng[100], fileTempNamePrep[100];
     int pos, num;
