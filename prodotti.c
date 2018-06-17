@@ -92,7 +92,7 @@ int checkPresenceOrAdd(char elencoCategorie[][maxCatLen], int *totCat, Alimento 
    					case 's':
    						showCategories(elencoCategorie, *totCat);
    						fputs("Inserisci la categoria alla quale appartiene\n"
-   							"se la categoria che stai cercando non e' pressente puoi inserirla nel cammpo sottostante\n"
+   							"se la categoria che stai cercando non e' pressente puoi inserirla nel campo sottostante\n"
    							">>> ", stdout);
    						scanf("%s", categoriaTemp);
    						clearBuffer(); 
@@ -122,12 +122,12 @@ int checkPresenceOrAdd(char elencoCategorie[][maxCatLen], int *totCat, Alimento 
     						}
     						flag=0;
     					}		
-    					fputs("Inserisci la quantità di kcalorie del suddetto prodotto\n"
+    					fputs("Inserisci la quantità di kkal ogni 100 g/l del suddetto prodotto\n"
        						">>> ", stdout);
       					scanf("%d", &kcal);
        		 			clearBuffer(); 
 						system("@cls||clear");	
-       					fputs("Per quanti giorni puo essere tenuto in frigo il prodotto prima che debba essere buttato?\n"
+       					fputs("Per quanti giorni può essere tenuto in frigo il prodotto prima di cestinarlo?\n"
        						">>> ", stdout);
      					scanf("%d", &giorni);
        					clearBuffer(); 

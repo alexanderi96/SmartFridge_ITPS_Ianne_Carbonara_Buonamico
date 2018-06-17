@@ -1,3 +1,3 @@
 2
-alexanderi96 mandorla13 1 alessandro ianne 21 ./database/account/alexanderi96/intolleranze.txt 1
-asd asd 0 asd asd 123 ./database/account/asd/intolleranze.txt 0
+daniela daniela 1 daniela carbonara 22 ./database/account/daniela/intolleranze.txt 0
+cristian cristian 0 cristian buonamico 22 ./database/account/cristian/intolleranze.txt 0
