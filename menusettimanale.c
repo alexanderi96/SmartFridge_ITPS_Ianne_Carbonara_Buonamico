@@ -5,7 +5,7 @@ verrà generato un menù settimanale in comune per tutti, nel momento in cui si 
 */
 #include "various.h"
 
-vodi generaMenu(Alimento dispensa, int totAliemnti, Ricetta ricette, int totricette){
+vodi generaMenu(int menuSett[], Alimento dispensa, int totAliemnti, Ricetta ricette, int totricette){
 	/*
 	cosa ci serve ? creare un menù settimanale in maniera casuale adatto a tutti gli utenti
 	nel momento in cui si riscontrano delle intolleranze andiamo a modificare il menù per quella singola persona

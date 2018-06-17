@@ -13,5 +13,6 @@ void contaProdScad(Alimento dispensa[], int totAlimenti, int *countScad, int *co
 int isInScadenza(Alimento alimento);
 int rimScad(Alimento dispensa[], int *totAlimenti);
 void scalaStructA (Alimento alimento[], int *totAlim, int startPoint);
+void showSingleAlim(Alimento alimento);
 
 #endif

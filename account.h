@@ -9,5 +9,6 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
 int userAuth(Utente utenti[], int totUtenti, char user[], char passwd[]);
 int checkAdmin(Utente utenti[], int totUtenti, char user[]);
 int searchAccount(Utente utenti[], int totUtenti, char user[]);
+void showAccount(Utente utente);
 
 #endif

@@ -5,6 +5,8 @@
 
 int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCatLen], int *totCat, Alimento database[], int *totDatabase);
 void showRecipes(Ricetta ricette[], int totRicette);
+void showSingleRecipe(Ricetta ricetta);
+int calcTotKcal(Ricetta ricetta);
 int searchRecipes(Ricetta ricette[], int totRicette, char elemento[]);
 int rimrElem(Ricetta ricette[], int *totRicette);
 void scalarStruct (Ricetta ricette[], int totRicette, int startPoint);

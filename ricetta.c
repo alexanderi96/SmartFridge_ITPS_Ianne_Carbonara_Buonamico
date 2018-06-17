@@ -11,12 +11,23 @@
 
 
 void showRecipes(Ricetta ricette[], int totRicette){
-	printf("\n|%-25s|%-25s|\n", "Nome", "Paese");
-	puts("|-------------------------|-------------------------|");
+	printf("\n|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione");
+	puts("|------------------------------|------------------------------|------------------------------|");
 	for (int i = 0; i < totRicette; ++i){
-		printf("|%-25s|%-25s|\n", ricette[i].nome, ricette[i].paese);
+		printf("|%-30s|%-30s|%-25d min.|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep);
 	}
-	printf("\n");
+}
+
+void showSingleRecipe(Ricetta ricetta){
+	printf("|%-30s|%-30s|%-25d min.|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep);
+}
+
+int calcTotKcal(Ricetta ricetta){
+	int totKcal=0;
+	for (int i = 0; i < ricetta.totIngredienti; ++i){
+		totKcal=totKcal+ricetta.ingredienti[i].kcal;
+	}
+	return totKcal;
 }
 
 int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCatLen], int *totCat, Alimento database[], int *totDatabase){
@@ -63,6 +74,9 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
     			puts("<!> scelta errata\n");
     		}
     	}
+    	fputs("Quanto ci vuole a preparare questa ricetta?\n"
+        	">>> ", stdout);
+        scanf("%d", &ricette[*totRicette].tempoPrep);
     	createNewFile(ricette[*totRicette].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
     	createNewFile(ricette[*totRicette].prepaPos);
         *totRicette=*totRicette+1;

@@ -7,6 +7,10 @@
 #include "ricetta.h"
 #include <time.h>
 #include "dispensa.h"
+#include "prodotti.h"
+#include "ingrediente.h"
+#include "mainmenu.h"
+#include "intolleranze.h"
 
 int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], char elencoCategorie[][maxCatLen], int *totCat){
 	//gestione dell'orario
@@ -19,13 +23,14 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
 
+    int menu[totPastiSett];
     
     Spesa lista[maxAlimenti];
-    char scelta;
+    char scelta, searchWord[50];
     int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
-    FILE *dis, *spe, *ric, *menu;
+    FILE *dis, *spe, *ric, *menuPtr;
     
     /*
     andiamo a controllare se è presente una qualche dispensa, altrimenti la andiamo a creare
@@ -39,12 +44,12 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     caricamento menù settimanale
     */
     
-    if(NULL==(menu=fopen(menulocation,"r"))){  
+    if(NULL==(menuPtr=fopen(menulocation,"r"))){  
         createNewFile(menulocation);
     }else{
         loadMenu(menulocation, menuSettimanale);
     }
-    fclose(menu);
+    fclose(menuPtr);
     
     /*
     fine caricamento menù
@@ -71,7 +76,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     }
     fclose(spe);
 
-
+    contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
     system("@cls||clear");
     while(1){
     	
@@ -80,36 +85,36 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 
 
 
-        contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
+        
         if(contInScad>0){
-        	printf("Ci sono %d prodotti in scadenza\ndi coneguenza la ricetta consigliata per consumare questi prodotti e': %s\n\n", contInScad, ricette[calcolaRicettaConsigliata(dispensa, totAlimenti, ricette, totRicette)].nome);
+        	printf("Ci sono %d prodotti in scadenza\n\n", contInScad);
         }
         if(contScad>0){
-            printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura guidata per l'eleiminazione\n", contScad);
+            printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura per l'eleiminazione\n", contScad);
             system("PAUSE");
             rimScad(dispensa, &totAlimenti);
+            contScad=0;
         }
 
         fputs("1. Gestione ricette\n"
             "2. Gestione intolleranze\n"
             "3. Gestione lista della spesa\n"
             "4. Gestione della dispensa\n"
-            "5. Impostazioni\n\n"
+            "5. Impostazioni\n"
+            "6. Cerca\n\n" //funzione che permette di effettuare una ricerca in TUTTO il database, stampando informazioni sui risultati! esattamente come una pagina google
             "0. Logout\n"
             ">>> ", stdout);
-        scelta = getchar(); //Permette di svuotare il buffer della tastiera
-        clearBuffer();
+        scelta = getchar(); 
+        clearBuffer(); //Permette di svuotare il buffer della tastiera
         system("@cls||clear");
         switch(scelta){
             case '1':
                 flag=1;
                 while(flag){
-                    //è proprio qui che voglio inserire un commento!
                     fputs("Gestione ricette\n\n"
                         "1. Aggiungi una nuova ricetta\n"
                         "2. Visualizza le ricette\n"
-                        "3. Ricerca per ingrediente\n"
-                        "4. Rimuovi ricetta\n\n"
+                        "3. Rimuovi ricetta\n\n"
                         "0. Indietro\n"
                         ">>> ", stdout);
                     scelta = getchar();
@@ -128,29 +133,19 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             
                         break;
                         case '2':
-                            puts("3. Visualizzazione delle ricette disponibili\n");
+                            puts("2. Visualizzazione delle ricette disponibili\n");
                             showRecipes(ricette, totRicette);
                             puts("\n\nPremi un tasto per tornare indietro...\n");
                             getchar();
-                            clearBuffer();
                             system("@cls||clear");
                         break;
-                        case '3':
-                        break;
-                        case '4':
-
-                            
+                        case '3': 
                             if(totRicette>0){
-     
                                 system("@cls||clear");
-                                rimrElem(ricette, &totRicette);
-                                
-                                
+                                rimrElem(ricette, &totRicette);  
                             }else{
-                                puts("<!> Non è presente alcuna ricetta\n");
+                                puts("<!> Non e' presente alcuna ricetta\n");
                             }
-                            
-
                         break;
                         case '0':
                             flag=0;
@@ -209,7 +204,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                 }
                                 saveList(listlocation, lista, totElem);
                             }else{
-                                puts("<!> Non è presente nessun elemento nella lista della spesa\n\n");
+                                puts("<!> Non e' presente nessun elemento nella lista della spesa\n\n");
                             }
                         break;
                         case '3':
@@ -367,6 +362,23 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 }
                 //alimento_input
             break;
+            case '6':
+                system("@cls||clear");
+                fputs("6. Cerca\n\n"
+                    "Questa funzione ti permette di ottenere informazioni riguardo tutto cio' che e' immagazzinato in questo programma\n"
+                    "inserisci semplicemente il nome di un prodotto, una ricetta oppure un username, qua sotto ti comparira' tutto quello di cui hai bisogno!\n\n"
+                    ">>> ", stdout);
+                scanf("%s", searchWord);
+                clearBuffer();
+                if(!globalSearch(searchWord, utenti, *totUtenti, dispensa, totAlimenti, ricette, totRicette, database, totDatabase, lista, totElem)){
+                    system("@cls||clear");
+                    puts("<!> Nessuna corrispondenza\n");
+                }else{
+                    puts("\nPremi un tasto per continuare...");
+                    getchar();
+                    system("@cls||clear");
+                }
+            break;
             case '0':
             		return 1;
             break;
@@ -375,5 +387,74 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
             break;
         }
+    }
+}
+
+int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette, Alimento databaseAlimenti[], int totAlimDat, Spesa lista[], int totElemLista){
+    int totRis=0; //indica il numero di corrispondenze
+    int posDat=searchAlimNocat(databaseAlimenti, totAlimDat, searchWord);
+    int posDisp=searchAlimDisp(dispensa, totAlimenti, searchWord);
+    int posRic=searchRecipes(ricette, totRicette, searchWord);
+    int posSpe=searchElement(lista, totElemLista, searchWord);
+    int posAcc=searchAccount(account, totAccount, searchWord);
+    _Bool flagIng=0;
+    
+    puts("|--------------------------------------------------------------------------------------------|");  
+    if (posDat>-1){
+        printf("|%-92s|\n", "Info di base dell'alimento:");
+        printf("|Nome: %-86s|\n"
+            "|Categoria: %-81s|\n"
+            "|Giorni massimi di utilizzo prima della scadenza: %-43d|\n"
+            "|Kcal per 100g: %-77d|\n|%-92s|\n", databaseAlimenti[posDat].nome, databaseAlimenti[posDat].categoria, databaseAlimenti[posDat].giorniMaxUtil, databaseAlimenti[posDat].kcal, "");
+        if(posSpe>-1){
+            //dico se è presente nella lista della spesa
+            printf("|Nella lista della spesa hai %-2d unita' di questo prodotto%-36s|\n|%-92s|\n", lista[posSpe].quantita, "", "");
+        }else{
+            printf("|Questo prodotto non e' presente nella tua lista della spesa%-32s|\n", "");
+        }
+        if (posDisp>-1){
+            printf("|Hai %-3d unita' di questo prodotto in dispensa%-47s|\n|%-92s|\n", dispensa[posDisp].quantita, "", "");
+            if(isInScadenza(dispensa[posDisp])==1){
+                printf("|Attenzione, il seguente alimento scadra' il giorno %2d.%2d.%4d%-31s|\n", dispensa[posDisp].scadenza.gg, dispensa[posDisp].scadenza.mm, dispensa[posDisp].scadenza.aaaa, "");
+            }
+        }else{
+            printf("|Questo prodotto non è presente in dispensa%-50s|\n", "");
+        }
+        for (int i = 0; i < totRicette; ++i){
+            if(searchIngredient(ricette[i].ingredienti, ricette[i].totIngredienti, searchWord)>-1){
+                if(!flagIng){
+                    puts("Inoltre il prodotto e'presente nelle seguenti ricette:\n");
+                    printf("\n|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione");
+                    puts("|------------------------------|------------------------------|------------------------------|");
+                    flagIng=1;
+                }
+                showSingleRecipe(ricette[i]);
+          }
+        } //ho finito di mostrare le ricette
+
+    }
+    
+    if(posRic>-1){
+        printf("|Info relative alla ricetta:%-65s|\n", "");
+        printf("|Nome ricetta: %-78s|\n"
+            "|Nazione: %-83s|\n"
+            "|Tempo di preparazione: %-3d min.%-61s|\n|%-92s|", ricette[posRic].nome, ricette[posRic].paese, ricette[posRic].tempoPrep, "", "");
+        showIngredients(ricette[posRic].ingredienti, ricette[posRic].totIngredienti);
+        printf("|%-92s|Numero totale di kcal:%d\n", "", calcTotKcal(ricette[posRic]));
+    }
+    if(posAcc>-1){
+        printf("|Info relative all'account:%-66s|\n|%-92s|\n", "", "");
+        showAccount(account[posAcc]);
+        if(account[posAcc].totinto>0){
+            printf("|--------------------------------------------------------------------------------------------|------------------------------|\n"
+                "|%-92s|\n|%-92s|\n", "L'utente e' intollerante alle seguenti categorie di prodotti:", "");
+            showInto(account[posAcc].intolleranze, account[posAcc].totinto);
+        }
+    }
+     puts("|--------------------------------------------------------------------------------------------|");
+    if(posDat == -1 && posAcc == -1 && posRic == -1){
+        return 0;
+    }else{
+        return 1;
     }
 }

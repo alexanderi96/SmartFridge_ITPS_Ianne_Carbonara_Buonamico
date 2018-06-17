@@ -9,6 +9,7 @@
 #define maxIngredienti 20
 #define maxCatLen 25
 #define totCategorie 50
+#define totPastiSett 14
 
 //struttura creata per la gestione delle date
 typedef struct{
@@ -59,6 +60,7 @@ typedef struct{
 	Ingredienti ingredienti[maxIngredienti];
 	int totIngredienti; 
 	char prepaPos[100]; //collegamento al nome del file che contiene la preparazione
+	int tempoPrep;
 }Ricetta;
 
 void clearBuffer();

@@ -8,14 +8,14 @@
 
 void showList(Spesa Elementlista[], int totElem){
 	if (totElem>0){
-		printf("|%-20s|%-20s|%-20s|\n", "Nome", "Categoria", "Quantità");
-		puts("|--------------------|--------------------|--------------------|");
+		printf("|%-20s|%-30s|%-20s|\n", "Nome", "Categoria", "Quantità");
+		puts("|--------------------|------------------------------|--------------------|");
 		for (int i = 0; i < totElem; ++i){
-			printf("|%-20s|%-20s|%-20d|\n", Elementlista[i].nome, Elementlista[i].categoria, Elementlista[i].quantita);
+			printf("|%-20s|%-30s|%-20d|\n", Elementlista[i].nome, Elementlista[i].categoria, Elementlista[i].quantita);
 		}
 		printf("\n");
 	}else{
-		puts("<!> Non è presente alcun alimento nella lista della spesa");
+		puts("<!> Non e' presente alcun alimento nella lista della spesa");
 	}
 }
 
@@ -26,7 +26,7 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
     _Bool flag=1;
     while(flag){
     	flag=1;
-    	fputs("Quale è il nome dell'alimento da aggiungere alla lista della spesa??\n"
+    	fputs("Quale e' il nome dell'alimento da aggiungere alla lista della spesa?\n"
        		">>> ", stdout);
 		scanf("%s", alimentsTemp);
 		clearBuffer(); 
@@ -41,7 +41,7 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
    				while(flag){
    					flag=0;
    					system("@cls||clear");
-    				fputs("<!> Alimento già presente nella lista della spesa\n\n"
+    				fputs("<!> Alimento gia' presente nella lista della spesa\n\n"
     					"vuoi aggiungerne altri? s/n\n"
     					">>> ", stdout);
     				scelta=getchar();

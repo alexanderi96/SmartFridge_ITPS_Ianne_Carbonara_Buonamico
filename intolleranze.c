@@ -47,3 +47,9 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
     	strcpy(intolleranze, tempCat);
     }
 }
+
+void showInto(char intolleranze[][maxCatLen], int totInto){
+	for (int i = 0; i < totInto; ++i){
+		printf("%s\n", intolleranze[i]);
+	}
+}

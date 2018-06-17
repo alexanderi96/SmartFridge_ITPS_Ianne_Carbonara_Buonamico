@@ -1,4 +1,2 @@
-3
-banana ortaggi_frutta_verdura 4
-manzo proteine 2
-merluzzo pesce 2
+1
+banana ortaggi_frutta_verdura 2

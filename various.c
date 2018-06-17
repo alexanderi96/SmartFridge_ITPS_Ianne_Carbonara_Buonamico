@@ -64,3 +64,4 @@ void setCurrentDate(Data *data, int giorniSupp){
 		data->gg=giorniSupp+tm.tm_mday;
 	}
 }
+

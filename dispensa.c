@@ -55,11 +55,11 @@ int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]){
 
 void showAlimDisp(Alimento dispensa[], int totAlimenti){
 	if (totAlimenti>0){
-		printf("|%-20s|%-20s|%-20s|%-20s|%-20s|\n","Nome","Categoria","Quantita'","Scadenza","kcal X 100g");
-		puts("|--------------------|--------------------|--------------------|--------------------|--------------------|");
+		printf("|%-20s|%-30s|%-20s|%-20s|%-20s|\n","Nome","Categoria","Quantita'","Scadenza","kcal X 100g");
+		puts("|--------------------|------------------------------|--------------------|--------------------|--------------------|");
 
 		for (int i = 0; i < totAlimenti; ++i){
-			printf("|%-20s|%-20s|%-20d|%-2d.%2d.%-14d|%-20d|\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].quantita, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].kcal);
+			printf("|%-20s|%-30s|%-20d|%-2d.%2d.%-14d|%-20d|\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].quantita, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].kcal);
 		}
 		printf("\n");
 	}else{
@@ -95,12 +95,17 @@ int isInScadenza(Alimento alimento){
 }
 
 int rimScad(Alimento dispensa[], int *totAlimenti){
+	puts("I seguenti alimenti verranno eliminati dalla dispensa:\n");
+	printf("|%-20s|%-30s|%-20s|%-20s|%-20s|\n","Nome","Categoria","Quantita'","Scadenza","kcal X 100g");
+	puts("|--------------------|------------------------------|--------------------|--------------------|--------------------|");
 	for (int i = 0; i < *totAlimenti; ++i){
 		if(isInScadenza(dispensa[i])==2){
+			showSingleAlim(dispensa[i]);
 			scalaStructA(dispensa, *&totAlimenti, i);
 			i=0;
 		}
 	}
+	puts("");
 	saveStorage(dispensalocation, dispensa, *totAlimenti);
 	return 1;
 }
@@ -110,4 +115,8 @@ void scalaStructA (Alimento alimento[], int *totAlim, int startPoint){
 		alimento[i] = alimento[i+1];
 	}
 	*totAlim=*totAlim-1;
+}
+
+void showSingleAlim(Alimento alimento){
+	printf("|%-20s|%-30s|%-20d|%-2d.%2d.%-14d|%-20d|\n", alimento.nome, alimento.categoria, alimento.quantita, alimento.scadenza.gg, alimento.scadenza.mm, alimento.scadenza.aaaa, alimento.kcal);
 }

@@ -16,7 +16,7 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
     scanf("%s", userTemp);
     system("@cls||clear");
     clearBuffer();
-    if(!searchAccount(utenti, totUtenti, userTemp)){
+    if(-1==searchAccount(utenti, totUtenti, userTemp)){
         utenti[totUtenti].totinto=0;
         strcpy(utenti[totUtenti].user, userTemp);
         fputs("Inserisci il tuo nome\n"
@@ -100,8 +100,31 @@ int checkAdmin(Utente utenti[], int totUtenti, char user[]){
 int searchAccount(Utente utenti[], int totUtenti, char user[]){
     for (int i = 0; i < totUtenti; ++i) {
         if(0 == strcmp(user, utenti[i].user)){
-            return 1;
+            return i;
         }
     }
-    return 0;
+    return -1;
+}
+
+void showAccount(Utente utente){
+    char isadmin[6];
+    /*
+    char user[25];
+    char nome[25];
+    char cognome[25];
+    char password[25];
+    int eta;
+    _Bool isadmin;
+    char intopos[50];
+    int totinto;
+    char intolleranze[maxCatLen][maxCatLen];
+    */
+    if(utente.isadmin){
+        strcpy(isadmin, "Admin");
+    }else{
+        strcpy(isadmin, "Normal");
+    }
+    printf("|%-30s|%-30s|%-30s|\n"
+        "|------------------------------|------------------------------|------------------------------|------------------------------|\n"
+        "|%-30s|%-30s|%-30s|%-30s|\n", "Username","Nome", "Cognome", utente.user, utente.nome, utente.cognome, isadmin);
 }
