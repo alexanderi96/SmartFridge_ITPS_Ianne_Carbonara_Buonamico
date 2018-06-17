@@ -84,7 +84,12 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
     }
 }
 
-//inserimento ricette da approvare
+//inserimento ricette da approvare <-- Commento di Ale
+
+/* @Kri: La seguente funzione controlla se data in input una stringa esiste una ricetta con lo stesso nome
+* confrontando il nome della nuova ricetta con quelle già presenti
+* ...
+*/
 
 
 int searchRecipes(Ricetta ricette[], int totRicette, char elemento[]){
@@ -95,6 +100,10 @@ int searchRecipes(Ricetta ricette[], int totRicette, char elemento[]){
     }
     return -1;
 }
+
+/* @Kri: La seguente funzione permette di eliminare una ricetta
+* ...
+*/
 
 int rimrElem(Ricetta ricette[], int *totRicette){
 	char ricTemp[25], scelta;
@@ -121,7 +130,7 @@ int rimrElem(Ricetta ricette[], int *totRicette){
 					case 's':
 						scalarStruct(ricette, *totRicette, pos);
 						*totRicette=*totRicette-1;
-						saveRecipes(repiceslocation, ricette, *totRicette);
+						saveRecipes(repiceslocation, ricette, *totRicette); //@Kri: Ale ma questa funzione dove la trovo ?
 						return 2;
 					break;
 					case 'n':
@@ -140,16 +149,26 @@ int rimrElem(Ricetta ricette[], int *totRicette){
 	}
 }
 
+/* @Kri: la seguente funzione (dovrebbe confrontare le ricette e quindi le posizione degli indici)
+* "Non ho capito bene ancora cosa faccia" appena finisco tutto poi la rivedo
+* ...
+*/
+
 void scalarStruct (Ricetta ricette[], int totRicette, int startPoint){
 	for (int i = startPoint; i < totRicette-1; ++i){
 		ricette[i] = ricette[i+1];
 	}
 }
 
+/*@Kri: la seguente funzione permette di calcolare la ricetta consigliata per l'utente
+* considerando gli alimenti prossimi alla scadenza in base alla dispensa disponibile
+* ...
+*/
+
 int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette){
 	int count=0;
 	for (int i = 0; i < totAlimenti; ++i){
-		if(isInScadenza(dispensa[i])){
+		if(isInScadenza(dispensa[i])){ //@Kri: Ale ma questa funzione dove la trovo ?
 			for (int j = 0; j < totRicette; ++j){
 				for (int k = 0; k < ricette[j].totIngredienti; ++k){
 					if(strcmp(dispensa[i].nome, ricette[j].ingredienti[k].nome)==0){
