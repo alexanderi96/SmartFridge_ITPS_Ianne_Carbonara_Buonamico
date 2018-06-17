@@ -1,3 +1,0 @@
-2
-daniela daniela 1 daniela carbonara 22 ./database/account/daniela/intolleranze.txt 0
-cristian cristian 0 cristian buonamico 22 ./database/account/cristian/intolleranze.txt 0
