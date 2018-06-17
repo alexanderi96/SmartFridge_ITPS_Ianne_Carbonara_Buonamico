@@ -8,9 +8,10 @@
 
 void showList(Spesa Elementlista[], int totElem){
 	if (totElem>0){
-		printf("Nome\tCategoria\tQuantità\n");
+		printf("|%-20s|%-20s|%-20s|\n", "Nome", "Categoria", "Quantità");
+		puts("|--------------------|--------------------|--------------------|");
 		for (int i = 0; i < totElem; ++i){
-			printf("%s\t%s\t%d\n", Elementlista[i].nome, Elementlista[i].categoria, Elementlista[i].quantita);
+			printf("|%-20s|%-20s|%-20d|\n", Elementlista[i].nome, Elementlista[i].categoria, Elementlista[i].quantita);
 		}
 		printf("\n");
 	}else{

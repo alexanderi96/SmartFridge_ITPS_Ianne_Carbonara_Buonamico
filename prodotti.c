@@ -11,9 +11,10 @@
 #include "file.h"
 
 void showCategories(char elencoCategorie[][maxCatLen], int totCat){
-	puts("Elenco categorie\n");
+	printf("|%-20s|\n", "Elenco categorie");
+  puts("|--------------------|");
 	for (int i = 0; i < totCat; ++i){
-		printf("%s\n", elencoCategorie[i]);
+		printf("|%-20s|\n", elencoCategorie[i]);
 	}
 	puts("");
 }

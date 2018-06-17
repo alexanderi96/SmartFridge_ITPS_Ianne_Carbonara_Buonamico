@@ -1,0 +1,7 @@
+asparagi ortaggi_frutta_verdura 50 17
+scalogno ortaggi_frutta_verdura 20 4
+sale condimento 5 0
+pepe condimento 3 6
+olio condimento 20 90
+formaggio latticini 20 75
+riso carboidrati 100 362
