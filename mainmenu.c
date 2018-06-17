@@ -88,6 +88,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
         
         if(contInScad>0){
         	printf("Ci sono %d prodotti in scadenza\n\n", contInScad);
+            //da consigliare una ricetta
         }
         if(contScad>0){
             printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura per l'eleiminazione\n", contScad);
