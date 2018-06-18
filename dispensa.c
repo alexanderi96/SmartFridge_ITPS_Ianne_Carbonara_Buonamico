@@ -12,7 +12,7 @@
 
 
 
-int addAllToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase){
+int addAllToStorage(Dispensa dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase){
 	
 	int pos, posdatabase, maxgiornimese;
 	for (int i = 0; i < *totElemLista; ++i){
@@ -44,7 +44,7 @@ int addAllToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], i
 	return 1;
 }
 
-int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]){
+int searchAlimDisp(Dispensa dispensa[], int totAlimenti, char alim[]){
 	for (int i = 0; i < totAlimenti; ++i){
 		if(strcmp(dispensa[i].nome, alim) == 0){
 			return i;
@@ -53,7 +53,7 @@ int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]){
 	return -1;
 }
 
-void showAlimDisp(Alimento dispensa[], int totAlimenti){
+void showAlimDisp(Dispensa dispensa[], int totAlimenti){
 	if (totAlimenti>0){
 		printf("|%-20s|%-30s|%-20s|%-20s|%-20s|\n","Nome","Categoria","Quantita'","Scadenza","kcal X 100g");
 		puts("|--------------------|------------------------------|--------------------|--------------------|--------------------|");
@@ -67,7 +67,7 @@ void showAlimDisp(Alimento dispensa[], int totAlimenti){
 	}
 }
 
-void contaProdScad(Alimento dispensa[], int totAlimenti, int *countScad, int *countInScad){
+void contaProdScad(Dispensa dispensa[], int totAlimenti, int *countScad, int *countInScad){
 	int ris;
 	for (int i = 0; i < totAlimenti; ++i){
 		ris=isInScadenza(dispensa[i]);
@@ -79,7 +79,7 @@ void contaProdScad(Alimento dispensa[], int totAlimenti, int *countScad, int *co
 	}
 }
 
-int isInScadenza(Alimento alimento){
+int isInScadenza(Dispensa alimento){
 	Data data;
 	setCurrentDate(&data, 0);
 	if (alimento.scadenza.aaaa <= data.aaaa){
@@ -94,7 +94,7 @@ int isInScadenza(Alimento alimento){
 	return 0;
 }
 
-int rimScad(Alimento dispensa[], int *totAlimenti){
+int rimScad(Dispensa dispensa[], int *totAlimenti){
 	puts("I seguenti alimenti verranno eliminati dalla dispensa:\n");
 	printf("|%-20s|%-30s|%-20s|%-20s|%-20s|\n","Nome","Categoria","Quantita'","Scadenza","kcal X 100g");
 	puts("|--------------------|------------------------------|--------------------|--------------------|--------------------|");
@@ -110,13 +110,17 @@ int rimScad(Alimento dispensa[], int *totAlimenti){
 	return 1;
 }
 
-void scalaStructA (Alimento alimento[], int *totAlim, int startPoint){
+void scalaStructA (Dispensa alimento[], int *totAlim, int startPoint){
 	for (int i = startPoint; i < *totAlim-1; ++i){
 		alimento[i] = alimento[i+1];
 	}
 	*totAlim=*totAlim-1;
 }
 
-void showSingleAlim(Alimento alimento){
-	printf("|%-20s|%-30s|%-20d|%-2d.%2d.%-14d|%-20d|\n", alimento.nome, alimento.categoria, alimento.quantita, alimento.scadenza.gg, alimento.scadenza.mm, alimento.scadenza.aaaa, alimento.kcal);
+void showSingleAlim(Dispensa elmento){
+	Alimento singAlim;
+	Categorie categoria;
+	loadSingleDatabaseAlimenti(databaseLocation, singAlim, elemento.id_alimento);
+	loadSingleCat(catLocation, categoria);
+	printf("|%-20s|%-30s|%-20d|%-2d.%2d.%-14d|%-20d|\n", singAlim.nome, categoria.categoria, elemento.quantita, elemento.scadenza.gg, elemento.scadenza.mm, elemento.scadenza.aaaa, database[i].kcal);
 }

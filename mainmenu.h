@@ -7,7 +7,7 @@
 
 #include "various.h"
 
-int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], char elencoCategorie[][maxCatLen], int *totCat);
+int mainmenu(int userId, int *totUtenti, Utente utenti[], Categorie elencoCategorie[], int *totCat);
 int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette, Alimento databaseAlimenti[], int totAlimDat, Spesa lista[], int totElemLista);
 
  

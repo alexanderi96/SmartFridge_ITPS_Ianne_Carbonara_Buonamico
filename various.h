@@ -19,41 +19,54 @@ typedef struct{
 }Data;
 
 typedef struct{
-    char nome[50];
-	char categoria[50];
+	int id;
+	char categoria[maxCatLen];
+}Categorie;
+
+typedef struct{
+	int id;
+	int id_alimento;
 	Data scadenza;
-	int giorniMaxUtil; //permette di capire quanti giorni può rimanere aperto un prodotto dopo l'apertura 
 	int quantita;
-	int kcal;
+}dispensa;
+
+typedef struct{
+	int id;
+    char nome[50];
+	int categoria;
+	int giorniMaxUtil; //permette di capire quanti giorni può rimanere aperto un prodotto dopo l'apertura 
+	int kcal; //per 100g
 }Alimento;
 
 typedef struct{
+	int id;
     char user[25];
     char nome[25];
     char cognome[25];
     char password[25];
-    int eta;
+    Data eta;
     _Bool isadmin;
     char intopos[50];
     int totinto;
-    char intolleranze[maxCatLen][maxCatLen];
+    int intolleranze[maxCatLen];
 }Utente;
 
 typedef struct{
-	char nome[50];
-	char categoria[50];
+	int id;
+	int id_alimento;
 	int quantita;
 }Spesa;
 
 typedef struct{
-    char nome[50];
-	char categoria[50];
+	int id;
+    int id_alimento;
 	//Intolleranze intolleranze[maxINtolleranze];
 	int quantita;
 	int kcal;
 }Ingredienti;
 
 typedef struct{
+	int id;
 	char nome[50];
 	char paese[50];
 	char ingrePos[100]; //collegamento al file degli ingredienti

@@ -10,11 +10,11 @@
 #include "various.h"
 #include "file.h"
 
-void showCategories(char elencoCategorie[][maxCatLen], int totCat){
+void showCategories(Categorie elencoCategorie[], int totCat){
 	printf("|%-20s|\n", "Elenco categorie");
   puts("|--------------------|");
 	for (int i = 0; i < totCat; ++i){
-		printf("|%-20s|\n", elencoCategorie[i]);
+		printf("|%-20s|\n", elencoCategorie[i].categoria);
 	}
 	puts("");
 }
@@ -28,10 +28,10 @@ void showAliments(Alimento database[], int totDatabase, char categoria[]){
 	}
 }
 
-int searchCat(char categorie[][maxCatLen], int totCat, char elemento[]){
+int searchCat(Categorie categorie[], int totCat, char elemento[]){
 	for (int i = 0; i < totCat; ++i) {
-        if(0 == strcmp(elemento, categorie[i])){
-            return i;
+        if(0 == strcmp(elemento, categorie[i].categoria)){
+            return categorie[i].id;
         }
     }
     return -1;
@@ -68,9 +68,10 @@ void addAliments(Alimento database[], int *totElencoAlim, char categoriaTemp[], 
     saveAlim(databaseAlimenti, database, *totElencoAlim);
 }
 
-void addCat(char categoriaTemp[], char elencoCategorie[][maxCatLen], int *totCat){
+void addCat(char categoriaTemp[], Categorie elencoCategorie[], int *totCat){
 	//da aggiungere i controlli per vedere se abbiamo riempito l'elenco categorie
-	strcpy(elencoCategorie[*totCat], categoriaTemp);
+	strcpy(elencoCategorie[*totCat].categoria, categoriaTemp);
+  elencoCategorie[*totCat].id=*totCat;
 	*totCat = *totCat+1;
 	saveCategories(catLocation, elencoCategorie, *totCat);
 }

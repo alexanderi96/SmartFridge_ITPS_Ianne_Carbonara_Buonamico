@@ -20,12 +20,14 @@ int saveRecipes(const char nome[], Ricetta ricette[], int totRicette);
 int saveIngredients(const char nome[], Ingredienti ingredienti[], int totIngredienti);
 int loadIngredients(const char nome[], Ingredienti ingredienti[], int totIngredienti);
 int loadDatabaseAlimenti(const char nome[], Alimento database[], int *numeroAlimenti);
-int loadCategories(const char nome[], char categorie[][maxCatLen], int *totCat);
-int saveCategories(const char nome[], char categorie[][maxCatLen], int totCat);
+int loadSingleDatabaseAlimenti(const char nome[], Alimento database, int id_alimento);
+int loadCategories(const char nome[], Categoria categorie[], int *totCat);
+int loadSingleCategories(const char nome[], Categorie categoria, int categoria);
+int saveCategories(const char nome[], Categoria categorie[], int totCat);
 int saveAlim(const char nome[], Alimento database[], int totDatabase);
 int loadMenu(const char nome[], int menu[]);
-int saveInto(const char nome[], char intolleranze[][maxCatLen], int totInto);
-int loadInto(const char nome[], char intolleranze[][maxCatLen], int totInto);
+int saveInto(const char nome[], int intolleranze[], int totInto);
+int loadInto(const char nome[], int intolleranze[], int totInto);
 int saveMenu(const char nome[], int menu[]);
 
 #endif

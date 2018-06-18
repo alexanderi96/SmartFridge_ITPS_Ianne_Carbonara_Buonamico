@@ -8,7 +8,7 @@
 
 
 
-int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCategorie[][maxCatLen], int *totCat){
+int createAccount(Utente utenti[], int totUtenti, int isadmin, Categorie elencoCategorie[], int *totCat){
     _Bool flag=1;
     char userTemp[25], scelta;
     fputs("Inserisci il nome utente\n"
@@ -29,9 +29,9 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
         scanf("%s", utenti[totUtenti].cognome);
         system("@cls||clear");
         clearBuffer();
-        fputs("Inserisci la tua età\n"
+        fputs("Inserisci la tua data di nascita in formato gg/mm/aaaa\n"
             ">>> ", stdout);
-        scanf("%d", &utenti[totUtenti].eta);
+        scanf("%2d/%2d/%4d", &utenti[totUtenti].eta.gg, &utenti[totUtenti].eta.mm, &utenti[totUtenti].eta.aaaa);
         system("@cls||clear");
         clearBuffer();
         fputs("Inserisci la password\n"
@@ -72,6 +72,7 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
                 break;
             }    
         }
+        utenti[totUtenti].id=totUtenti;
         return 1;
     }else{
         return 0;
@@ -82,10 +83,10 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
 int userAuth(Utente utenti[], int totUtenti, char user[], char passwd[]){
     for (int i = 0; i < totUtenti; ++i) {
         if(strcmp(user, utenti[i].user) == 0 && strcmp(passwd, utenti[i].password) == 0){
-            return 1;
+            return utenti[i].id;
         }
     }
-    return 0;
+    return -1;
 }
 
 int checkAdmin(Utente utenti[], int totUtenti, char user[]){
@@ -127,4 +128,14 @@ void showAccount(Utente utente){
     printf("|%-30s|%-30s|%-30s|\n"
         "|------------------------------|------------------------------|------------------------------|------------------------------|\n"
         "|%-30s|%-30s|%-30s|%-30s|\n", "Username","Nome", "Cognome", utente.user, utente.nome, utente.cognome, isadmin);
+}
+
+int getUser(Utente utenti[], int totUtenti, char username[], int userId){
+    for (int i = 0; i < totUtenti; ++i){
+        if(utenti[i].id==userId){
+            strcpy(username, utenti[i].username);
+            return 1;
+        }
+    }
+    return 0;
 }

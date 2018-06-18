@@ -12,21 +12,23 @@
 #include "mainmenu.h"
 #include "intolleranze.h"
 
-int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], char elencoCategorie[][maxCatLen], int *totCat){
+int mainmenu(int userId, int *totUtenti, Utente utenti[], Categorie elencoCategorie[], int *totCat){
 	//gestione dell'orario
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
     Ricetta ricette[maxRicette];
-    Ricetta menuSettimanale[7];
-    Alimento dispensa[maxAlimenti];
+
+    int menuSettimanale[totPastiSett];
+
+    Dispensa dispensa[maxAlimenti];
 
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
 
     int menu[totPastiSett];
     
     Spesa lista[maxAlimenti];
-    char scelta, searchWord[50];
+    char scelta, searchWord[50], username[maxRicette];
     int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     char userTemp;
@@ -77,6 +79,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     fclose(spe);
 
     contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
+    findUser(utenti, totUtenti, username, userId);
     system("@cls||clear");
     while(1){
     	
@@ -124,6 +127,13 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     switch (scelta){
                         case '1':
                             puts("Inserimento nuova ricetta\n");
+
+                            /*
+                            
+                            Sono arrivato qui ad adattare il programma con il nuovo sistema di id!
+
+                            */
+
                             if(checkAdmin(utenti, *totUtenti, username)){
                                 if (addRecipes(ricette, &totRicette, elencoCategorie, *&totCat, database, &totDatabase)){
         							

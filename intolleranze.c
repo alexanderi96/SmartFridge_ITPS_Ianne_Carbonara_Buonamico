@@ -5,7 +5,7 @@
 #include "file.h"
 #include "prodotti.h"
 
-int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatLen], int *totCat){
+int addIntollerance(int intolleranze, Categorie elencoCategorie[], int *totCat){
 	loadCategories(catLocation, elencoCategorie, *&totCat);
 	
 	_Bool flag=0;
@@ -16,7 +16,8 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
 		">>> ", stdout);
 	scanf("%s", tempCat);
 	clearBuffer();
-	if(searchCat(elencoCategorie, *totCat, tempCat)<0){
+	intoId=searchCat(elencoCategorie, *totCat, tempCat);
+	if(intoId<0){
     	//questa categoria non esiste
     	while(scelta!='s' || scelta!='n' && !flag){
     		flag=1;
@@ -30,7 +31,7 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
     			case 's':
     				system("@cls||clear");
     				addCat(tempCat, elencoCategorie, *&totCat);
-    				strcpy(intolleranze, tempCat);
+    				intolleranze=*totCat;
     				return 1;
     			break;
     			case 'n':
@@ -44,7 +45,7 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
     	}
     	flag=0;
     }else{
-    	strcpy(intolleranze, tempCat);
+    	intolleranze=intoId;
     }
 }
 

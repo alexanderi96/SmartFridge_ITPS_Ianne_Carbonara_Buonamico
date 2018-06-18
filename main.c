@@ -10,19 +10,18 @@
 
 
 int main() {
-    char elencoCategorie[totCategorie][maxCatLen];
+    Categorie elencoCategorie[totCategorie];
     _Bool flag=1;
     char userTemp[25], passwd[25], userLogin[25], scelta;
     Utente utenti[maxUtenti]; //vettore di utenti
-    int totUtenti=0, totCat=0;
+    int totUtenti=0, totCat=0, userId;
     FILE *pf;
     system("@cls||clear");
     while(flag){
     	
         fputs("Smart Fridge 0.03 Alpha\n\n"        
             "Nell'inserimento dei dati si raccomanda di non utilizzare spazi\n\n"
-            "1. Avviare la modalita' DEMO\n"
-            "2. Avviare il programma\n\n"
+            "1. Avviare il programma\n\n"
             "0. Termina programma\n"
             ">>> ", stdout);
         scelta = getchar();  
@@ -30,9 +29,6 @@ int main() {
         system("@cls||clear"); //pulisce la schermata video
         switch(scelta){
             case '1':
-                //avvia funzione demo... aggiornamento del 02.06.2018, forse non l'avremo mai hahaha non serve...
-                break;
-            case '2':
                 loadCategories(catLocation, elencoCategorie, &totCat);
                 //se è la prima volta va alla creazione di un account amministratore, altrimenti chiede username e password
                 //per vedere se è il primo avvio andremo a leggere un file binario dove ci sarà 0 se è il primo avvio, altrimenti 1 se esiste almeno un account
@@ -70,10 +66,12 @@ int main() {
                     fputs("Password\n"
                         ">>> ", stdout);
                     scanf("%s", passwd);
-                    if(userAuth(utenti, totUtenti, userLogin, passwd)){
+
+                    userId=userAuth(utenti, totUtenti, userLogin, passwd);
+                    if(-1<userId){
                         flag=1;
                         clearBuffer();
-                        mainmenu(userLogin, passwd, &totUtenti, utenti, elencoCategorie, &totCat);
+                        mainmenu(userId, &totUtenti, utenti, elencoCategorie, &totCat);
                     }else{
                         system("@cls||clear");
                         puts("<!> Username o password errati\n\n");
