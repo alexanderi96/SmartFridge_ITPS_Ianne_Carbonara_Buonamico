@@ -148,20 +148,6 @@ int loadRecipes(const char nome[], Ricetta ricette[], int *totRicette){
     return 1;
 }
 
-int loadMenu(const char nome[], Ricetta menu[]){
-    FILE *pf;
-    if(NULL==(pf=fopen(nome, "r"))){
-        fclose(pf);
-        return 0;
-    }else{
-        for (int i = 0; i < 7; ++i){
-            fscanf(pf, "%s %s %s %d %s\n", menu[i].nome, menu[i].paese, menu[i].ingrePos, &menu[i].totIngredienti, menu[i].prepaPos);
-            loadIngredients(menu[i].ingrePos, menu[i].ingredienti, menu[i].totIngredienti);
-        }
-    }
-    fclose(pf);
-    return 1;
-}
 
 int saveRecipes(const char nome[], Ricetta ricette[], int totRicette){
     FILE *pf;
@@ -297,4 +283,32 @@ int loadInto(const char nome[], char intolleranze[][maxCatLen], int totInto){
 	}
 	fclose(pf);
 	return 1;
+}
+
+int loadMenu(const char nome[], int menu[]){
+    FILE *pf;
+    if(NULL==(pf=fopen(nome, "r"))){
+        fclose(pf);
+        return 0;
+    }else{
+        for (int i = 0; i < totPastiSett, i=i+2){
+            fscanf(pf, "%d %d\n", &menu[i], &menu[i+1]);
+        }
+    }
+    fclose(pf);
+    return 1;
+}
+
+int saveMenu(const char nome[], int menu[]){
+    FILE *pf;
+    if(NULL==(pf=fopen(nome, "w"))){
+        fclose(pf);
+        return 0;
+    }else{
+        for (int i = 0; i < totPastiSett, i=i+2){
+            fprintf(pf, "%d %d\n", menu[i], menu[i+1]);
+        }
+    }
+    fclose(pf);
+    return 1;
 }
