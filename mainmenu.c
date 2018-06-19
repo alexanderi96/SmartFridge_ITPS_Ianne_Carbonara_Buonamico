@@ -251,7 +251,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                         }
                         			break;
                         			case '3':
-                        				//addToStorage();
+                        				addToStorage(dispensa, &totAlimenti, elencoCategorie, *&totCat, database, &totDatabase);
+                                        system("@cls||clear");
+                                        puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
                         			break;
                         			case '0':
                         				flag=0;

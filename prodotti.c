@@ -86,6 +86,7 @@ void addAliments(Alimento database[], int *totElencoAlim, char categoriaTemp[], 
   database[*totElencoAlim].giorniMaxUtil=giorniMaxUtil;
   int id_buffer[maxAlimenti];
   for (int i = 0; i < *totElencoAlim; ++i){
+    printf("%d\n", *totElencoAlim);
     id_buffer[i]=database[i].id_alimento;
   }
   database[*totElencoAlim].id_alimento=checkIdPresence(id_buffer, *totElencoAlim, 0);

@@ -4,7 +4,9 @@ latticini
 carboidrati
 legumi
 condimento
-ortaggi_frutta_verdura
+ortaggi
+frutta
+verdura
 bevande
 dolci
 carne
