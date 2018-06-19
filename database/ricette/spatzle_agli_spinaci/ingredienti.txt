@@ -1,4 +1,4 @@
-0 spinaci ortaggi_frutta_verdura 100 24
+0 spinaci verdura 100 24
 1 farina carboidati 100 314
 2 uova proteine 40 52
 3 acqua bevande 30 0

@@ -1,7 +1,7 @@
 0 pasta carboidrati 100 365
 1 guanciale proteine 30 196
 2 formaggio latticini 15 56
-3 pomodori ortaggi_frutta_verdure 50 10
+3 pomodori frutta 50 10
 4 sale condimento 5 0
 5 pepe condimento 3 22
 6 olio condimento 10 90

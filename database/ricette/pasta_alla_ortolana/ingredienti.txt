@@ -1,6 +1,6 @@
-0 melanzane ortaggi_frutta_verdura 20 1
-1 peperoni ortaggi_frutta_verdura 20 5
-2 pomodori ortaggi_frutta_verdura 20 4
+0 melanzane verdura 20 1
+1 peperoni verdura 20 5
+2 pomodori verdura 20 4
 3 pasta carboidrati 100 365
 4 formaggio latticini 30 112
 5 besciamella latticini 20 35

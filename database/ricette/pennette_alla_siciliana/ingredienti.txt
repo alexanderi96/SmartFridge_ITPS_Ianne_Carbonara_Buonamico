@@ -1,4 +1,4 @@
-0 pesto ortaggi_frutta_verdura 50 250
+0 pesto condimento 50 250
 1 pasta carboidrati 100 365
-2 pistacchi ortaggi_frutta_verdura 10 60
+2 pistacchi ortaggi 10 60
 3 pepe condimento 3 7

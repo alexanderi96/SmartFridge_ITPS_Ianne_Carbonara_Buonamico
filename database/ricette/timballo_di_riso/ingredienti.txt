@@ -1,5 +1,5 @@
-0 funghi ortaggi_frutta_verdura 100 21
+0 funghi verdura 100 21
 1 riso carboidrati 100 362
-2 scalogno ortaggi_frutta_verdura 20 5
+2 scalogno ortaggi 20 5
 3 olio condimento 20 90
 4 formaggio latticini 20 75

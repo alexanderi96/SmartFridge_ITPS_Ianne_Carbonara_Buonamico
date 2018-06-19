@@ -1,4 +1,4 @@
 0 pollo proteine 100 111
-1 zenzero ortaggi_frutta_verdura 20 16
-2 mandorle ortaggi_frutta_verdura 40 231
-3 scalogno ortaggi_frutta_verdura 30 6
+1 zenzero ortaggi 20 16
+2 mandorle ortaggi 40 231
+3 scalogno ortaggi 30 6
