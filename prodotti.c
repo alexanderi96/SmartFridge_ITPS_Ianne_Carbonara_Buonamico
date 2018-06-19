@@ -10,9 +10,6 @@
 #include "various.h"
 #include "file.h"
 
-/* La seguente funzione permette di visualizzare l'elenco completo delle categorie 
-*/
-
 void showCategories(char elencoCategorie[][maxCatLen], int totCat){
 	printf("|%-20s|\n", "Elenco categorie");
   puts("|--------------------|");
@@ -21,10 +18,6 @@ void showCategories(char elencoCategorie[][maxCatLen], int totCat){
 	}
 	puts("");
 }
-
-/* La seguente funzione permette di visualizzare l'elenco completo degli alimenti, suddivisi per categoria
-* la visualizzazione sarà composta dal nome, kcal e dai giorni massimi per l'utilizzo dell'alimento
-*/
 
 void showAliments(Alimento database[], int totDatabase, char categoria[]){
 	puts("Elenco categorie\n");
@@ -35,9 +28,6 @@ void showAliments(Alimento database[], int totDatabase, char categoria[]){
 	}
 }
 
-/* La seguente funzione permette di cercare una determinata categoria tra tutte quelle presenti
-*/
-
 int searchCat(char categorie[][maxCatLen], int totCat, char elemento[]){
 	for (int i = 0; i < totCat; ++i) {
         if(0 == strcmp(elemento, categorie[i])){
@@ -46,9 +36,6 @@ int searchCat(char categorie[][maxCatLen], int totCat, char elemento[]){
     }
     return -1;
 }
-
-/* La seguente funzione permette di cercare un determinato alimento tra tutti quelli presenti
-*/
 
 int searchAlim(Alimento database[], int totAlim, char elemento[], char categoria[]){
 	for (int i = 0; i < totAlim; ++i) {
@@ -62,10 +49,6 @@ int searchAlim(Alimento database[], int totAlim, char elemento[], char categoria
     return -1;
 } 
 
-/* La seguente funzione permette di cercare un determinato alimento preso in input senza passare da ogni categoria
-* questa funzione cercherà in tutto il database degli alimenti se l'elemento x cercato dall'utente è già presente
-*/
-
 int searchAlimNocat(Alimento database[], int totAlim, char elemento[]){
 	for (int i = 0; i < totAlim; ++i) {
         if (0 == strcmp(database[i].nome, elemento)){
@@ -75,10 +58,7 @@ int searchAlimNocat(Alimento database[], int totAlim, char elemento[]){
     return -1;
 }
 
-/* La seguente funzione permette di aggiungere un determinato alimento al database
-* la funzione restituirà 1 se viene aggiunta una nuova categoria
-*/
-
+//consente di aggiungere gli alimenti al database e ritorna 1 se ha aggiunto una nuova categoria
 void addAliments(Alimento database[], int *totElencoAlim, char categoriaTemp[], char alimentsTemp[], int kcal, int giorniMaxUtil){
 	strcpy(database[*totElencoAlim].categoria, categoriaTemp);
   strcpy(database[*totElencoAlim].nome, alimentsTemp);
@@ -149,7 +129,7 @@ int checkPresenceOrAdd(char elencoCategorie[][maxCatLen], int *totCat, Alimento 
     						}
     						flag=0;
     					}		
-    					fputs("Inserisci la quantità di kkal ogni 100 g/l del suddetto prodotto\n"
+    					fputs("Inserisci la quantità di kkal ogni 100 g/ml del suddetto prodotto\n"
        						">>> ", stdout);
       					scanf("%d", &kcal);
        		 			clearBuffer(); 

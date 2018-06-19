@@ -25,7 +25,7 @@ typedef struct{
 	Data scadenza;
 	int giorniMaxUtil; //permette di capire quanti giorni può rimanere aperto un prodotto dopo l'apertura 
 	int quantita;
-	int kcal;
+	int kcal; //relative a 100 g/ml di prodotto
 }Alimento;
 
 typedef struct{
@@ -52,8 +52,8 @@ typedef struct{
 	int id_ingredienti;
     char nome[50];
 	char categoria[50];
-	int quantita;
-	int kcal;
+	int quantita; //espressa in g/ml
+	int kcal; //kcal per la quantità di prodotto necessaria
 }Ingredienti;
 
 typedef struct{

@@ -91,8 +91,11 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
             //da consigliare una ricetta
         }
         if(contScad>0){
-            printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura per l'eleiminazione\n", contScad);
-            system("PAUSE");
+            printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura per l'eleiminazione\n"
+                "Premi invio per continuare\n", contScad);
+            
+            getchar();
+
             rimScad(dispensa, &totAlimenti, lista, &totElem);
             contScad=0;
         }
@@ -130,20 +133,29 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                     system("@cls||clear");
                                     puts("<*> Ricetta aggiunta correttamente\n");
                                 }
+                            }else{
+                                system("@cls||clear");
+                                puts("<*> Devi essere amministratore per aggiungere  una nuova ricetta\n");    
                             }
                             
                         break;
                         case '2':
                             puts("2. Visualizzazione delle ricette disponibili\n");
                             showRecipes(ricette, totRicette);
-                            puts("\n\nPremi un tasto per tornare indietro...\n");
+                            puts("\n\nPremi invio per tornare indietro...\n");
                             getchar();
                             system("@cls||clear");
                         break;
                         case '3': 
                             if(totRicette>0){
                                 system("@cls||clear");
-                                rimrElem(ricette, &totRicette);  
+                                if(!rimrElem(ricette, &totRicette)){
+                                    system("@cls||clear");
+                                    puts("<!> nessuna ricetta e' stata rimossa\n");
+                                }else{
+                                    system("@cls||clear");
+                                    puts("<*> Ricetta rimossa correttamente\n");
+                                }  
                             }else{
                                 puts("<!> Non e' presente alcuna ricetta\n");
                             }
