@@ -8,9 +8,8 @@
 #include "file.h"
 #include "dispensa.h"
 
-/* @Kri: La seguente funzione permette di visualizzare le tutte ricette presenti
-* La funzione stampa il nome della ricetta e il paese di provenienza
-* ....
+/* La seguente funzione permette di visualizzare tutte le ricette presenti
+* La funzione stamperà il nome della ricetta, il paese di provenienza e il tempo di preparazione
 */
 
 void showRecipes(Ricetta ricette[], int totRicette){
@@ -21,9 +20,16 @@ void showRecipes(Ricetta ricette[], int totRicette){
 	}
 }
 
+/* La seguente funzione permette di visualizzare una singola ricetta
+* La funzione stamperà il nome della ricetta, il paese di provenienza e il tempo di preparazione
+*/
+
 void showSingleRecipe(Ricetta ricetta){
 	printf("|%-30s|%-30s|%-25d min.|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep);
 }
+
+/* La seguente funzione permtte di determinare le Kcal totali per una ricetta
+*/
 
 int calcTotKcal(Ricetta ricetta){
 	int totKcal=0;
@@ -33,10 +39,9 @@ int calcTotKcal(Ricetta ricetta){
 	return totKcal;
 }
 
-/* @Kri: La seguente funzione permette di inserire una nuova ricetta
-* La funzione controllerà se la ricetta esiste confrontando il nome della stesa
-* permette di inserire il nome della ricetta, il paese di provenienza e gli ingredienti
-* ....
+/* La seguente funzione permette di inserire una nuova ricetta
+* La funzione controllerà se la ricetta esiste confrontando il nome della stessa,
+* permetterà di inserire il nome della ricetta, il paese di provenienza e gli ingredienti per prepararla
 */
 
 int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCatLen], int *totCat, Alimento database[], int *totDatabase){
@@ -106,11 +111,9 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
 
 //inserimento ricette da approvare <-- Commento di Ale
 
-/* @Kri: La seguente funzione controlla se data in input una stringa esiste una ricetta con lo stesso nome
-* confrontando il nome della nuova ricetta con quelle già presenti
-* ...
+/* La seguente funzione controlla se data in input una stringa esiste una ricetta con lo stesso nome,
+* La funzione confronterà il nome della nuova ricetta con il nome delle ricette già presenti
 */
-
 
 int searchRecipes(Ricetta ricette[], int totRicette, char elemento[]){
 	for (int i = 0; i < totRicette; ++i) {
@@ -121,8 +124,8 @@ int searchRecipes(Ricetta ricette[], int totRicette, char elemento[]){
     return -1;
 }
 
-/* @Kri: La seguente funzione permette di eliminare una ricetta
-* ...
+/* La seguente funzione permette di visualizzare tutte le ricette presenti e 
+* permette di eliminare una ricetta tra quelli presenti
 */
 
 int rimrElem(Ricetta ricette[], int *totRicette){
@@ -150,7 +153,7 @@ int rimrElem(Ricetta ricette[], int *totRicette){
 					case 's':
 						scalarStruct(ricette, *totRicette, pos);
 						*totRicette=*totRicette-1;
-						saveRecipes(repiceslocation, ricette, *totRicette); //@Kri: Ale ma questa funzione dove la trovo ?
+						saveRecipes(repiceslocation, ricette, *totRicette);
 						return 2;
 					break;
 					case 'n':
@@ -169,9 +172,8 @@ int rimrElem(Ricetta ricette[], int *totRicette){
 	}
 }
 
-/* @Kri: la seguente funzione (dovrebbe confrontare le ricette e quindi le posizione degli indici)
+/* La seguente funzione (dovrebbe confrontare le ricette e quindi le posizione degli indici)
 * "Non ho capito bene ancora cosa faccia" appena finisco tutto poi la rivedo
-* ...
 */
 
 void scalarStruct (Ricetta ricette[], int totRicette, int startPoint){
@@ -180,9 +182,8 @@ void scalarStruct (Ricetta ricette[], int totRicette, int startPoint){
 	}
 }
 
-/*@Kri: la seguente funzione permette di calcolare la ricetta consigliata per l'utente
+/* La seguente funzione permette di calcolare la ricetta consigliata per l'utente
 * considerando gli alimenti prossimi alla scadenza in base alla dispensa disponibile
-* ...
 */
 
 int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette){

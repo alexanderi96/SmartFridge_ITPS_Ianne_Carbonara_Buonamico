@@ -4,7 +4,12 @@
 #include "various.h"
 #include <time.h>
 
-//definisco globalmente la posizione dei vari file
+// Questo file si occupa dell'organizzazione del programma in modo generale per non avere dei file sparsi nel programma
+
+
+/* Definiamo globalmente la posizione dei vari file
+*/
+
 const char accountlocation[] = "./database/account/accountlist.txt";
 const char listlocation[] = "./database/listaspesa.txt";
 const char dispensalocation[] = "./database/dispensa.txt";
@@ -13,21 +18,24 @@ const char catLocation[] = "./database/categorie.txt";
 const char repiceslocation[] = "./database/ricette/sommarioricette.txt";
 const char menulocation[] = "./database/menusettimanale.txt";
 
+/* Definiamo globalmente la posizione delle varie sottocartelle
+*/
 
-
-
-//definisco globalmente la posizione delle varie sottocartelle
 const char databasedir[] = "./database/";
 const char accountdir[] = "./database/account/";
 const char ricettedir[] = "./database/ricette/";
 
+/* La seguente funzione permette di svuotare il buffer per le stringhe fornite in input
+* con medesima funzione considereremo solo il primo carattere o numero inserito
+*/
 
-//pulisce il buffer imput, non avremo più problemi del tipo "inserisci un valore corretto" dopo aver messo qualcosa in input
 void clearBuffer(){
 	while(getchar()!='\n');
 }
 
-//finzione utilizzata per la creazione di cartelle nella root del sorgente (non volevo avere file messi a caso nella root del programma)
+/* Definiamo la funzione per la creazione di cartelle nella root del sorgente
+*/
+
 void make_directory(const char* name){
    #ifdef __linux__
        mkdir(name, 777); 
@@ -35,6 +43,11 @@ void make_directory(const char* name){
        _mkdir(name);
    #endif
 }
+
+/* La seguente funzione permette di determinare in maniera esatta la data corrente per poi visualizzarla all'interno del programma
+* la data sarà visualizzata al momento del login e sarà utilizzata per le scadenze dei prodotti, quindi sarà utilizzata come un parametro
+* per controllare le scadenze dei prodotti
+*/
 
 void setCurrentDate(Data *data, int giorniSupp){
 	time_t t = time(NULL);
@@ -64,6 +77,8 @@ void setCurrentDate(Data *data, int giorniSupp){
 		data->gg=giorniSupp+tm.tm_mday;
 	}
 }
+
+// Ale cosa fai qui ?
 
 int checkIdPresence(int elencoid[], int totElem, int nextId){
 	for (int i = 0; i < totElem; ++i){

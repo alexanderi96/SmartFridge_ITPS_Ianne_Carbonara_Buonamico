@@ -6,6 +6,10 @@
 #include "file.h"
 #include "prodotti.h"
 
+/* La seguente funzione permette di visualizzare il nome, categoria e qualità
+* degli alimenti presenti nel frigo
+*/
+
 void showList(Spesa Elementlista[], int totElem){
 	if (totElem>0){
 		printf("|%-20s|%-30s|%-20s|\n", "Nome", "Categoria", "Quantità");
@@ -19,11 +23,11 @@ void showList(Spesa Elementlista[], int totElem){
 	}
 }
 
-/*
-tramite questa funzione andiamo a copiare degli alimenti specificici direttamente nella lista della spesa
-utile per acquistare gli alimenti che servono per fare una determinata ricetta che ancora ci mancano!
-o anche per ri scquistare gli alimenti che sono scaduti nel frattempo
+/* La seguente funzione permette di aggiungere degli specifici alimenti direttamente alla lista della spesa
+* questa funzione è utile per acquistare gli alimenti che servono per fare una determinata ricetta, che non sono presenti
+* nel frigo o che non sono mai stati comprati. La funzione permette anche di riacquistare gli alimenti che sono scaduti
 */
+
 int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento){
    	int posList = searchElement(listaSpesa, *totElemLista, alimento.nome);
    	if (posList>=0){
@@ -44,6 +48,11 @@ int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento){
     saveList(listlocation, listaSpesa, *totElemLista);
    	return 1;	
 }
+
+/* La seguente funzione permette di aggiungere un elemento alla lista della spesa
+* controllando se lo stesso è stato già aggiunto da altri utenti alla lista della spesa,
+* la funzione permetterà di specificare la qualità che si vuole comprare
+*/
 
 int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[][maxCatLen], int *totCat, Alimento databaseAlimenti[], int *totDatabaseAlimenti){
     char categoriaTemp[maxCatLen], scelta, alimentsTemp[maxCatLen];
@@ -110,6 +119,11 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
 	}
 }
 
+/* La seguente funzione permette di ricercare un elemento all'interno della lista degli alimenti
+* se l'alimento cercato dovesse essere presente la funzione restituirà la posizione dell'elemento cercato
+* in caso contrario restituirà un valore negativo, simbolo che l'alimento cercato non è presente
+*/
+
 int searchElement(Spesa Elementlista[], int totElem, char elemento[]){
 	for (int i = 0; i < totElem; ++i) {
         if(0 == strcmp(elemento, Elementlista[i].nome)){
@@ -119,6 +133,9 @@ int searchElement(Spesa Elementlista[], int totElem, char elemento[]){
     return -1;
 }
 
+/* La seguente funzione permette di eliminare un alimento della lista della spesa
+* specificando quanti alimenti devono rimanere nella lista della spesa
+*/
 
 int rimElem(Spesa lista[], int *totElem){
 	char elementTemp[25], scelta;
@@ -182,6 +199,10 @@ int rimElem(Spesa lista[], int *totElem){
 	}
 }
 
+/* La seguente funzione permette di ottenere la quantità di un determinato elemento
+* l'elemento cercato verrà confrontato e dopo i controlli verrà restituita la sua quantità
+*/
+
 int getQuantity(Spesa Elementlista[], int totElem, char elemento[], int pos){
 	if(pos>=0){
 		return Elementlista[pos].quantita;
@@ -194,6 +215,9 @@ int getQuantity(Spesa Elementlista[], int totElem, char elemento[], int pos){
 	}
     return -1;
 }
+
+/* La seguente funzione permette di diminuire gli elementi considerando le precedenti modifiche apportate al file spesa
+*/
 
 void scalaStruct (Spesa Elementlista[], int *totElem, int startPoint){
 	for (int i = startPoint; i < *totElem-1; ++i){
