@@ -100,7 +100,7 @@
 98 condimento formaggio 100 6
 99 condimento pepe 0 20
 100 condimento vino 0 7
-101 cereali semolino 63 30
+101 carboidrati semolino 350 30
 102 verdura finocchi 100 4
 103 condimento besciamella 200 3
 104 condimento pesto 150 5
