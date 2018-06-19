@@ -6,8 +6,10 @@
 //questa libreria sarà la copia esatta di account.c, permetterà di fare le stesse cose solo a livello di dispensa.
 
 int compareExpiry(Alimento alimento);
+//addToStorage(dispensa, &totAlimenti, elencoCategorie, *&totCat, databaseAlimenti, &totDatabase);
+int addToStorage(Alimento dispensa[], int *totAlimenti, char elencoCategorie[][maxCatLen], int *totCat, Alimento databaseAlimenti[], int *totDatabaseAlimenti);
 int addPartialToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase);
-void addNewAliment(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa, Alimento database[], int totDatabase);
+void addNewAliment(Alimento dispensa[], int *totAlimenti, char nome[], int quantita, Alimento database[], int totDatabase);
 int addAllToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase);
 int searchAlimDisp(Alimento dispensa[], int totAlimenti, char alim[]);
 void showAlimDisp(Alimento dispensa[], int totAlimenti);

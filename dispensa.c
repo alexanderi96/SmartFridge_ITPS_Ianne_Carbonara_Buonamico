@@ -8,7 +8,7 @@
 #include "file.h"
 
 
-//ritorna 1 se le date di scadenza coincidono, altriment 0 se non coincidono
+//ritorna 1 se le date di scadenza coincidono, altriment 0 se non coincidono. bisogna prendere in considerazione anche l'anno
 int compareExpiry(Alimento alimento){
 	Data confronto;
 	setCurrentDate(&confronto, alimento.giorniMaxUtil);
@@ -23,15 +23,15 @@ int compareExpiry(Alimento alimento){
 	}
 }
 
-/*
+
 int addToStorage(Alimento dispensa[], int *totAlimenti, char elencoCategorie[][maxCatLen], int *totCat, Alimento databaseAlimenti[], int *totDatabaseAlimenti){
-	Alimento appoggio;
+	Spesa appoggio;
     char categoriaTemp[maxCatLen], scelta, alimentsTemp[maxCatLen];
     int pos, posDisp, num, kcal, giorni;
-    _Bool flag=1;
+    _Bool flag=1, ifAdded=0;
     while(flag){
     	flag=1;
-    	fputs("Quale e' il nome dell'alimento da aggiungere al database?\n"
+	fputs("Quale e' il nome dell'alimento da aggiungere alla dispensa?\n"
        		">>> ", stdout);
 		scanf("%s", alimentsTemp);
 		clearBuffer(); 
@@ -53,50 +53,66 @@ int addToStorage(Alimento dispensa[], int *totAlimenti, char elencoCategorie[][m
     				clearBuffer(); 
     				switch(scelta){
     					case 's':
+    						ifAdded=1;
+    						system("@cls||clear");
     						puts("Quanti ne vuoi aggiungere?");
     						scanf("%d", &num);
-
+    						clearBuffer();
+                    
     						if(compareExpiry(dispensa[posDisp])){
     							dispensa[posDisp].quantita=dispensa[posDisp].quantita+num;
     						}else{
-    							addNewAliment(dispensa, *&totAlimenti, dispensa[posDisp], database, totDatabase);
-								scalaStruct(listaSpesa, *&totElemLista, posList);
+    							addNewAliment(dispensa, *&totAlimenti, alimentsTemp, num, databaseAlimenti, *totDatabaseAlimenti);
     						}
-
-    						
-    						
-   							return 1;
+    						//ho aggiunto un alimento (presente o non presente) nella dispensa
     					break;
     					case 'n':
-    						return 0;
+    						puts("<*> Alimento non inserito\n");
     					break;
     					default:
     						flag=1;
     					break;
     				}
-   				}		
+   				}
+   				flag=1;		
     		}else{
+    			ifAdded=1;
     			system("@cls||clear");
-    			strcat(dispensa[*totAlimenti].nome, databaseAlimenti[pos].nome);
-   				strcat(dispensa[*totAlimenti].categoria, databaseAlimenti[pos].categoria);
  				fputs("Quanti ne vuoi aggiungere alla dispensa?\n"
     				">>> ", stdout);
-       			scanf("%d", &dispensa[*totAlimenti].quantita);
+       			scanf("%d", &num);
        			clearBuffer(); 
 				system("@cls||clear");
-
-            	int id_buffer[maxAlimenti];
-   				for (int i = 0; i < pos; ++i){
-		   			id_buffer[i]=dispensa[i].id_alimento;
-    			}
-   				dispensa[pos].id_alimento=checkIdPresence(id_buffer, pos, 0);
-				*totAlimenti=pos+1;
-   				return 1;
+				addNewAliment(dispensa, *&totAlimenti, alimentsTemp, num, databaseAlimenti, *totDatabaseAlimenti);
     		}
-    	}	
-	}
+    	}
+    	flag=0;
+    	while(!flag){
+    		fputs("Vuoi aggiungere altri alimenti alla dispensa?\n"
+    			"s/n\n"
+    			">>> ", stdout);
+    		scelta=getchar();
+    		clearBuffer();
+    		switch(scelta){
+    			case 's':
+    				flag=1;
+    			break;
+    			case 'n':
+    				if(ifAdded){
+    					saveStorage(dispensalocation, dispensa, *totAlimenti);
+    					return 1;
+    				}
+    				return 0;
+    			break;
+    			default:
+    				flag=0;
+    			break;
+    		}	
+	
+    	}
+    }
 }
-*/
+
 
 int addPartialToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase){
 	Data confronto;
@@ -126,11 +142,11 @@ int addPartialToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[
     				dispensa[pos].quantita=dispensa[pos].quantita+listaSpesa[posList].quantita;
 					scalaStruct(listaSpesa, *&totElemLista, posList);
     			}else{
-    				addNewAliment(dispensa, *&totAlimenti, listaSpesa[posList], database, totDatabase);
+    				addNewAliment(dispensa, *&totAlimenti, listaSpesa[posList].nome, listaSpesa[posList].quantita, database, totDatabase);
 					scalaStruct(listaSpesa, *&totElemLista, posList);
     			}
 			}else{
-				addNewAliment(dispensa, *&totAlimenti, listaSpesa[posList], database, totDatabase);
+				addNewAliment(dispensa, *&totAlimenti, listaSpesa[posList].nome, listaSpesa[posList].quantita, database, totDatabase);
 				scalaStruct(listaSpesa, *&totElemLista, posList);
 			}
 		}
@@ -141,11 +157,11 @@ int addPartialToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[
 	return 1;
 }
 
-void addNewAliment(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa, Alimento database[], int totDatabase){
+void addNewAliment(Alimento dispensa[], int *totAlimenti, char nome[], int quantita, Alimento database[], int totDatabase){
 	int pos=*totAlimenti;
-	int posdatabase=searchAlimNocat(database, totDatabase, listaSpesa.nome);
-	strcpy(dispensa[pos].nome, listaSpesa.nome);
-	strcpy(dispensa[pos].categoria, listaSpesa.categoria);
+	int posdatabase=searchAlimNocat(database, totDatabase, nome);
+	strcpy(dispensa[pos].nome, database[posdatabase].nome);
+	strcpy(dispensa[pos].categoria, database[posdatabase].categoria);
 	dispensa[pos].giorniMaxUtil = database[posdatabase].giorniMaxUtil;
 	
 	/*
@@ -154,7 +170,7 @@ void addNewAliment(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa, Alim
 	setCurrentDate(&dispensa[pos].scadenza, dispensa[pos].giorniMaxUtil);
 
 			 
-	dispensa[pos].quantita = listaSpesa.quantita;
+	dispensa[pos].quantita = quantita;
 	dispensa[pos].kcal = database[posdatabase].kcal;
 	int id_buffer[maxAlimenti];
    	for (int i = 0; i < pos; ++i){
@@ -176,14 +192,14 @@ int addAllToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], i
 				if (confronto.gg==dispensa[pos].scadenza.gg){
 					dispensa[pos].quantita=dispensa[pos].quantita+listaSpesa[i].quantita;
 				}else{
-					addNewAliment(dispensa, *&totAlimenti, listaSpesa[i], database, totDatabase);
+					addNewAliment(dispensa, *&totAlimenti, listaSpesa[i].nome, listaSpesa[i].quantita, database, totDatabase);
 				}
 			}else{
-				addNewAliment(dispensa, *&totAlimenti, listaSpesa[i], database, totDatabase);
+				addNewAliment(dispensa, *&totAlimenti, listaSpesa[i].nome, listaSpesa[i].quantita, database, totDatabase);
 			}
 			
 		}else{
-			addNewAliment(dispensa, *&totAlimenti, listaSpesa[i], database, totDatabase);
+			addNewAliment(dispensa, *&totAlimenti, listaSpesa[i].nome, listaSpesa[i].quantita, database, totDatabase);
 		}
 	}
 	*totElemLista=0;

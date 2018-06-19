@@ -1,6 +1,6 @@
-0 topinambour ortaggi_frutta_verdura 100 25
-1 scalogno ortaggi_frutta_verdura 100 20
-3 sedano ortaggi_frutta_verdura 10 0
-4 rosmarino ortaggi_frutta_verdura 10 10
+0 topinambour ortaggi 100 25
+1 scalogno ortaggi 100 20
+3 sedano verdura 10 0
+4 rosmarino condimento 10 10
 5 olio condimento 10 90
 6 sale condimento 5 0

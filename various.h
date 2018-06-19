@@ -3,11 +3,11 @@
 
 //contiene tutte le strutture del programma e varie costanti
 
-#define maxUtenti 10
-#define maxAlimenti 50
-#define maxRicette 50
-#define maxIngredienti 20
-#define maxCatLen 25
+#define maxUtenti 100
+#define maxAlimenti 500
+#define maxRicette 100
+#define maxIngredienti 100
+#define maxCatLen 50
 #define totCategorie 50
 #define totPastiSett 14
 
