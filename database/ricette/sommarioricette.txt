@@ -1,4 +1,4 @@
-15
+16
 0 cappuccino_di_topinambour Italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt 60
 1 gnocchi_alla_romana Italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt 35
 2 matriciana Italia ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/preparazione.txt 20
@@ -14,3 +14,4 @@
 12 risotto_valdostano Italia ./database/ricette/risotto_valdostano/ingredienti.txt 7 ./database/ricette/risotto_valdostano/preparazione.txt 60
 13 spatzle_agli_spinaci Italia ./database/ricette/spatzle_agli_spinaci/ingredienti.txt 8 ./database/ricette/spatzle_agli_spinaci/preparazione.txt 20
 14 timballo_di_riso Italia ./database/ricette/timballo_di_riso/ingredienti.txt 5 ./database/ricette/timballo_di_riso/preparazione.txt 35
+15 test test ./database/ricette/test/ingredienti.txt 2 ./database/ricette/test/preparazione.txt 15

@@ -3,6 +3,6 @@
 2 zucchine ortaggi_frutta_verdura 50 7
 3 melanzane ortaggi_frutta_verdura 50 9
 4 olio condimento 20 90
-5 sale condimento 5 0 
+5 sale condimento 5 0
 6 pepe condimento 3 6
 7 acqua bevande 50 0

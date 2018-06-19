@@ -91,6 +91,7 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
     	fputs("Quanto ci vuole a preparare questa ricetta?\n"
         	">>> ", stdout);
         scanf("%d", &ricette[*totRicette].tempoPrep);
+        clearBuffer(); 
     	createNewFile(ricette[*totRicette].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
     	createNewFile(ricette[*totRicette].prepaPos);
 
@@ -135,10 +136,15 @@ int rimrElem(Ricetta ricette[], int *totRicette){
 	system("@cls||clear");
 	while(1){
 		showRecipes(ricette, *totRicette);
-		fputs("Quale delle seguenti ricette vuoi rimuovere?\n"
+		fputs("\nQuale delle seguenti ricette vuoi rimuovere?\n"
+			"Altrimenti per annullare l'operazione premi 0.\n"
 			">>> ", stdout);
 		scanf("%s", ricTemp);
 		clearBuffer();
+		if(strcmp(ricTemp, "0")==0){
+
+			return 0;
+		}
 		pos = searchRecipes(ricette, *totRicette, ricTemp); 
 		system("@cls||clear");
 		if(pos >= 0){

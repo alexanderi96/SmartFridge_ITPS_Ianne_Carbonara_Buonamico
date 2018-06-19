@@ -16,18 +16,18 @@ int addIngredientsGuided(Ingredienti ingredienti[], int *totIngredienti, char el
     	fputs("Quale è il nome dell'alimento da aggiungere alla ricetta??\n"
        		">>> ", stdout);
 		scanf("%s", alimentsTemp);
-		clearBuffer(); 
+		clearBuffer();                
 		system("@cls||clear");
     	pos=checkPresenceOrAdd(elencoCategorie, *&totCat, database, *&totDatabase, alimentsTemp);
     	if(pos<0){
     		return 0;	
     	}else{
-    		fputs("Quanti te ne servono per questa ricetta?\n"
+    		fputs("Quanti g/ml te ne servono per questa ricetta?\n"
     			">>> ", stdout);
      	   	scanf("%d", &ingredienti[*totIngredienti].quantita);
      	   	clearBuffer(); 
 			system("@cls||clear");
-     	   	ingredienti[*totIngredienti].kcal=database[pos].kcal*ingredienti[*totIngredienti].quantita;
+     	   	ingredienti[*totIngredienti].kcal=(database[pos].kcal*ingredienti[*totIngredienti].quantita)/100; //queste sono le kcal corrispondenti alla quantità necessaria per questo alimento
      	   	strcpy(ingredienti[*totIngredienti].nome, database[pos].nome);
     		strcpy(ingredienti[*totIngredienti].categoria, database[pos].categoria);
             int id_buffer[maxAlimenti];
@@ -55,7 +55,7 @@ int searchIngredient(Ingredienti ingredienti[], int totIngredienti, char element
 }
 
 void showIngredients(Ingredienti ingredienti[], int totIngredienti){
-    printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Categoria", "quantita", "kcal per 100g");
+    printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Categoria", "quantita' in g/ml", "kcal");
     puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
     for (int i = 0; i < totIngredienti; ++i){
         printf("|%-30s|%-30s|%-30d|%-30d|\n", ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].quantita, ingredienti[i].kcal);
