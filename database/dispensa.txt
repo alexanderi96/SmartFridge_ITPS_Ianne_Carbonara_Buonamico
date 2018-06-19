@@ -1,7 +1,6 @@
-6
-muffin dolci 21. 6.2018 10 5 296
-prezzemolo condimento 18. 6.2018 7 2 20
-banana ortaggi_frutta_verdura 18. 6.2018 2 4 65
-manzo proteine 18. 6.2018 2 2 217
-merluzzo pesce 18. 6.2018 2 2 91
-uova proteine 19. 6.2018 2 3 130
+5
+0 muffin dolci 21. 6.2018 10 7 296
+1 banana ortaggi_frutta_verdura 20. 6.2018 2 4 65
+2 manzo proteine 20. 6.2018 2 5 217
+3 manzo proteine 21. 6.2018 2 2 217
+4 pollo proteine 20. 6.2018 1 2 111

@@ -19,6 +19,31 @@ void showList(Spesa Elementlista[], int totElem){
 	}
 }
 
+/*
+tramite questa funzione andiamo a copiare degli alimenti specificici direttamente nella lista della spesa
+utile per acquistare gli alimenti che servono per fare una determinata ricetta che ancora ci mancano!
+o anche per ri scquistare gli alimenti che sono scaduti nel frattempo
+*/
+int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento){
+   	int posList = searchElement(listaSpesa, *totElemLista, alimento.nome);
+   	if (posList>=0){
+    	listaSpesa[posList].quantita=listaSpesa[posList].quantita + alimento.quantita;		
+    }else{
+    	
+    	strcat(listaSpesa[*totElemLista].nome, alimento.nome);
+   		strcat(listaSpesa[*totElemLista].categoria, alimento.categoria);
+ 		listaSpesa[*totElemLista].quantita=alimento.quantita;
+     	int id_buffer[maxAlimenti];
+        for (int i = 0; i < *totElemLista; ++i){
+            id_buffer[i]=listaSpesa[i].id_acquisto;
+        }
+    	listaSpesa[*totElemLista].id_acquisto=checkIdPresence(id_buffer, *totElemLista, 0);
+    	*totElemLista=*totElemLista+1;
+    	
+    }
+    saveList(listlocation, listaSpesa, *totElemLista);
+   	return 1;	
+}
 
 int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[][maxCatLen], int *totCat, Alimento databaseAlimenti[], int *totDatabaseAlimenti){
     char categoriaTemp[maxCatLen], scelta, alimentsTemp[maxCatLen];
@@ -51,6 +76,8 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
     						puts("Quanti ne vuoi aggiungere?");
     						scanf("%d", &num);
     						listaSpesa[posList].quantita=listaSpesa[posList].quantita + num;
+    						saveList(listlocation, listaSpesa, *totElemLista);
+   							return 1;
     					break;
     					case 'n':
     						return 0;
@@ -69,6 +96,12 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
        			scanf("%d", &listaSpesa[*totElemLista].quantita);
        			clearBuffer(); 
 				system("@cls||clear");
+
+            	int id_buffer[maxAlimenti];
+            	for (int i = 0; i < *totElemLista; ++i){
+            	    id_buffer[i]=listaSpesa[i].id_acquisto;
+        	    }
+    	        listaSpesa[*totElemLista].id_acquisto=checkIdPresence(id_buffer, *totElemLista, 0);
     			*totElemLista=*totElemLista+1;
     			saveList(listlocation, listaSpesa, *totElemLista);
    				return 1;

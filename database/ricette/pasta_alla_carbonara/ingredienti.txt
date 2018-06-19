@@ -1,6 +1,6 @@
-guanciale proteine 50 328
-uova proteine 60 78
-formaggio latticini 15 56
-sale condimento 5 0
-pepe condimento 3 22
-olio condimento 10 90
+0 guanciale proteine 50 328
+1 uova proteine 60 78
+2 formaggio latticini 15 56
+3 sale condimento 5 0
+4 pepe condimento 3 22
+5 olio condimento 10 90

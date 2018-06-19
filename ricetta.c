@@ -88,6 +88,12 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
         scanf("%d", &ricette[*totRicette].tempoPrep);
     	createNewFile(ricette[*totRicette].ingrePos); //andiamo a creare il file contenente gli ingredienti per questa ricetta
     	createNewFile(ricette[*totRicette].prepaPos);
+
+        int id_buffer[maxRicette];
+        for (int i = 0; i < *totRicette; ++i){
+            id_buffer[i]=ricette[i].id_ricetta;
+        }
+        ricette[*totRicette].id_ricetta=checkIdPresence(id_buffer, *totRicette, 0);
         *totRicette=*totRicette+1;
         saveRecipes(repiceslocation, ricette, *totRicette);
         return 1;

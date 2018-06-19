@@ -1,8 +1,8 @@
-pasta carboidrati 100 365
-peperoni ortaggi_frutta_verdura 100 22
-melanzane ortaggi_frutta_verdura 100 18
-scalogno ortaggi_frutta_verdura 20 4	
-zucchine ortaggi_frutta_verdura 50 6
-finocchi ortaggi_frutta_verdura 20 3
-formaggio latticini 20 75
-olio condimento 10 90
+0 pasta carboidrati 100 365
+1 peperoni ortaggi_frutta_verdura 100 22
+2 melanzane ortaggi_frutta_verdura 100 18
+3 scalogno ortaggi_frutta_verdura 20 4	
+4 zucchine ortaggi_frutta_verdura 50 6
+5 finocchi ortaggi_frutta_verdura 20 3
+6 formaggio latticini 20 75
+7 olio condimento 10 90

@@ -1,4 +1,4 @@
-sogliola proteine 100 83
-pasta carboidrati 100 365
-limone ortaggi_frutta_verdura 50 7
-olio condimento 20 18
+0 sogliola proteine 100 83
+1 pasta carboidrati 100 365
+2 limone ortaggi_frutta_verdura 50 7
+3 olio condimento 20 18

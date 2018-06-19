@@ -1,5 +1,5 @@
-spinaci ortaggi_frutta_verdura 50 12
-finocchi ortaggi_frutta_verdura 20 12
-formaggio latticini 20 75
-pasta carboidrati 30 110
-olio condimento 5 45
+0 spinaci ortaggi_frutta_verdura 50 12
+1 finocchi ortaggi_frutta_verdura 20 12
+2 formaggio latticini 20 75
+3 pasta carboidrati 30 110
+4 olio condimento 5 45

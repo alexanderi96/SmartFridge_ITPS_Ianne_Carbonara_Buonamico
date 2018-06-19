@@ -18,7 +18,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 	struct tm tm = *localtime(&t);
 
     Ricetta ricette[maxRicette];
-    Ricetta menuSettimanale[7];
+    int menuSettimanale[totPastiSett];
     Alimento dispensa[maxAlimenti];
 
     Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
@@ -81,7 +81,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     while(1){
     	
         printf("Benvenuto %s\n\n", username);
-        printf("Oggi e' il: %2d/%2d/%4d e sono le ore: %2d:%2d\nPassa una buona giornata!\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
+        printf("Oggi e' il: %d/%d/%d e sono le ore: %d:%d\nPassa una buona giornata!\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
 
 
 
@@ -93,7 +93,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
         if(contScad>0){
             printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura per l'eleiminazione\n", contScad);
             system("PAUSE");
-            rimScad(dispensa, &totAlimenti);
+            rimScad(dispensa, &totAlimenti, lista, &totElem);
             contScad=0;
         }
 
@@ -159,21 +159,23 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 }
             break; 
             case '2':
-                puts("4. Comunica intolleranza");
+                fputs("Gestione intolleranze\n\n"
+                    "1. Aggiungi intolleranza\n"
+                    "2. Rimuovi intolleranza\n\n"
+                    "0. Ingietro\n"
+                    ">>> ", stdout);
                 //intolleranza
             break;
             case '3':
                 flag=1;
                 while(flag){
-                    /* Nicolò Mod */
                     fputs("Gestione lista della spesa\n\n"
                         "1. Suggerisci alimento da inserire nella lista\n"
                         "2. Riduci o rimuovi elemento dalla lista della spesa\n"
                         "3. Visualizza la lista della spesa\n"
-                        "4. Comunica alimenti acquistatin\n\n"
+                        "4. Comunica alimenti acquistati\n\n"
                         "0. Indietro\n"
                         ">>> ", stdout);
-                    /* end Nicolò Mod */
 
 
                     scelta = getchar();
@@ -213,13 +215,12 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             showList(lista, totElem);
                             puts("\n\nPremi un tasto per tornare indietro...\n");
                             getchar();
-                            clearBuffer();
                             system("@cls||clear");
                         break;
                         case '4':
                         	flag=1;
                         	while(flag){
-                        		fputs("Che alimenti hai acquistato?\n"
+                        		fputs("Che alimenti hai acquistato?\n\n"
                         			"1. Tutti quelli presenti nella lista della spesa\n"
         	                		"2. Solo parte degli alimenti presenti nella lista della spesa\n"
            	    	         		"3. Nessun alimento tra quelli presenti nella lista della spesa\n\n"
@@ -230,12 +231,24 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     	    	system("@cls||clear");
                        		 	switch(scelta){
                        		 		case '1':
-                        				addAllToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
-                        				system("@cls||clear");
-                            			puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
+                                        if(totElem>0){
+                                            addAllToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
+                                            loadList(listlocation, lista, &totElem);
+                                            system("@cls||clear");
+                                            puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
+                                        }else{
+                                            puts("<*> Non sono presenti elementi da acquistare, premi 3 per aggiungere un prodotto esterno alla lista della spesa\n");
+                                        }
                         			break;
                         			case '2':
-                        				//addPartialToStorage();
+                                        if(totElem>0){
+                                            addPartialToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
+                                            loadList(listlocation, lista, &totElem);
+                                            system("@cls||clear");
+                                            puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
+                                        }else{
+                                            puts("<*> Non sono presenti elementi da acquistare, premi 3 per aggiungere un prodotto esterno alla lista della spesa\n");
+                                        }
                         			break;
                         			case '3':
                         				//addToStorage();
@@ -249,6 +262,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         			break;
                         		}
                         	}
+                            flag=1;
                         break;
                         case '0':
                             flag=0;
@@ -265,8 +279,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 while(flag){
                     flag=1;
                     fputs("5. Gestione dispensa\n\n"
-                        "1. Visualizza gli elementi presenti in dispensa\n"
-                        "0. indietro\n\n"
+                        "1. Visualizza gli elementi presenti in dispensa\n\n"
+                        "0. indietro\n"
                         ">>> ", stdout);
                     scelta = getchar();
                     system("@cls||clear");
@@ -277,7 +291,6 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             showAlimDisp(dispensa, totAlimenti);
                             puts("\n\nPremi un tasto per tornare indietro...\n");
                             getchar();
-                            clearBuffer();
                             system("@cls||clear");
                         break;
                         case '0':
@@ -298,7 +311,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     fputs("5. Impostazioni\n\n"
                         "1. Inserimento nuovo account\n"
                         "2. Modifica grado utente\n"
-                        "0. indietro\n\n"
+                        "3. Ripristino ai dati di fabbrica\n\n"
+                        "0. indietro\n"
                         ">>> ", stdout);
                     scelta = getchar();
                     system("@cls||clear");

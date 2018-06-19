@@ -30,6 +30,11 @@ int addIngredientsGuided(Ingredienti ingredienti[], int *totIngredienti, char el
      	   	ingredienti[*totIngredienti].kcal=database[pos].kcal*ingredienti[*totIngredienti].quantita;
      	   	strcpy(ingredienti[*totIngredienti].nome, database[pos].nome);
     		strcpy(ingredienti[*totIngredienti].categoria, database[pos].categoria);
+            int id_buffer[maxAlimenti];
+            for (int i = 0; i < *totIngredienti; ++i){
+                id_buffer[i]=ingredienti[i].id_ingredienti;
+            }
+            ingredienti[*totIngredienti].id_ingredienti=checkIdPresence(id_buffer, *totIngredienti, 0);
     		*totIngredienti=*totIngredienti+1;
         	return 1;
     	}

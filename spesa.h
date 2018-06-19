@@ -4,6 +4,7 @@
 #include "various.h"
 
 void showList(Spesa Elementlista[], int totElem);
+int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento);
 int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[][maxCatLen], int *totCat, Alimento databaseAlimenti[], int *totDatabaseAlimenti);
 int searchElement(Spesa Elementlista[], int totElem, char elemento[]);
 int rimElem(Spesa lista[], int *totElem);

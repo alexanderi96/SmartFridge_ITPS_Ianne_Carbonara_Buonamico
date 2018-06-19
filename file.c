@@ -30,7 +30,7 @@ int saveAccount(const char nome[], Utente utenti[], int totUtenti){
         fprintf(pf, "%d\n", totUtenti);
         for (int i = 0; i < totUtenti; ++i){
             //stampa di username, password, admin, nome, cognome ed età     
-            fprintf(pf, "%s %s %d %s %s %d %s %d\n", utenti[i].user, utenti[i].password, utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, utenti[i].eta, utenti[i].intopos, utenti[i].totinto);
+            fprintf(pf, "%d %s %s %d %s %s %d %s %d\n", utenti[i].id_utente, utenti[i].user, utenti[i].password, utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, utenti[i].eta, utenti[i].intopos, utenti[i].totinto);
             saveInto(utenti[i].intopos, utenti[i].intolleranze, utenti[i].totinto);
         }
         fclose(pf);
@@ -48,7 +48,7 @@ int saveStorage(const char nome[], Alimento dispensa[], int totAlimenti){
         fprintf(pf, "%d\n", totAlimenti);
         for (int i = 0; i < totAlimenti; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %2d.%2d.%4d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
+            fprintf(pf, "%d %s %s %2d.%2d.%4d %d %d %d\n", dispensa[i].id_alimento, dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -64,7 +64,7 @@ int saveList(const char nome[], Spesa spesa[], int totElem){
         fprintf(pf, "%d\n", totElem);
         for (int i = 0; i < totElem; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %d\n", spesa[i].nome, spesa[i].categoria, spesa[i].quantita);
+            fprintf(pf, "%d %s %s %d\n", spesa[i].id_acquisto, spesa[i].nome, spesa[i].categoria, spesa[i].quantita);
         }
     }
     fclose(pf);
@@ -95,7 +95,7 @@ int loadAccount(const char nome[], Utente utenti[], int *totUtenti){
         fscanf(pf, "%d", *&totUtenti);
         for (int i = 0; i < *totUtenti; ++i){
 
-            fscanf(pf, "%s %s %d %s %s %d %s %d\n", utenti[i].user, utenti[i].password, &utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, &utenti[i].eta, utenti[i].intopos, &utenti[i].totinto);
+            fscanf(pf, "%d %s %s %d %s %s %d %s %d\n", &utenti[i].id_utente, utenti[i].user, utenti[i].password, &utenti[i].isadmin, utenti[i].nome, utenti[i].cognome, &utenti[i].eta, utenti[i].intopos, &utenti[i].totinto);
             loadInto(utenti[i].intopos, utenti[i].intolleranze, utenti[i].totinto);
         }
     }
@@ -110,7 +110,7 @@ int loadStorage(const char nome[], Alimento dispensa[], int *totAlimenti){
     }else{
         fscanf(pf, "%d", *&totAlimenti);;
         for (int i = 0; i < *totAlimenti; ++i){
-            fscanf(pf, "%s %s %2d.%2d.%4d %d %d %d\n", dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
+            fscanf(pf, "%d %s %s %2d.%2d.%4d %d %d %d\n", &dispensa[i].id_alimento, dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -125,7 +125,7 @@ int loadList(const char nome[], Spesa spesa[], int *totElem){
     }else{
         fscanf(pf, "%d", *&totElem);
         for (int i = 0; i < *totElem; ++i){
-            fscanf(pf, "%s %s %d\n", spesa[i].nome, spesa[i].categoria, &spesa[i].quantita);
+            fscanf(pf, "%d %s %s %d\n", &spesa[i].id_acquisto, spesa[i].nome, spesa[i].categoria, &spesa[i].quantita);
         }
     }
     fclose(pf);
@@ -140,7 +140,7 @@ int loadRecipes(const char nome[], Ricetta ricette[], int *totRicette){
     }else{
         fscanf(pf, "%d", *&totRicette);
         for (int i = 0; i < *totRicette; ++i){
-            fscanf(pf, "%s %s %s %d %s %d\n", ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, &ricette[i].totIngredienti, ricette[i].prepaPos, &ricette[i].tempoPrep);
+            fscanf(pf, "%d %s %s %s %d %s %d\n", &ricette[i].id_ricetta, ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, &ricette[i].totIngredienti, ricette[i].prepaPos, &ricette[i].tempoPrep);
             loadIngredients(ricette[i].ingrePos, ricette[i].ingredienti, ricette[i].totIngredienti);
         }
     }
@@ -158,7 +158,7 @@ int saveRecipes(const char nome[], Ricetta ricette[], int totRicette){
         fprintf(pf, "%d\n", totRicette);
         for (int i = 0; i < totRicette; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %s %d %s %d\n", ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, ricette[i].totIngredienti, ricette[i].prepaPos, ricette[i].tempoPrep);
+            fprintf(pf, "%d %s %s %s %d %s %d\n", ricette[i].id_ricetta, ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, ricette[i].totIngredienti, ricette[i].prepaPos, ricette[i].tempoPrep);
             saveIngredients(ricette[i].ingrePos, ricette[i].ingredienti, ricette[i].totIngredienti);
         }
     }
@@ -174,7 +174,7 @@ int saveIngredients(const char nome[], Ingredienti ingredienti[], int totIngredi
     }else{
         for (int i = 0; i < totIngredienti; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%s %s %d %d\n", ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].quantita, ingredienti[i].kcal);
+            fprintf(pf, "%d %s %s %d %d\n", ingredienti[i].id_ingredienti, ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].quantita, ingredienti[i].kcal);
         }
     }
     fclose(pf);
@@ -189,7 +189,7 @@ int loadIngredients(const char nome[], Ingredienti ingredienti[], int totIngredi
         return 0;
     }else{
         for (int i = 0; i < totIngredienti; ++i){
-            fscanf(pf, "%s %s %d %d\n", ingredienti[i].nome, ingredienti[i].categoria, &ingredienti[i].quantita, &ingredienti[i].kcal);
+            fscanf(pf, "%d %s %s %d %d\n", &ingredienti[i].id_ingredienti, ingredienti[i].nome, ingredienti[i].categoria, &ingredienti[i].quantita, &ingredienti[i].kcal);
         }
     }
     fclose(pf);
@@ -204,7 +204,7 @@ int loadDatabaseAlimenti(const char nome[], Alimento database[], int *numeroAlim
     }else{
     	fscanf(pf, "%d\n", *&numeroAlimenti);
         for (int i = 0; i < *numeroAlimenti; ++i){
-            fscanf(pf, "%s %s %d %d\n", database[i].categoria, database[i].nome, &database[i].kcal, &database[i].giorniMaxUtil);
+            fscanf(pf, "%d %s %s %d %d\n", &database[i].id_alimento, database[i].categoria, database[i].nome, &database[i].kcal, &database[i].giorniMaxUtil);
         }
     }
     fclose(pf);
@@ -212,19 +212,19 @@ int loadDatabaseAlimenti(const char nome[], Alimento database[], int *numeroAlim
 }
 
 int loadCategories(const char nome[], char categorie[][maxCatLen], int *totCat){
-	FILE *pf;
-	char buffer[maxCatLen];
-	if (NULL==(pf=fopen(nome, "r"))){
-		puts("<!> Non è presente alcuna categoria");
-	}else{
-		fscanf(pf, "%d\n", *&totCat);
-		for (int i = 0; i < *totCat; ++i){
-			fscanf(pf, "%s\n", buffer);
-			strcpy(categorie[i], buffer);
-		}
-	}
-	fclose(pf);
-	return 1;	
+    FILE *pf;
+    char buffer[maxCatLen];
+    if (NULL==(pf=fopen(nome, "r"))){
+        puts("<!> Non è presente alcuna categoria");
+    }else{
+        fscanf(pf, "%d\n", *&totCat);
+        for (int i = 0; i < *totCat; ++i){
+            fscanf(pf, "%s\n", buffer);
+            strcpy(categorie[i], buffer);
+        }
+    }
+    fclose(pf);
+    return 1;   
 }
 
 int saveCategories(const char nome[], char categorie[][maxCatLen], int totCat){
@@ -250,7 +250,7 @@ int saveAlim(const char nome[], Alimento database[], int totDatabase){
     }else{
     	fprintf(pf, "%d\n", totDatabase);
         for (int i = 0; i < totDatabase; ++i){
-            fprintf(pf, "%s %s %d %d\n", database[i].categoria, database[i].nome, database[i].kcal, database[i].giorniMaxUtil);
+            fprintf(pf, "%d %s %s %d %d\n", database[i].id_alimento, database[i].categoria, database[i].nome, database[i].kcal, database[i].giorniMaxUtil);
         }
     }
     fclose(pf);
@@ -291,7 +291,7 @@ int loadMenu(const char nome[], int menu[]){
         fclose(pf);
         return 0;
     }else{
-        for (int i = 0; i < totPastiSett, i=i+2){
+        for (int i = 0; i < totPastiSett; i=i+2){
             fscanf(pf, "%d %d\n", &menu[i], &menu[i+1]);
         }
     }
@@ -305,7 +305,7 @@ int saveMenu(const char nome[], int menu[]){
         fclose(pf);
         return 0;
     }else{
-        for (int i = 0; i < totPastiSett, i=i+2){
+        for (int i = 0; i < totPastiSett; i=i+2){
             fprintf(pf, "%d %d\n", menu[i], menu[i+1]);
         }
     }

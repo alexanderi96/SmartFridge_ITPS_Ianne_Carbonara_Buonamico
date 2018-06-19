@@ -1,8 +1,8 @@
-pasta carboidrati 100 365
-guanciale proteine 30 196
-formaggio latticini 15 56
-pomodori ortaggi_frutta_verdure 50 10
-sale condimento 5 0
-pepe condimento 3 22
-olio condimento 10 90
-vino bevande 20 140
+0 pasta carboidrati 100 365
+1 guanciale proteine 30 196
+2 formaggio latticini 15 56
+3 pomodori ortaggi_frutta_verdure 50 10
+4 sale condimento 5 0
+5 pepe condimento 3 22
+6 olio condimento 10 90
+7 vino bevande 20 140

@@ -1,16 +1,16 @@
 15
-cappuccino_di_topinambour Italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt 60
-gnocchi_alla_romana Italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt 35
-matriciana Italia ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/preparazione.txt 20
-pasta_alla_carbonara Italia ./database/ricette/pasta_alla_carbonara/ingredienti.txt 6 ./database/ricette/pasta_alla_carbonara/preparazione.txt 15
-pasta_alla_crema Italia ./database/ricette/pasta_alla_crema/ingredienti.txt 5 ./database/ricette/pasta_alla_crema/preparazione.txt 60
-pasta_alla_ortolana Italia ./database/ricette/pasta_alla_ortolana/ingredienti.txt 9 ./database/ricette/pasta_alla_ortolana/preparazione.txt 60
-pasta_con_ratatouille Francia ./database/ricette/pasta_con_ratatouille/ingredienti.txt 8 ./database/ricette/pasta_con_ratatouille/preparazione.txt 60
-penne_alla_sogliola Italia ./database/ricette/penne_alla_sogliola/ingredienti.txt 4 ./database/ricette/penne_alla_sogliola/preparazione.txt 30
-pennette_alla_siciliana Italia ./database/ricette/pennette_alla_siciliana/ingredienti.txt 4 ./database/ricette/pennette_alla_siciliana/preparazione.txt 30
-pollo_alle_mandorle Cina ./database/ricette/pollo_alle_mandorle/ingredienti.txt 4 ./database/ricette/pollo_alle_mandorle/preparazione.txt 25
-quinoa_fantasia_di_verdure Sud_America ./database/ricette/quinoa_fantasia_di_verdure/ingredienti.txt 8 ./database/ricette/quinoa_fantasia_di_verdure/preparazione.txt 30
-riso_con_tofu Giappone ./database/ricette/riso_con_tofu/ingredienti.txt 4 ./database/ricette/riso_con_tofu/preparazione.txt 15
-risotto_valdostano Italia ./database/ricette/risotto_valdostano/ingredienti.txt 7 ./database/ricette/risotto_valdostano/preparazione.txt 60
-spatzle_agli_spinaci Italia ./database/ricette/spatzle_agli_spinaci/ingredienti.txt 8 ./database/ricette/spatzle_agli_spinaci/preparazione.txt 20
-timballo_di_riso Italia ./database/ricette/timballo_di_riso/ingredienti.txt 5 ./database/ricette/timballo_di_riso/preparazione.txt 35
+0 cappuccino_di_topinambour Italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt 60
+1 gnocchi_alla_romana Italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt 35
+2 matriciana Italia ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/preparazione.txt 20
+3 pasta_alla_carbonara Italia ./database/ricette/pasta_alla_carbonara/ingredienti.txt 6 ./database/ricette/pasta_alla_carbonara/preparazione.txt 15
+4 pasta_alla_crema Italia ./database/ricette/pasta_alla_crema/ingredienti.txt 5 ./database/ricette/pasta_alla_crema/preparazione.txt 60
+5 pasta_alla_ortolana Italia ./database/ricette/pasta_alla_ortolana/ingredienti.txt 9 ./database/ricette/pasta_alla_ortolana/preparazione.txt 60
+6 pasta_con_ratatouille Francia ./database/ricette/pasta_con_ratatouille/ingredienti.txt 8 ./database/ricette/pasta_con_ratatouille/preparazione.txt 60
+7 penne_alla_sogliola Italia ./database/ricette/penne_alla_sogliola/ingredienti.txt 4 ./database/ricette/penne_alla_sogliola/preparazione.txt 30
+8 pennette_alla_siciliana Italia ./database/ricette/pennette_alla_siciliana/ingredienti.txt 4 ./database/ricette/pennette_alla_siciliana/preparazione.txt 30
+9 pollo_alle_mandorle Cina ./database/ricette/pollo_alle_mandorle/ingredienti.txt 4 ./database/ricette/pollo_alle_mandorle/preparazione.txt 25
+10 quinoa_fantasia_di_verdure Sud_America ./database/ricette/quinoa_fantasia_di_verdure/ingredienti.txt 8 ./database/ricette/quinoa_fantasia_di_verdure/preparazione.txt 30
+11 riso_con_tofu Giappone ./database/ricette/riso_con_tofu/ingredienti.txt 4 ./database/ricette/riso_con_tofu/preparazione.txt 15
+12 risotto_valdostano Italia ./database/ricette/risotto_valdostano/ingredienti.txt 7 ./database/ricette/risotto_valdostano/preparazione.txt 60
+13 spatzle_agli_spinaci Italia ./database/ricette/spatzle_agli_spinaci/ingredienti.txt 8 ./database/ricette/spatzle_agli_spinaci/preparazione.txt 20
+14 timballo_di_riso Italia ./database/ricette/timballo_di_riso/ingredienti.txt 5 ./database/ricette/timballo_di_riso/preparazione.txt 35

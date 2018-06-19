@@ -1,4 +1,4 @@
-pesto ortaggi_frutta_verdura 50 250
-riso carboidrati 100 362
-pomodori ortaggi_frutta_verdura 50 10
-tofu carboidrati 70 70
+0 pesto ortaggi_frutta_verdura 50 250
+1 riso carboidrati 100 362
+2 pomodori ortaggi_frutta_verdura 50 10
+3 tofu carboidrati 70 70

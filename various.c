@@ -65,3 +65,11 @@ void setCurrentDate(Data *data, int giorniSupp){
 	}
 }
 
+int checkIdPresence(int elencoid[], int totElem, int nextId){
+	for (int i = 0; i < totElem; ++i){
+		if (elencoid[i]==nextId){
+			return checkIdPresence(elencoid, totElem, nextId+1);
+		}
+	}
+	return nextId;
+}

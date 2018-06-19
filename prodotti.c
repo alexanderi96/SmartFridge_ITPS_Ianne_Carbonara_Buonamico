@@ -61,11 +61,16 @@ int searchAlimNocat(Alimento database[], int totAlim, char elemento[]){
 //consente di aggiungere gli alimenti al database e ritorna 1 se ha aggiunto una nuova categoria
 void addAliments(Alimento database[], int *totElencoAlim, char categoriaTemp[], char alimentsTemp[], int kcal, int giorniMaxUtil){
 	strcpy(database[*totElencoAlim].categoria, categoriaTemp);
-    strcpy(database[*totElencoAlim].nome, alimentsTemp);
-    database[*totElencoAlim].kcal=kcal;
-    database[*totElencoAlim].giorniMaxUtil=giorniMaxUtil;
-    *totElencoAlim=*totElencoAlim+1;
-    saveAlim(databaseAlimenti, database, *totElencoAlim);
+  strcpy(database[*totElencoAlim].nome, alimentsTemp);
+  database[*totElencoAlim].kcal=kcal;
+  database[*totElencoAlim].giorniMaxUtil=giorniMaxUtil;
+  int id_buffer[maxAlimenti];
+  for (int i = 0; i < *totElencoAlim; ++i){
+    id_buffer[i]=database[i].id_alimento;
+  }
+  database[*totElencoAlim].id_alimento=checkIdPresence(id_buffer, *totElencoAlim, 0);
+  *totElencoAlim=*totElencoAlim+1;
+  saveAlim(databaseAlimenti, database, *totElencoAlim);
 }
 
 void addCat(char categoriaTemp[], char elencoCategorie[][maxCatLen], int *totCat){

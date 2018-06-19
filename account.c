@@ -11,10 +11,12 @@
 int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCategorie[][maxCatLen], int *totCat){
     _Bool flag=1;
     char userTemp[25], scelta;
+    int id_buffer[maxUtenti];
     fputs("Inserisci il nome utente\n"
         ">>> ", stdout);
     scanf("%s", userTemp);
     system("@cls||clear");
+    
     clearBuffer();
     if(-1==searchAccount(utenti, totUtenti, userTemp)){
         utenti[totUtenti].totinto=0;
@@ -72,11 +74,17 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
                 break;
             }    
         }
+        int id_buffer[maxUtenti];
+        for (int i = 0; i < totUtenti; ++i){
+            id_buffer[i]=utenti[i].id_utente;
+        }
+        utenti[totUtenti].id_utente=checkIdPresence(id_buffer, totUtenti, 0);
         return 1;
     }else{
         return 0;
     }
 }
+
 
 
 int userAuth(Utente utenti[], int totUtenti, char user[], char passwd[]){

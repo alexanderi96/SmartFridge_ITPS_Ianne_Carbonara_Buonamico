@@ -5,7 +5,7 @@
 
 #define maxUtenti 10
 #define maxAlimenti 50
-#define maxRicette 20
+#define maxRicette 50
 #define maxIngredienti 20
 #define maxCatLen 25
 #define totCategorie 50
@@ -19,6 +19,7 @@ typedef struct{
 }Data;
 
 typedef struct{
+	int id_alimento;
     char nome[50];
 	char categoria[50];
 	Data scadenza;
@@ -28,6 +29,7 @@ typedef struct{
 }Alimento;
 
 typedef struct{
+	int id_utente;
     char user[25];
     char nome[25];
     char cognome[25];
@@ -36,24 +38,26 @@ typedef struct{
     _Bool isadmin;
     char intopos[50];
     int totinto;
-    char intolleranze[maxCatLen][maxCatLen];
+    char intolleranze[totCategorie][maxCatLen];
 }Utente;
 
 typedef struct{
+	int id_acquisto;
 	char nome[50];
 	char categoria[50];
 	int quantita;
 }Spesa;
 
 typedef struct{
+	int id_ingredienti;
     char nome[50];
 	char categoria[50];
-	//Intolleranze intolleranze[maxINtolleranze];
 	int quantita;
 	int kcal;
 }Ingredienti;
 
 typedef struct{
+	int id_ricetta;
 	char nome[50];
 	char paese[50];
 	char ingrePos[100]; //collegamento al file degli ingredienti
@@ -66,6 +70,7 @@ typedef struct{
 void clearBuffer();
 void make_directory(const char* name);
 void setCurrentDate(Data *data, int giorniSupp);
+int checkIdPresence(int elencoid[], int totElem, int nextId);
 
 extern const char accountlocation[];
 extern const char listlocation[];
