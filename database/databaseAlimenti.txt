@@ -1,4 +1,4 @@
-97
+111
 0 proteine maiale 200 3
 1 proteine vitello 134 3
 2 proteine tacchino 120 3
@@ -95,4 +95,18 @@
 93 ortaggi scalogno 72 30
 94 verdura sedano 20 7
 95 condimento rosmarino 20 365 
-96 condimento sale 0 365 
+96 condimento sale 0 365
+97 condimento guanciale 665 5
+98 condimento formaggio 100 6
+99 condimento pepe 0 20
+100 condimento vino 0 7
+101 cereali semolino 63 30
+102 verdura finocchi 100 4
+103 condimento besciamella 200 3
+104 condimento pesto 150 5
+105 ortaggi pistacchi 100 30
+106 ortaggi zenzero 50 20 
+107 ortaggi mandorle 170 30
+108 proteine tofu 70 6
+109 ortaggi asparagi 50 7
+110 carboidrati farina 100 340
