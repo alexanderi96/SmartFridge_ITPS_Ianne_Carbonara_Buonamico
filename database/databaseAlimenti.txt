@@ -1,4 +1,4 @@
-117
+118
 0 proteine maiale 200 3
 1 proteine vitello 134 3
 2 proteine tacchino 120 3
@@ -113,3 +113,4 @@
 111 condimento sugo 37 5
 112 frutta banana 65 2
 113 verdura cetrioli 15 7
+114 verdura basilico 15 15
