@@ -1,2 +1,6 @@
-1
+5
 0 quinoa legumi 0
+1 banana frutta 4
+2 manzo proteine 5
+3 pollo proteine 2
+4 lenticchie legumi 100

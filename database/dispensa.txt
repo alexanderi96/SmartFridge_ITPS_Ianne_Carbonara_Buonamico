@@ -1,8 +1,4 @@
-7
+3
 0 muffin dolci 21. 6.2018 10 7 296
-1 banana frutta 20. 6.2018 2 4 65
-2 manzo proteine 20. 6.2018 2 5 217
 3 manzo proteine 21. 6.2018 2 2 217
-4 pollo proteine 20. 6.2018 1 2 111
 5 banana frutta 21. 6.2018 2 4 65
-6 lenticchie legumi 20. 6.2018 1 100 92
