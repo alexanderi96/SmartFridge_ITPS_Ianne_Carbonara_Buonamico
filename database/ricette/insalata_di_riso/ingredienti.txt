@@ -1,0 +1,11 @@
+0 riso legumi 80 40
+1 scamorza latticini 30 63
+2 peperoni verdura 25 5
+3   20 0
+4 tonno proteine 40 63
+5 prosciutto_cotto proteine 40 86
+6 pomodori frutta 30 6
+7 piselli legumi 40 19
+8 olive condimento 25 14
+9 olio condimento 10 90
+10 sale condimento 5 0

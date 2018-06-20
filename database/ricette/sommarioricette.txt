@@ -1,4 +1,4 @@
-19
+20
 0 cappuccino_di_topinambour Italia ./database/ricette/cappuccino_di_topinambour/ingredienti.txt 7 ./database/ricette/cappuccino_di_topinambour/preparazione.txt 60 0
 1 gnocchi_alla_romana Italia ./database/ricette/gnocchi_alla_romana/ingredienti.txt 4 ./database/ricette/gnocchi_alla_romana/preparazione.txt 35 0
 2 matriciana Italia ./database/ricette/matriciana/ingredienti.txt 8 ./database/ricette/matriciana/preparazione.txt 20 0
@@ -18,3 +18,4 @@
 16 marialaura_sei_bellissima es_iugoslavia ./database/ricette/marialaura_sei_bellissima/ingredienti.txt 2 ./database/ricette/marialaura_sei_bellissima/preparazione.txt 12 0
 17 zxc zxc ./database/ricette/zxc/ingredienti.txt 1 ./database/ricette/zxc/preparazione.txt 12 0
 18 insalata_di_pollo italia ./database/ricette/insalata_di_pollo/ingredienti.txt 9 ./database/ricette/insalata_di_pollo/preparazione.txt 20 0
+19 insalata_di_riso italia ./database/ricette/insalata_di_riso/ingredienti.txt 11 ./database/ricette/insalata_di_riso/preparazione.txt 25 0
