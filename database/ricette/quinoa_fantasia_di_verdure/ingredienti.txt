@@ -1,7 +1,7 @@
-0 quinoa ortaggi_frutta_verdura 100 372
-1 peperoni ortaggi_frutta_verdura 50 11
-2 zucchine ortaggi_frutta_verdura 50 7
-3 melanzane ortaggi_frutta_verdura 50 9
+0 quinoa legumi 100 372
+1 peperoni verdura 50 11
+2 zucchine verdura 50 7
+3 melanzane verdura 50 9
 4 olio condimento 20 90
 5 sale condimento 5 0
 6 pepe condimento 3 6
