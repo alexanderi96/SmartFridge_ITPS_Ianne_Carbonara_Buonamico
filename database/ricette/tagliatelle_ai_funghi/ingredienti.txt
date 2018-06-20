@@ -1,0 +1,7 @@
+0 pasta carboidrati 80 292
+1 funghi verdura 50 10
+2 sale condimento 8 0
+3 pepe condimento 5 0
+4 burro condimento 10 75
+5 prezzemolo condimento 15 3
+6 semolino carboidrati 100 350
