@@ -88,3 +88,8 @@ int checkIdPresence(int elencoid[], int totElem, int nextId){
 	}
 	return nextId;
 }
+
+int generaRandom(int seme){
+	srand(time(NULL));
+	return rand() % seme;
+}

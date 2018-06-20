@@ -62,6 +62,7 @@ int searchAlimNocat(Alimento database[], int totAlim, char elemento[]){
 void addAliments(Alimento database[], int *totElencoAlim, char categoriaTemp[], char alimentsTemp[], int kcal, int giorniMaxUtil){
 	strcpy(database[*totElencoAlim].categoria, categoriaTemp);
   strcpy(database[*totElencoAlim].nome, alimentsTemp);
+  printf("%s %s\n", database[*totElencoAlim].categoria, database[*totElencoAlim].nome);
   database[*totElencoAlim].kcal=kcal;
   database[*totElencoAlim].giorniMaxUtil=giorniMaxUtil;
   int id_buffer[maxAlimenti];
@@ -82,77 +83,78 @@ void addCat(char categoriaTemp[], char elencoCategorie[][maxCatLen], int *totCat
 }
 
 int checkPresenceOrAdd(char elencoCategorie[][maxCatLen], int *totCat, Alimento databaseAlimenti[], int *totDatabaseAlimenti, char alimentsTemp[]){
-	char scelta, categoriaTemp[maxCatLen];
+  char scelta, categoriaTemp[maxCatLen];
 	_Bool flag=1;
-    	int kcal, giorni, pos=searchAlimNocat(databaseAlimenti, *totDatabaseAlimenti, alimentsTemp);
-		if (pos<0){
-	   		while(scelta!='s' || scelta!='n' && flag){
-	    		flag=0;
-	    		system("@cls||clear");
-	   			fputs("<!> Elemento non esistente\n\n"
-	    			"Vuoi aggiungere questo elemento al database? s/n\n"
-	    			">>> ", stdout);
-   	 				scelta = getchar();
-				clearBuffer(); 
-				system("@cls||clear");
-    			switch(scelta){
-   					case 's':
-   						showCategories(elencoCategorie, *totCat);
-   						fputs("Inserisci la categoria alla quale appartiene\n"
-   							"se la categoria che stai cercando non e' pressente puoi inserirla nel campo sottostante\n"
-   							">>> ", stdout);
-   						scanf("%s", categoriaTemp);
-   						clearBuffer(); 
-						system("@cls||clear");
-    					if(searchCat(elencoCategorie, *totCat, categoriaTemp)<0){
-    						//questa categoria non esiste
-    						while(scelta!='s' || scelta!='n' && !flag){
-    							flag=1;
-	   							system("@cls||clear");
-				    			fputs("<!> Categoria non esistente\n\n"
-			   						"Vuoi creare una nuova categoria? s/n\n"
-    								">>> ", stdout);
-  				 				scelta = getchar();
-								clearBuffer(); 
-								switch(scelta){
-    								case 's':
-    									addCat(categoriaTemp, elencoCategorie, *&totCat);
-    								break;
-    								case 'n':
-    									puts("operazione annullata");
-    									return -1;
-    								break;
-    								default:
-    									flag=0;
-    								break;
-    							}
-    						}
-    						flag=0;
-    					}		
-    					fputs("Inserisci la quantità di kkal ogni 100 g/ml del suddetto prodotto\n"
-       						">>> ", stdout);
-      					scanf("%d", &kcal);
-       		 			clearBuffer(); 
-						system("@cls||clear");	
-       					fputs("Per quanti giorni può essere tenuto in frigo il prodotto prima di cestinarlo?\n"
-       						">>> ", stdout);
-     					scanf("%d", &giorni);
-       					clearBuffer(); 
-						system("@cls||clear");
-    					addAliments(databaseAlimenti, *&totDatabaseAlimenti, categoriaTemp, alimentsTemp, kcal, giorni);
-    					pos= *totDatabaseAlimenti;
-
-    					return pos;
-    				break;
-    				case 'n':
-    					puts("operazione annullata");
-   						return -1;
-  					break;
-   					default:
+  int kcal, giorni, pos=searchAlimNocat(databaseAlimenti, *totDatabaseAlimenti, alimentsTemp);
+	if (pos<0){
+		while(scelta!='s' || scelta!='n' && flag){
+	 		flag=0;
+	 		system("@cls||clear");
+			fputs("<!> Elemento non esistente\n\n"
+	 			"Vuoi aggiungere questo elemento al database? s/n\n"
+	 			">>> ", stdout);
+  		scelta = getchar();
+			clearBuffer(); 
+			system("@cls||clear");
+  		switch(scelta){
+  			case 's':
+  				showCategories(elencoCategorie, *totCat);
+  				fputs("Inserisci la categoria alla quale appartiene\n"
+  					"se la categoria che stai cercando non e' pressente puoi inserirla nel campo sottostante\n"
+  					">>> ", stdout);
+  				scanf("%s", categoriaTemp);
+  				clearBuffer(); 
+	   			system("@cls||clear");
+          printf("%s\n", categoriaTemp);
+    			if(searchCat(elencoCategorie, *totCat, categoriaTemp)<0){
+    				//questa categoria non esiste
+    				while(scelta!='s' || scelta!='n' && !flag){
     					flag=1;
-    				break;
-   				}
-   			}
+	  					system("@cls||clear");
+		    			fputs("<!> Categoria non esistente\n\n"
+		 						"Vuoi creare una nuova categoria? s/n\n"
+    						">>> ", stdout);
+  		 				scelta = getchar();
+		  				clearBuffer(); 
+							switch(scelta){
+    						case 's':
+    							addCat(categoriaTemp, elencoCategorie, *&totCat);
+    						break;
+    						case 'n':
+    							puts("operazione annullata");
+    	  					return -1;
+    						break;
+    						default:
+    							flag=0;
+    						break;
+    					}
+    				}
+    				flag=0;
+    			}		
+    			fputs("Inserisci la quantità di kkal ogni 100 g/ml del suddetto prodotto\n"
+       			">>> ", stdout);
+      		scanf("%d", &kcal);
+       		clearBuffer(); 
+					system("@cls||clear");	
+       		fputs("Per quanti giorni può essere tenuto in frigo il prodotto prima di cestinarlo?\n"
+       			">>> ", stdout);
+     			scanf("%d", &giorni);
+       		clearBuffer(); 
+					system("@cls||clear");
+    			addAliments(databaseAlimenti, *&totDatabaseAlimenti, categoriaTemp, alimentsTemp, kcal, giorni);
+    			pos= *totDatabaseAlimenti;
+
+    			return pos;
+    		break;
+    		case 'n':
+    			puts("operazione annullata");
+   				return -1;
+  			break;
+   			default:
+    			flag=1;
+    		break;
    		}
-   		return pos;
+   	}
+  }
+  return pos;
 }

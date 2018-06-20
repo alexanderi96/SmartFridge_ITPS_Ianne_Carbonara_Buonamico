@@ -285,28 +285,30 @@ int loadInto(const char nome[], char intolleranze[][maxCatLen], int totInto){
 	return 1;
 }
 
-int loadMenu(const char nome[], int menu[]){
+int loadMenu(const char nome[], Menu menu[], int *isPresent){
     FILE *pf;
     if(NULL==(pf=fopen(nome, "r"))){
         fclose(pf);
         return 0;
     }else{
-        for (int i = 0; i < totPastiSett; i=i+2){
-            fscanf(pf, "%d %d\n", &menu[i], &menu[i+1]);
+        fscanf(pf, "%d\n", *&isPresent);
+        for (int i = 0; i < totGiorniSett; i++){
+            fscanf(pf, "%2d.%2d.%4d %d %d\n", &menu[i].giorno.gg, &menu[i].giorno.mm, &menu[i].giorno.aaaa, &menu[i].mattina, &menu[i].sera);
         }
     }
     fclose(pf);
     return 1;
 }
 
-int saveMenu(const char nome[], int menu[]){
+int saveMenu(const char nome[], Menu menu[], int isPresent){
     FILE *pf;
     if(NULL==(pf=fopen(nome, "w"))){
         fclose(pf);
         return 0;
     }else{
-        for (int i = 0; i < totPastiSett; i=i+2){
-            fprintf(pf, "%d %d\n", menu[i], menu[i+1]);
+        fprintf(pf, "%d\n", isPresent);
+        for (int i = 0; i < totGiorniSett; i++){
+            fprintf(pf, "%2d.%2d.%4d %d %d\n", menu[i].giorno.gg, menu[i].giorno.mm, menu[i].giorno.aaaa, menu[i].mattina, menu[i].sera);
         }
     }
     fclose(pf);

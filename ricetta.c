@@ -26,7 +26,9 @@ void showRecipes(Ricetta ricette[], int totRicette){
 */
 
 void showSingleRecipe(Ricetta ricetta){
-	printf("|%-30s|%-30s|%-25d min.|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep);
+	printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni");
+	puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
+	printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep, ricetta.nVolteUs);
 	fputs("|------------------------------|------------------------------|------------------------------|------------------------------|", stdout);
 }
 
@@ -102,6 +104,7 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
             id_buffer[i]=ricette[i].id_ricetta;
         }
         ricette[*totRicette].id_ricetta=checkIdPresence(id_buffer, *totRicette, 0);
+        ricette[*totRicette].nVolteUs=0;
         *totRicette=*totRicette+1;
         saveRecipes(repiceslocation, ricette, *totRicette);
         return 1;
