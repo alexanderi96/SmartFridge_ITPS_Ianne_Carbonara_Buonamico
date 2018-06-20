@@ -13,11 +13,12 @@
 */
 
 void showRecipes(Ricetta ricette[], int totRicette){
-	printf("\n|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione");
-	puts("|------------------------------|------------------------------|------------------------------|");
+	printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni");
+	puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
 	for (int i = 0; i < totRicette; ++i){
-		printf("|%-30s|%-30s|%-25d min.|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep);
+		printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep, ricette[i].nVolteUs);
 	}
+	fputs("|--------------------------------------------------------------------------------------------|------------------------------|", stdout);
 }
 
 /* La seguente funzione permette di visualizzare una singola ricetta
@@ -26,6 +27,7 @@ void showRecipes(Ricetta ricette[], int totRicette){
 
 void showSingleRecipe(Ricetta ricetta){
 	printf("|%-30s|%-30s|%-25d min.|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep);
+	fputs("|------------------------------|------------------------------|------------------------------|------------------------------|", stdout);
 }
 
 /* La seguente funzione permtte di determinare le Kcal totali per una ricetta

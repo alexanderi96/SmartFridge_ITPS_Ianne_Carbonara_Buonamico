@@ -140,7 +140,7 @@ int loadRecipes(const char nome[], Ricetta ricette[], int *totRicette){
     }else{
         fscanf(pf, "%d", *&totRicette);
         for (int i = 0; i < *totRicette; ++i){
-            fscanf(pf, "%d %s %s %s %d %s %d\n", &ricette[i].id_ricetta, ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, &ricette[i].totIngredienti, ricette[i].prepaPos, &ricette[i].tempoPrep);
+            fscanf(pf, "%d %s %s %s %d %s %d %d\n", &ricette[i].id_ricetta, ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, &ricette[i].totIngredienti, ricette[i].prepaPos, &ricette[i].tempoPrep, &ricette[i].nVolteUs);
             loadIngredients(ricette[i].ingrePos, ricette[i].ingredienti, ricette[i].totIngredienti);
         }
     }
@@ -158,7 +158,7 @@ int saveRecipes(const char nome[], Ricetta ricette[], int totRicette){
         fprintf(pf, "%d\n", totRicette);
         for (int i = 0; i < totRicette; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%d %s %s %s %d %s %d\n", ricette[i].id_ricetta, ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, ricette[i].totIngredienti, ricette[i].prepaPos, ricette[i].tempoPrep);
+            fprintf(pf, "%d %s %s %s %d %s %d %d\n", ricette[i].id_ricetta, ricette[i].nome, ricette[i].paese, ricette[i].ingrePos, ricette[i].totIngredienti, ricette[i].prepaPos, ricette[i].tempoPrep, ricette[i].nVolteUs);
             saveIngredients(ricette[i].ingrePos, ricette[i].ingredienti, ricette[i].totIngredienti);
         }
     }

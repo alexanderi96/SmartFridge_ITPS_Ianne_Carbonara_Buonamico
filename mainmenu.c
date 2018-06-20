@@ -403,7 +403,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     system("@cls||clear");
                     puts("<!> Nessuna corrispondenza\n");
                 }else{
-                    puts("\nPremi un tasto per continuare...");
+                    puts("\nPremi invio per continuare...");
                     getchar();
                     system("@cls||clear");
                 }
@@ -430,16 +430,16 @@ int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento d
     
     puts("|--------------------------------------------------------------------------------------------|");  
     if (posDat>-1){
-        printf("|%-92s|\n", "Info di base dell'alimento:");
-        printf("|Nome: %-86s|\n"
+        printf("|%-92s|\n|%-92s|\n"
+            "|Nome: %-86s|\n"
             "|Categoria: %-81s|\n"
             "|Giorni massimi di utilizzo prima della scadenza: %-43d|\n"
-            "|Kcal per 100g: %-77d|\n|%-92s|\n", databaseAlimenti[posDat].nome, databaseAlimenti[posDat].categoria, databaseAlimenti[posDat].giorniMaxUtil, databaseAlimenti[posDat].kcal, "");
+            "|Kcal per 100g: %-77d|\n|%-92s|\n", "Info di base dell'alimento:", "", databaseAlimenti[posDat].nome, databaseAlimenti[posDat].categoria, databaseAlimenti[posDat].giorniMaxUtil, databaseAlimenti[posDat].kcal, "");
         if(posSpe>-1){
             //dico se è presente nella lista della spesa
             printf("|Nella lista della spesa hai %-2d unita' di questo prodotto%-36s|\n|%-92s|\n", lista[posSpe].quantita, "", "");
         }else{
-            printf("|Questo prodotto non e' presente nella tua lista della spesa%-32s|\n", "");
+            printf("|Questo prodotto non e' presente nella tua lista della spesa%-33s|\n", "");
         }
         if (posDisp>-1){
             printf("|Hai %-3d unita' di questo prodotto in dispensa%-47s|\n|%-92s|\n", dispensa[posDisp].quantita, "", "");
@@ -464,10 +464,11 @@ int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento d
     }
     
     if(posRic>-1){
-        printf("|Info relative alla ricetta:%-65s|\n", "");
-        printf("|Nome ricetta: %-78s|\n"
+        printf("|%-92s|\n|%-92s|\n" 
+            "|Nome ricetta: %-78s|\n"
             "|Nazione: %-83s|\n"
-            "|Tempo di preparazione: %-3d min.%-61s|\n|%-92s|", ricette[posRic].nome, ricette[posRic].paese, ricette[posRic].tempoPrep, "", "");
+            "|Tempo di preparazione: %-3d min.%-61s|\n"
+            "|La seguente ricetta e' stata preparata %-3d volte%-44s|\n", "Info relative alla ricetta:", "", ricette[posRic].nome, ricette[posRic].paese, ricette[posRic].tempoPrep, "", ricette[posRic].nVolteUs, "");
         showIngredients(ricette[posRic].ingredienti, ricette[posRic].totIngredienti);
         printf("|%-92s|Numero totale di kcal:%d\n", "", calcTotKcal(ricette[posRic]));
     }
@@ -475,9 +476,10 @@ int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento d
         printf("|Info relative all'account:%-66s|\n|%-92s|\n", "", "");
         showAccount(account[posAcc]);
         if(account[posAcc].totinto>0){
-            printf("|--------------------------------------------------------------------------------------------|------------------------------|\n"
-                "|%-92s|\n|%-92s|\n", "L'utente e' intollerante alle seguenti categorie di prodotti:", "");
+                printf("|%-92s|\n|%-92s|\n", "L'utente e' intollerante alle seguenti categorie di prodotti:", "");
             showInto(account[posAcc].intolleranze, account[posAcc].totinto);
+        }else{
+            printf("|L'utente non risulta essere intollerante ad alcun alimento%-34s|\n", "");
         }
     }
      puts("|--------------------------------------------------------------------------------------------|");

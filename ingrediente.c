@@ -55,10 +55,11 @@ int searchIngredient(Ingredienti ingredienti[], int totIngredienti, char element
 }
 
 void showIngredients(Ingredienti ingredienti[], int totIngredienti){
+    fputs("|------------------------------|------------------------------|------------------------------|------------------------------|", stdout);
     printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Categoria", "quantita' in g/ml", "kcal");
     puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
     for (int i = 0; i < totIngredienti; ++i){
         printf("|%-30s|%-30s|%-30d|%-30d|\n", ingredienti[i].nome, ingredienti[i].categoria, ingredienti[i].quantita, ingredienti[i].kcal);
     }
-    printf("\n");
+    puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
 }

@@ -65,6 +65,7 @@ typedef struct{
 	int totIngredienti; 
 	char prepaPos[100]; //collegamento al nome del file che contiene la preparazione
 	int tempoPrep;
+	int nVolteUs; //numero di volte che una ricetta è stata cucinata.
 }Ricetta;
 
 void clearBuffer();
