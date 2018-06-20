@@ -78,7 +78,6 @@ void clearBuffer();
 void make_directory(const char* name);
 void setCurrentDate(Data *data, int giorniSupp);
 int checkIdPresence(int elencoid[], int totElem, int nextId);
-int generaRandom(int seme);
 
 extern const char accountlocation[];
 extern const char listlocation[];

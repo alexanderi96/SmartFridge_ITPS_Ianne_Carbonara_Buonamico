@@ -58,9 +58,9 @@
 56 frutta mela 38 15
 57 frutta pera 40 15
 58 frutta banana 65 10
-59 verdura carote 35 15
-60 ortaggi peperoni 22 15
-61 ortaggi zucchine 13 15
+59 ortaggi carote 35 15
+60 verdura peperoni 22 15
+61 verdura zucchine 13 15
 62 ortaggi melanzane 18 15
 63 verdura spinaci 24 60
 64 verdura barbabietole_rosse 43 15
@@ -99,9 +99,9 @@
 97 condimento guanciale 665 5
 98 condimento formaggio 100 6
 99 condimento pepe 0 20
-0 dolci muffin 296 10
-3 proteine manzo 217 2
-5 frutta banana 65 2
+100 dolci muffin 296 10
+101 proteine manzo 217 2
+102 frutta banana 65 2
 103 condimento besciamella 200 3
 104 condimento pesto 150 5
 105 ortaggi pistacchi 100 30
@@ -112,6 +112,3 @@
 110 carboidrati farina 100 340
 111 condimento sugo 37 5
 112 frutta banana 65 2
-100 proteine bona 20 2
-101 proteine bono 21 21
-102 proteine zxc 12 12
