@@ -5,6 +5,7 @@ verrà generato un menù settimanale in comune per tutti, nel momento in cui si 
 */
 #include <stdio.h>
 #include "various.h"
+#include "ricetta.h"
 
 
 int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
@@ -19,7 +20,7 @@ int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
 
 	*/
 	char tipoDieta;
-	int i=0, posRic;
+	int posRic, kcalSera;
 	_Bool flag=1;
 	while(flag){
 		fputs("Procedura di generazione menu' settimanale\n\n"
@@ -27,20 +28,54 @@ int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
 			"2. Genera un menu' senza particolari accorgimenti\n\n"
 			">>> ", stdout);
 		tipoDieta=getchar();
+		clearBuffer();
 		switch(tipoDieta){
 			case '1':
 				//generazione dieta ipocalorica
 			break;
 			case '2':
 				//generazione menù normalissimo
-				while(i<totGiorniSett){
-					posRic=generaRandom(totricette);//generata a caso
+				for (int i = 0; i<totGiorniSett; ++i){
 					if(i==0){
 						//andiamo ad aggiungere senza problemi la prima ricetta per il pranzo, e cerchiamo di mettere una ricetta diversa a cena (possibilmente qualcosa di leggero)
-						menuSett[i].mattina=ricette[posRic].id_ricetta;
-						return 1;
+						
+						menuSett[i].mattina=ricette[generaRandom(totricette)].id_ricetta; //generata a caso
+						do{
+							posRic=generaRandom(totricette);
+							kcalSera=calcTotKcal(ricette[posRic]);
+							menuSett[i].sera=ricette[posRic].id_ricetta;
+							//printf("mattina %d sera %d kcal sera: %d\n", menuSett[i].mattina, posRic, kcalSera);
+						}while(menuSett[i].mattina!=menuSett[i].sera && kcalSera<500); //ripeto a generare ricette finchè non ne trovo una diversa da quella della mattina e che non sia troppo pesante... sappiamo quanto faccia male mangiare pesante la sera
+							
+					}else if(i==1){
+						do{
+							menuSett[i].sera=ricette[generaRandom(totricette)].id_ricetta;
+						}while(menuSett[i].mattina!=menuSett[i-1].mattina && menuSett[i].mattina!=menuSett[i-1].sera);
+							
+						do{
+							posRic=generaRandom(totricette);
+							kcalSera=calcTotKcal(ricette[posRic]);
+							menuSett[i].sera=ricette[posRic].id_ricetta;
+						}while(menuSett[i].sera!=menuSett[i-1].sera && menuSett[i].sera!=menuSett[i-1].mattina &&
+							menuSett[i].mattina!=menuSett[i].sera && kcalSera<500);						
+					}else{
+						do{
+							menuSett[i].sera=ricette[generaRandom(totricette)].id_ricetta;
+						}while(menuSett[i].mattina!=menuSett[i-1].mattina && menuSett[i].mattina!=menuSett[i-1].sera &&
+							menuSett[i].mattina!=menuSett[i-2].mattina && menuSett[i].mattina!=menuSett[i-2].sera);
+							
+						do{
+							posRic=generaRandom(totricette);
+							kcalSera=calcTotKcal(ricette[posRic]);
+							menuSett[i].sera=ricette[posRic].id_ricetta;
+						}while(menuSett[i].sera!=menuSett[i-1].sera && menuSett[i].sera!=menuSett[i-1].mattina &&
+							menuSett[i].sera!=menuSett[i-2].sera && menuSett[i].sera!=menuSett[i-2].mattina &&
+							menuSett[i].mattina!=menuSett[i].sera && kcalSera<500);	
 					}
+					setCurrentDate(&menuSett[i].giorno, i); //imposto la data di validità della ricetta appena generata
+					printf("%d.%d.%d\n", menuSett[i].giorno.gg, menuSett[i].giorno.mm, menuSett[i].giorno.aaaa);
 				}
+				return 1;
 			break;
 			default:
 			break;

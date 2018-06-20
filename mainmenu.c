@@ -105,16 +105,15 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 
         inoltre se il programma dovesse essere avviato tra le 12-15 e 19-22 il programma dirà "è ora di cucinare, per oggi a pranzo ti consiglio questa ricetta. vuoi cominciare a cucinare?"
         altrimenti andrà ad inserire i prodotti necessari nella lista della spesa. (dando come alternativa il link per scaricare l'app di just eat!)
-        */
+        */    
 
         if(!isPresent){
             //andiamo a generare il menù settimanale
             //opzione per creare dieta ipocalorica (1200 kcal o meno totali)
             isPresent=generaMenu(menuSettimanale, ricette, totRicette);
-            printf("%d\n", menuSettimanale[0].mattina);
-            getchar();
+            saveMenu(menulocation, menuSettimanale, isPresent);
         }
-
+    
         fputs("1. Ricettario\n"
             "2. Gestione intolleranze\n" //da completare!
             "3. Lista della spesa\n"
