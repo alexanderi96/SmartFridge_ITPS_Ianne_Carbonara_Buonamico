@@ -6,4 +6,3 @@
 5 zenzero ortaggi 10 5
 6 zucchine verdura 60 7
 7 pomodori frutta 40 8
-8 cous_cous carboidrati 50 178

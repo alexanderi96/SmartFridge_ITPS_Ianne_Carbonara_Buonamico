@@ -1,4 +1,4 @@
-118
+116
 0 proteine maiale 200 3
 1 proteine vitello 134 3
 2 proteine tacchino 120 3
@@ -114,4 +114,4 @@
 112 frutta banana 65 2
 113 verdura cetrioli 15 7
 114 verdura basilico 15 15
-115 carboidrati cous_cous 356 10
+115 carboidrati semolino 350 15

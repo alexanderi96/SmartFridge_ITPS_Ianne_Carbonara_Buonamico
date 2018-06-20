@@ -1,0 +1,6 @@
+0 burro condimento 20 150
+1 olio condimento 10 90
+2 uova proteine 40 52
+3 semolino carboidrati 60 210
+4 limone frutta 15 2
+5 sale condimento 8 0
