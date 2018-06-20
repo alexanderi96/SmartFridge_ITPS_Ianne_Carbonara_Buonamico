@@ -20,4 +20,4 @@
 16 cous_cous_alle_verdure italia ./database/ricette/cous_cous_alle_verdure/ingredienti.txt 8 ./database/ricette/cous_cous_alle_verdure/preparazione.txt 35 0
 17 tagliolini_al_limone spagna ./database/ricette/tagliolini_al_limone/ingredienti.txt 6 ./database/ricette/tagliolini_al_limone/preparazione.txt 20 0
 20 tagliatelle_ai_funghi italia ./database/ricette/tagliatelle_ai_funghi/ingredienti.txt 7 ./database/ricette/tagliatelle_ai_funghi/preparazione.txt 40 0
-21 pasta_al_pesto germania ./database/ricette/pasta_al_pesto/ingredienti.txt 11 ./database/ricette/pasta_al_pesto/preparazione.txt 40 0
+21 lasagne_al_pesto germania ./database/ricette/lasagne_al_pesto/ingredienti.txt 11 ./database/ricette/lasagne_al_pesto/preparazione.txt 40 0
