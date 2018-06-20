@@ -23,9 +23,9 @@ int loadDatabaseAlimenti(const char nome[], Alimento database[], int *numeroAlim
 int loadCategories(const char nome[], char categorie[][maxCatLen], int *totCat);
 int saveCategories(const char nome[], char categorie[][maxCatLen], int totCat);
 int saveAlim(const char nome[], Alimento database[], int totDatabase);
-int loadMenu(const char nome[], int menu[]);
+int loadMenu(const char nome[], Menu menu[], int *isPresent);
 int saveInto(const char nome[], char intolleranze[][maxCatLen], int totInto);
 int loadInto(const char nome[], char intolleranze[][maxCatLen], int totInto);
-int saveMenu(const char nome[], int menu[]);
+int saveMenu(const char nome[], Menu menu[], int isPresent);
 
 #endif

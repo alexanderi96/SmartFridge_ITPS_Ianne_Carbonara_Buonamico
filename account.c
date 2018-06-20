@@ -115,24 +115,14 @@ int searchAccount(Utente utenti[], int totUtenti, char user[]){
 }
 
 void showAccount(Utente utente){
-    char isadmin[6];
-    /*
-    char user[25];
-    char nome[25];
-    char cognome[25];
-    char password[25];
-    int eta;
-    _Bool isadmin;
-    char intopos[50];
-    int totinto;
-    char intolleranze[maxCatLen][maxCatLen];
-    */
-    if(utente.isadmin){
+    char isadmin[6];    if(utente.isadmin){
         strcpy(isadmin, "Admin");
     }else{
         strcpy(isadmin, "Normal");
     }
-    printf("|%-30s|%-30s|%-30s|\n"
-        "|------------------------------|------------------------------|------------------------------|------------------------------|\n"
-        "|%-30s|%-30s|%-30s|%-30s|\n", "Username","Nome", "Cognome", utente.user, utente.nome, utente.cognome, isadmin);
+    printf("|------------------------------|------------------------------|------------------------------|------------------------------|\n"
+        "|%-30s|%-30s|%-30s|%-30s|\n"
+        "|------------------------------|------------------------------|------------------------------|------------------------------|------------------------------|\n"
+        "|%-30s|%-30s|%-30s|%-30d|%-30s|\n"
+        "|------------------------------|------------------------------|------------------------------|------------------------------|------------------------------|\n", "Username","Nome", "Cognome", "Eta'", utente.user, utente.nome, utente.cognome, utente.eta, isadmin);
 }

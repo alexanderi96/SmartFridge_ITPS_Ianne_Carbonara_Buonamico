@@ -9,7 +9,7 @@
 #define maxIngredienti 100
 #define maxCatLen 50
 #define totCategorie 50
-#define totPastiSett 14
+#define totGiorniSett 7
 
 //struttura creata per la gestione delle date
 typedef struct{
@@ -17,6 +17,12 @@ typedef struct{
 	int mm;
 	int aaaa;
 }Data;
+
+typedef struct{
+	Data giorno;
+	int mattina;
+	int sera;
+}Menu; //questa struttura definisce il menù relativo ad un singolo giorno con data di validità e id della ricetta.
 
 typedef struct{
 	int id_alimento;
@@ -65,12 +71,14 @@ typedef struct{
 	int totIngredienti; 
 	char prepaPos[100]; //collegamento al nome del file che contiene la preparazione
 	int tempoPrep;
+	int nVolteUs; //numero di volte che una ricetta è stata cucinata.
 }Ricetta;
 
 void clearBuffer();
 void make_directory(const char* name);
 void setCurrentDate(Data *data, int giorniSupp);
 int checkIdPresence(int elencoid[], int totElem, int nextId);
+int generaRandom(int seme);
 
 extern const char accountlocation[];
 extern const char listlocation[];
