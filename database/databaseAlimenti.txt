@@ -114,3 +114,4 @@
 112 frutta banana 65 2
 113 verdura cetrioli 15 7
 114 verdura basilico 15 15
+115 carboidrati cous_cous 356 10
