@@ -5,6 +5,7 @@
 #include "various.h"
 #include "file.h"
 #include "prodotti.h"
+#include "dispensa.h"
 
 /* La seguente funzione permette di visualizzare il nome, categoria e qualità
 * degli alimenti presenti nel frigo
@@ -29,6 +30,8 @@ void showList(Spesa Elementlista[], int totElem){
 */
 
 int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento){
+	printf("copytolist %s\n", alimento.nome);
+	getchar();
    	int posList = searchElement(listaSpesa, *totElemLista, alimento.nome);
    	if (posList>=0){
     	listaSpesa[posList].quantita=listaSpesa[posList].quantita + alimento.quantita;		
@@ -224,4 +227,55 @@ void scalaStruct (Spesa Elementlista[], int *totElem, int startPoint){
 		Elementlista[i] = Elementlista[i+1];
 	}
 	*totElem=*totElem-1;
+}
+
+void mainmenusel4(Alimento dispensa[], int *totAlimenti, Spesa lista[], int *totElem, Alimento database[], int *totDatabase, char elencoCategorie[][maxCatLen], int *totCat){
+	_Bool flag=1;
+	char scelta;
+	while(flag){
+        fputs("Che alimenti hai acquistato?\n\n"
+        	"1. Tutti quelli presenti nella lista della spesa\n"
+        	"2. Solo parte degli alimenti presenti nella lista della spesa\n"
+           	"3. Nessun alimento tra quelli presenti nella lista della spesa\n\n"
+           	"0. Indietro\n"
+            ">>> ", stdout);
+        scelta=getchar();
+        clearBuffer();
+        system("@cls||clear");
+        switch(scelta){
+            case '1':
+                if(*totElem>0){
+                    addAllToStorage(dispensa, *&totAlimenti, lista, *&totElem, database, *totDatabase);
+                    loadList(listlocation, lista, *&totElem);
+                    system("@cls||clear");
+                    puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
+                }else{
+                    puts("<*> Non sono presenti elementi da acquistare, premi 3 per aggiungere un prodotto esterno alla lista della spesa\n");
+                }
+            break;
+      		case '2':
+                if(*totElem>0){
+                    addPartialToStorage(dispensa, *&totAlimenti, lista, *&totElem, database, *totDatabase);
+                    loadList(listlocation, lista, *&totElem);
+                    system("@cls||clear");
+                    puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
+                }else{
+                    puts("<*> Non sono presenti elementi da acquistare, premi 3 per aggiungere un prodotto esterno alla lista della spesa\n");
+                }
+            break;
+            case '3':
+               	addToStorage(dispensa, *&totAlimenti, elencoCategorie, *&totCat, database, *&totDatabase);
+                system("@cls||clear");
+                puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
+      		break;
+      		case '0':
+            	flag=0;
+       		break;
+      		default:
+      			system("@cls||clear");
+           		puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+       		break;
+       	}
+    }
+    return;
 }

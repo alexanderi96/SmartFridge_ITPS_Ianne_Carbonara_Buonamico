@@ -18,5 +18,6 @@ int isInScadenza(Alimento alimento);
 int rimScad(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista);
 void scalaStructA (Alimento alimento[], int *totAlim, int startPoint);
 void showSingleAlim(Alimento alimento);
+int getQuantityR(Alimento dispensa[], int totAlimenti, char alim[], int startPoint);
 
 #endif

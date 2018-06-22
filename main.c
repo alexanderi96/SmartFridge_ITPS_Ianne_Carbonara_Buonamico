@@ -7,7 +7,7 @@
 #include "various.h"
 
 
-
+//@author Alexanderi96
 
 int main() {
     char elencoCategorie[totCategorie][maxCatLen];

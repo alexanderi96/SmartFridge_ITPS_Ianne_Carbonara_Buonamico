@@ -48,7 +48,7 @@ int saveStorage(const char nome[], Alimento dispensa[], int totAlimenti){
         fprintf(pf, "%d\n", totAlimenti);
         for (int i = 0; i < totAlimenti; ++i){
             //stampa di nome, caegoria, data di scadenza, data di apertura, giorni max util, quantità, kcal
-            fprintf(pf, "%d %s %s %2d.%2d.%4d %d %d %d\n", dispensa[i].id_alimento, dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
+            fprintf(pf, "%d %s %s %d.%d.%d %d %d %d\n", dispensa[i].id_alimento, dispensa[i].nome, dispensa[i].categoria, dispensa[i].scadenza.gg, dispensa[i].scadenza.mm, dispensa[i].scadenza.aaaa, dispensa[i].giorniMaxUtil, dispensa[i].quantita, dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -110,7 +110,7 @@ int loadStorage(const char nome[], Alimento dispensa[], int *totAlimenti){
     }else{
         fscanf(pf, "%d", *&totAlimenti);;
         for (int i = 0; i < *totAlimenti; ++i){
-            fscanf(pf, "%d %s %s %2d.%2d.%4d %d %d %d\n", &dispensa[i].id_alimento, dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
+            fscanf(pf, "%d %s %s %d.%d.%d %d %d %d\n", &dispensa[i].id_alimento, dispensa[i].nome, dispensa[i].categoria, &dispensa[i].scadenza.gg, &dispensa[i].scadenza.mm, &dispensa[i].scadenza.aaaa, &dispensa[i].giorniMaxUtil, &dispensa[i].quantita, &dispensa[i].kcal);
         }
     }
     fclose(pf);
@@ -293,7 +293,7 @@ int loadMenu(const char nome[], Menu menu[], int *isPresent){
     }else{
         fscanf(pf, "%d\n", *&isPresent);
         for (int i = 0; i < totGiorniSett; i++){
-            fscanf(pf, "%2d.%2d.%4d %d %d\n", &menu[i].giorno.gg, &menu[i].giorno.mm, &menu[i].giorno.aaaa, &menu[i].mattina, &menu[i].sera);
+            fscanf(pf, "%d.%d.%d %d %d\n", &menu[i].giorno.gg, &menu[i].giorno.mm, &menu[i].giorno.aaaa, &menu[i].mattina, &menu[i].sera);
         }
     }
     fclose(pf);
@@ -308,7 +308,7 @@ int saveMenu(const char nome[], Menu menu[], int isPresent){
     }else{
         fprintf(pf, "%d\n", isPresent);
         for (int i = 0; i < totGiorniSett; i++){
-            fprintf(pf, "%2d.%2d.%4d %d %d\n", menu[i].giorno.gg, menu[i].giorno.mm, menu[i].giorno.aaaa, menu[i].mattina, menu[i].sera);
+            fprintf(pf, "%d.%d.%d %d %d\n", menu[i].giorno.gg, menu[i].giorno.mm, menu[i].giorno.aaaa, menu[i].mattina, menu[i].sera);
         }
     }
     fclose(pf);

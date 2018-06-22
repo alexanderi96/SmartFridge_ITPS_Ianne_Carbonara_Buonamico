@@ -200,7 +200,7 @@ void scalarStruct (Ricetta ricette[], int totRicette, int startPoint){
 int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette){
 	int count=0;
 	for (int i = 0; i < totAlimenti; ++i){
-		if(isInScadenza(dispensa[i])){ //@Kri: Ale ma questa funzione dove la trovo ?
+		if(isInScadenza(dispensa[i])){ //@Kri: Ale ma questa funzione dove la trovo ? //@Ale: si trova in dispensa.c
 			for (int j = 0; j < totRicette; ++j){
 				for (int k = 0; k < ricette[j].totIngredienti; ++k){
 					if(strcmp(dispensa[i].nome, ricette[j].ingredienti[k].nome)==0){
@@ -211,4 +211,13 @@ int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta rice
 		}
 	}
 	return -1;
+}
+
+int searchRecipesById(int id, Ricetta ricette[], int totRicette){
+	for (int i = 0; i < totRicette; ++i) {
+        if(ricette[i].id_ricetta==id){
+            return i;
+        }
+    }
+    return -1;
 }

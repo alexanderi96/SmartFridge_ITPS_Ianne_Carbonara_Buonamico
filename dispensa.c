@@ -12,14 +12,24 @@
 int compareExpiry(Alimento alimento){
 	Data confronto;
 	setCurrentDate(&confronto, alimento.giorniMaxUtil);
-	if (confronto.mm==alimento.scadenza.mm){
-		if (confronto.gg==alimento.scadenza.gg){
-			return 1;
+	if(confronto.aaaa>alimento.scadenza.aaaa){
+		return 0; //la alimento.scadenza non è ancora arrivata
+	}else if(confronto.aaaa==alimento.scadenza.aaaa){
+		if(confronto.mm>alimento.scadenza.mm){
+			return 0; //la alimento.scadenza non è ancora arrivata
+		}else if(confronto.mm==alimento.scadenza.mm){
+			if(confronto.gg>alimento.scadenza.gg){
+				return 0;
+			}else if(confronto.gg==alimento.scadenza.gg){
+				return 1;
+			}else{
+				return -1;
+			}
 		}else{
-			return 0;
+			return -1; //la data è passata
 		}
 	}else{
-		return 0;
+		return -1; //la data è passata
 	}
 }
 
@@ -264,6 +274,8 @@ int isInScadenza(Alimento alimento){
 	}
 	//l'alimento scadrà l'anno prossimo
 	return 0;
+	
+	
 }
 
 int rimScad(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista){
@@ -272,7 +284,7 @@ int rimScad(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totE
 	puts("|--------------------|------------------------------|--------------------|--------------------|--------------------|");
 
 	for (int i = 0; i < *totAlimenti; ++i){
-		if(isInScadenza(dispensa[i])==2){
+		if(compareToCurrentDate(dispensa[i].scadenza)==-1){
 			showSingleAlim(dispensa[i]);
 			copyToList(listaSpesa, *&totElemLista, dispensa[i]); //lo aggiungo nuovamente alla lista della spesa
 			scalaStructA(dispensa, *&totAlimenti, i);
@@ -294,3 +306,16 @@ void scalaStructA (Alimento alimento[], int *totAlim, int startPoint){
 void showSingleAlim(Alimento alimento){
 	printf("|%-20s|%-30s|%-20d|%-2d.%2d.%-14d|%-20d|\n", alimento.nome, alimento.categoria, alimento.quantita, alimento.scadenza.gg, alimento.scadenza.mm, alimento.scadenza.aaaa, alimento.kcal);
 }
+
+//ho bisogno di una funzione ricorsiva che mi vada a dire qunante unità di un prodotto sono presenti in dispensa
+//considerando che il prodotto può essere stato acquistato più volte e quindi può avere date di scadenza diverse
+int getQuantityR(Alimento dispensa[], int totAlimenti, char alim[], int startPoint){
+	int quantita=0; 
+	for (int i = startPoint; i < totAlimenti; ++i){
+		if(strcmp(dispensa[i].nome, alim) == 0){
+			quantita=dispensa[i].quantita+getQuantityR(dispensa, totAlimenti, alim, i+1);
+		}
+	}
+	return quantita;
+}
+

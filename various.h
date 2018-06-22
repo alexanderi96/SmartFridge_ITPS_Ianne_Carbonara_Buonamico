@@ -16,6 +16,8 @@ typedef struct{
 	int gg;
 	int mm;
 	int aaaa;
+	int hh;
+	int min;
 }Data;
 
 typedef struct{
@@ -78,6 +80,8 @@ void clearBuffer();
 void make_directory(const char* name);
 void setCurrentDate(Data *data, int giorniSupp);
 int checkIdPresence(int elencoid[], int totElem, int nextId);
+int compareToCurrentDate(Data data);
+int compareTwoDate(Data data1, Data data2);
 
 extern const char accountlocation[];
 extern const char listlocation[];

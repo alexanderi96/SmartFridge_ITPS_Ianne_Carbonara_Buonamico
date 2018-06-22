@@ -52,7 +52,7 @@ void make_directory(const char* name){
 void setCurrentDate(Data *data, int giorniSupp){
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
-	int maxgiornimese;
+	int maxgiornimese, mesiAgg,anniAgg;
 	
 	if(tm.tm_mon+1==2){
 		maxgiornimese=28;
@@ -62,24 +62,28 @@ void setCurrentDate(Data *data, int giorniSupp){
 		maxgiornimese=31;
 	}
 
-	if((tm.tm_mon + 1 + giorniSupp)>maxgiornimese){
-		if(tm.tm_mon + 1 ==12){
-			data->mm=1;
-			data->aaaa=tm.tm_year + 1900 +1;	
-		}else{
-			data->aaaa=tm.tm_year + 1900;
-				data->mm=tm.tm_mon + 1 + 1;
-		}
-		data->gg=giorniSupp+tm.tm_mday-maxgiornimese;
-	}else{
-		data->mm=tm.tm_mon + 1 ;
-		data->aaaa=tm.tm_year + 1900;
-		data->gg=giorniSupp+tm.tm_mday;
+
+	data->hh=tm.tm_hour;
+	data->min=tm.tm_min;
+	data->mm=tm.tm_mon + 1 ;
+	data->aaaa=tm.tm_year + 1900;
+	data->gg=tm.tm_mday;
+
+	data->gg=tm.tm_mday+giorniSupp;
+	while(data->gg>maxgiornimese){
+		data->mm++;
+		data->gg=data->gg-maxgiornimese;
 	}
+	while(data->mm>12){
+		data->aaaa++;
+		data->mm=data->mm-12;
+	}	
 }
 
-// Ale cosa fai qui ?
-
+/*
+Dany: Ale cosa fai qui ?
+Ale: ho fatto una funzione ricorsiva per andare a cercare id non utilizzati
+*/
 int checkIdPresence(int elencoid[], int totElem, int nextId){
 	for (int i = 0; i < totElem; ++i){
 		if (elencoid[i]==nextId){
@@ -88,3 +92,52 @@ int checkIdPresence(int elencoid[], int totElem, int nextId){
 	}
 	return nextId;
 }
+
+int compareToCurrentDate(Data data){ //ritorna 0 se la data non è passata, 1 se corrisponde -1 se è passata
+	Data oggi;
+
+	setCurrentDate(&oggi, 0);
+
+	if(oggi.aaaa<data.aaaa){
+		return 0; //la data non è ancora arrivata
+	}else if(oggi.aaaa==data.aaaa){
+		if(oggi.mm<data.mm){
+			return 0; //la data non è ancora arrivata
+		}else if(oggi.mm==data.mm){
+			if(oggi.gg<data.gg){
+				return 0;
+			}else if(oggi.gg==data.gg){
+				return 1;
+			}else{
+				return -1;
+			}
+		}else{
+			return -1; //la data è passata
+		}
+	}else{
+		return -1; //la data è passata
+	}
+}
+
+int compareTwoDate(Data data1, Data data2){ //ritorna 0 se la data non è passata, 1 se corrisponde -1 se è passata
+	if(data1.aaaa<data2.aaaa){
+		return 0; //la data2 non è ancora arrivata
+	}else if(data1.aaaa==data2.aaaa){
+		if(data1.mm<data2.mm){
+			return 0; //la data2 non è ancora arrivata
+		}else if(data1.mm==data2.mm){
+			if(data1.gg<data2.gg){
+				return 0;
+			}else if(data1.gg==data2.gg){
+				return 1;
+			}else{
+				return -1;
+			}
+		}else{
+			return -1; //la data2 è passata
+		}
+	}else{
+		return -1; //la data2 è passata
+	}
+}
+

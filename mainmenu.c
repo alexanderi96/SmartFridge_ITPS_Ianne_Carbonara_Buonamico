@@ -18,6 +18,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
+    Data oggi;
+
     Ricetta ricette[maxRicette];
     Menu menuSettimanale[totGiorniSett];
     Alimento dispensa[maxAlimenti];
@@ -26,7 +28,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     
     Spesa lista[maxAlimenti];
     char scelta, searchWord[50], userTemp;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isPresent=0; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     FILE *dis, *spe, *ric, *menuPtr;
     
@@ -45,10 +47,12 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     if(NULL==(menuPtr=fopen(menulocation,"r"))){  
         createNewFile(menulocation);
     }else{
-        loadMenu(menulocation, menuSettimanale, &isPresent);
+        loadMenu(menulocation, menuSettimanale, &isInTime);
     }
     fclose(menuPtr);
     
+
+
     /*
     fine caricamento menù
     */
@@ -74,12 +78,35 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     }
     fclose(spe);
 
+
+    //se la data dell'ultimo alimento è passata va ad impostare il flag isInTime su 0 permettendo la generazione di un nuovo menù settimanale
+    if(compareToCurrentDate(menuSettimanale[6].giorno)){
+        isInTime=0;
+    }
+
+     /*
+        per andare a creare il menù sommiamo i prodotti presenti in dispensa più quelli presenti nella lista della spesa
+        Se la somma dovesse essere essere sufficente a preparare le ricette per i prossimi due giorni si informerà l'utente che deve andare a fare la spesa.
+        Altrimenti si dirà "Zio guarda che nella dispensa non hai i prodotti necessari a fare le ricette per i prossimi due giorni, ti metto tutto nella lista della spesa."
+
+        inoltre se il programma dovesse essere avviato tra le 12-15 e 19-22 il programma dirà "è ora di cucinare, per oggi a pranzo ti consiglio questa ricetta. vuoi cominciare a cucinare?"
+        altrimenti andrà ad inserire i prodotti necessari nella lista della spesa. (dando come alternativa il link per scaricare l'app di just eat!)
+        */    
+
+    if(!isInTime){
+            //andiamo a generare il menù settimanale
+            //opzione per creare dieta ipocalorica (1200 kcal o meno totali)
+        isInTime=generaMenu(menuSettimanale, ricette, totRicette);
+        saveMenu(menulocation, menuSettimanale, isInTime);
+    }
+
     contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
     system("@cls||clear");
     while(1){
-    	
-        printf("Benvenuto %s\n\n", username);
-        printf("Oggi e' il: %d/%d/%d e sono le ore: %d:%d\nPassa una buona giornata!\n\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
+    	setCurrentDate(&oggi, 0);
+        printf("Benvenuto %s\n\n"
+            "Oggi e' il: %d/%d/%d e sono le ore: %d:%d\n"
+            "Passa una buona giornata!\n\n", username, oggi.gg, oggi.mm, oggi.aaaa, oggi.hh, oggi.min);
 
 
 
@@ -89,7 +116,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
             //da consigliare una ricetta
         }
         if(contScad>0){
-            printf("Ci sono %d prodotti scaduti in frigo, avvio della procedura per l'eleiminazione\n"
+            printf("Ci sono %d prodotti scaduti in dispensa, avvio della procedura per l'eleiminazione\n"
                 "Premi invio per continuare\n", contScad);
             
             getchar();
@@ -98,21 +125,19 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
             contScad=0;
         }
 
-        /*
-        per andare a creare il menù sommiamo i prodotti presenti in dispensa più quelli presenti nella lista della spesa
-        Se la somma dovesse essere essere sufficente a preparare le ricette per i prossimi due giorni si informerà l'utente che deve andare a fare la spesa.
-        Altrimenti si dirà "Zio guarda che nella dispensa non hai i prodotti necessari a fare le ricette per i prossimi due giorni, ti metto tutto nella lista della spesa."
+        //controlliamo se abbiamo a disposizione gli alimenti per cucinare 
 
-        inoltre se il programma dovesse essere avviato tra le 12-15 e 19-22 il programma dirà "è ora di cucinare, per oggi a pranzo ti consiglio questa ricetta. vuoi cominciare a cucinare?"
-        altrimenti andrà ad inserire i prodotti necessari nella lista della spesa. (dando come alternativa il link per scaricare l'app di just eat!)
-        */    
-
-        if(!isPresent){
-            //andiamo a generare il menù settimanale
-            //opzione per creare dieta ipocalorica (1200 kcal o meno totali)
-            isPresent=generaMenu(menuSettimanale, ricette, totRicette);
-            saveMenu(menulocation, menuSettimanale, isPresent);
+        check=checkListandStorage(lista, &totElem, dispensa, totAlimenti, menuSettimanale, ricette, totRicette);
+        if(check==1){
+            puts("<!> Ricordati di fare la spesa, gli alimenti presenti nella dispensa non sono sufficienti a cucinare le pietanze per i prossimi due giorni!\n");
+        }else if(check==2){
+            puts("<!> Attenzione gli alimenti presenti in dispensa e nella lista della spesa non sono sufficienti a cucinare le pietanze per i prossimi due giorni!\n"
+                "Tranquillo, ho provveduto ad aggiornare la lista della spesa per tuo conto, ma non dimenticarti di fare la spesa.\n");
         }
+
+        //andiamo a controllare se è ora di pranzo!
+
+        checkTimeandcook(ricette, totRicette, menuSettimanale, dispensa, totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
     
         fputs("1. Ricettario\n"
             "2. Gestione intolleranze\n" //da completare!
@@ -244,7 +269,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             system("@cls||clear");
                         break;
                         case '4':
-                        	flag=1;
+                            mainmenusel4(dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
+                            /*
                         	while(flag){
                         		fputs("Che alimenti hai acquistato?\n\n"
                         			"1. Tutti quelli presenti nella lista della spesa\n"
@@ -290,7 +316,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         			break;
                         		}
                         	}
-                            flag=1;
+                            */
                         break;
                         case '0':
                             flag=0;
