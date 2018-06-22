@@ -1,0 +1,9 @@
+0 carote ortaggi 50 17
+1 pollo proteine 100 111
+2 olive condimento 10 5
+3 fagiolini verdura 30 6
+4 sedano verdura 30 6
+5 peperoni verdura 50 11
+6 formaggio latticini 10 10
+7 sale condimento 5 0
+8 pepe condimento 5 0

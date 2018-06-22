@@ -1,0 +1,5 @@
+0 zucchine verdura 50 6
+1 olio condimento 15 135
+2 basilico verdura 20 3
+3 pepe condimento 5 0
+4 sale condimento 5 0

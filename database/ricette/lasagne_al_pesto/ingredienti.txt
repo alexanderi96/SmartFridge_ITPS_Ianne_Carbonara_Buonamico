@@ -1,0 +1,11 @@
+0 basilico verdura 50 7
+1 olio condimento 15 135
+2 sale condimento 10 0
+3 pepe condimento 7 0
+4 formaggio latticini 25 25
+5 latte latticini 20 136
+6 farina carboidrati 30 30
+7 burro condimento 15 112
+8 arachidi legumi 15 82
+9 uova proteine 40 52
+10 farina carboidrati 30 30

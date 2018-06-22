@@ -1,0 +1,8 @@
+0 acqua bevande 200 0
+1 sale condimento 8 0
+2 olio condimento 15 135
+3 carote ortaggi 60 21
+4 melanzane ortaggi 40 7
+5 zenzero ortaggi 10 5
+6 zucchine verdura 60 7
+7 pomodori frutta 40 8

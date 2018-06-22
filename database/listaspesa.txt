@@ -1,16 +1,1 @@
-15
-0 banana frutta 200
-1 pollo proteine 200
-2 asparagi ortaggi 50
-3 scalogno ortaggi 20
-4 sale condimento 10
-5 pepe condimento 6
-6 olio condimento 30
-7 formaggio latticini 50
-8 riso carboidrati 100
-9 zxc proteine 12
-10 melanzane verdura 20
-11 peperoni verdura 20
-12 pomodori verdura 20
-13 pasta carboidrati 100
-14 besciamella latticini 20
+0

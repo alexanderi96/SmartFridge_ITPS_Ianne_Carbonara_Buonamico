@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-Preparazione: In una casseruola disponete 1/2 litro d'acqua e i funghi.
-Portate a bollore ed unite il riso.
-Cuocete per una decina di minuti mescolando spesso sino a che avrà assorbito tutto il liquido e levate dal fuoco.
-Ungete d'olio 4 stampini da forno.
-Incorporate il formaggio al riso, mescolate e versate negli stampini.
-=======
-Preparazione: In una casseruola disponete 1/2 litro d'acqua e i funghi.
-Portate a bollore ed unite il riso.
-Cuocete per una decina di minuti mescolando spesso sino a che avrà assorbito tutto il liquido e levate dal fuoco.
-Ungete d'olio 4 stampini da forno.
-Incorporate il formaggio al riso, mescolate e versate negli stampini.
 
-Tempo di preparazione: 35 minuti 
->>>>>>> dcf23bb3ec5404dff9f658830e8781bc2d7b6d58
+Preparazione: In una casseruola disponete 1/2 litro d'acqua e i funghi.
+Portate a bollore ed unite il riso.
+Cuocete per una decina di minuti mescolando spesso sino a che avrà assorbito tutto il liquido e levate dal fuoco.
+Ungete d'olio 4 stampini da forno.
+Incorporate il formaggio al riso, mescolate e versate negli stampini.
