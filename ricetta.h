@@ -12,5 +12,6 @@ int rimrElem(Ricetta ricette[], int *totRicette);
 void scalarStruct (Ricetta ricette[], int totRicette, int startPoint);
 int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette);
 int searchRecipesById(int id, Ricetta ricette[], int totRicette);
+int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti);
 
 #endif

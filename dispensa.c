@@ -193,7 +193,7 @@ void addNewAliment(Alimento dispensa[], int *totAlimenti, char nome[], int quant
 
 int addAllToStorage(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista, Alimento database[], int totDatabase){
 	Data confronto;
-	int pos, maxgiornimese;
+	int pos;
 	for (int i = 0; i < *totElemLista; ++i){
 		pos = searchAlimDisp(dispensa, *totAlimenti, listaSpesa[i].nome);
 		if(pos>-1){
@@ -275,7 +275,7 @@ int isInScadenza(Alimento alimento){
 	//l'alimento scadrà l'anno prossimo
 	return 0;
 	
-	
+
 }
 
 int rimScad(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totElemLista){

@@ -13,6 +13,7 @@ verrà generato un menù settimanale in comune per tutti, nel momento in cui si 
 #include "dispensa.h"
 #include "spesa.h"
 #include "menuSettimanale.h"
+#include "file.h"
 
 
 int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
@@ -38,7 +39,6 @@ int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
 			//andiamo ad aggiungere senza problemi la prima ricetta per il pranzo, e cerchiamo di mettere una ricetta diversa a cena (possibilmente qualcosa di leggero)
 			posRic=rand()%totricette;
 
-			printf("%d\n", menuSett[i].mattina);
 			menuSett[i].mattina=ricette[posRic].id_ricetta;
 			 //generata a caso
 		do{
@@ -52,7 +52,6 @@ int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
 		do{
 			posRic=rand()%totricette;
 			menuSett[i].mattina=ricette[posRic].id_ricetta;
-			printf("%d\n", menuSett[i].sera);
 		}while(menuSett[i].mattina==menuSett[i-1].mattina && menuSett[i].mattina==menuSett[i-1].sera);
 					
 		do{
@@ -161,7 +160,7 @@ int ifIngredientsInStorage(Alimento aliTemp[], int totAlitemp, Alimento dispensa
 						flag=2; //diciamogli che abbiamo aggiunto delle cose alla sua lista della spesa.
 					}
 					//dobbiamo inserire la quantità mancante nella lista della spesa
-					copyToList(spesa, *&totLista, aliTemp[i]);
+					spesa[posList].quantita=spesa[posList].quantita+qIngre;
 				}
 			}else{
 				if(flag!=2){
@@ -172,6 +171,8 @@ int ifIngredientsInStorage(Alimento aliTemp[], int totAlitemp, Alimento dispensa
 			}
 		}
 	}
+
+    saveList(listlocation, spesa, *totLista);
 	return flag;
 }
 
@@ -181,6 +182,7 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
 	Data oggi;
 	setCurrentDate(&oggi, 0);
 	char scelta;
+	int posRic;
 	_Bool flag=1;
 	if(11<=oggi.hh && oggi.hh<15){
 		ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].mattina, ricette, totRicette)];
@@ -190,22 +192,22 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
     	ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].sera, ricette, totRicette)];
         printf("E' ora di cena!, il pasto consigliato in questo momento e': %s\n", ricetta.nome);
     }else{
-    	//return;
+    	return;
     }
 
     copyIngredienttoAliment(aliTemp, ricetta.ingredienti, ricetta.totIngredienti);
 
     while(0!=ifIngredientsInStorage(aliTemp, ricetta.totIngredienti, dispensa, totAlimenti, spesa, *&totLista)){
     	puts("Purtroppo non hai a disposizione tutti gli alimenti per cucinare questa ricetta e di conseguenza sono stati inseriti nella lista della spesa.\n");
-    	if((12<=oggi.hh && oggi.hh<13) || (19<=oggi.hh && oggi.hh<21)){
+    	if((12<=oggi.hh && oggi.hh<14) || (19<=oggi.hh && oggi.hh<21)){
     		while(flag){
     			fputs("Hai ancora a disposizione poco tempo per andare a comprare gli alimenti che ho inserito nella lista della spesa.\n"
     				"1. Comunica alimenti acquistati\n"
     				"2. Fai una ricetta alternativa\n"
-    				"3. Visita justeat.it per ordinare qualcosa\n\n"
+    				"3. Visita justeat.it per ordinare qualcosa (e vai al menu' principale)\n\n"
     				"0. Vai al menu' principale\n"
     				">>> ", stdout);
- 				getchar();
+ 				scelta=getchar();
 
         		clearBuffer();	
         		system("@cls||clear");
@@ -214,7 +216,17 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
         				mainmenusel4(dispensa, &totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat);
         			break;
         			case '2':
-        				//fai una ricetta alternativa
+        				posRic=searchRecipesById(getPossibleRepice(ricette, totRicette, dispensa, totAlimenti), ricette, totRicette);
+        				if(posRic>-1){
+        					printf("mo, questaricetta è Purtroppo valida %s\n", ricette[posRic].nome);
+        					getchar();
+
+        				}else{
+        					puts("Purtroppo non puoi preparare nessuna delle ricette presenti in memoria con gli alimenti presenti in dispensa\n"
+        						"Premi invio per tornare al menu principale . . .\n");
+        					getchar();
+        					return;
+        				}
         			break;
         			case '3':
         				return;
@@ -230,11 +242,18 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
     		flag=1;
     	}
     	puts("E'anche troppo tardi per andare a fare la spesa.\n"
-    		"Visita justeat.it per ordinare qualcosa\n\n");
+    		"Visita justeat.it per ordinare qualcosa\n\n"
+    		"Premi invio per andare al menu principale . . .\n");
+    	getchar();
     	return;
     }
    	while(flag){
+   		fputs("Vuoi cominciare a cucinare? s/n\n"
+   			">>> ", stdout);
    		scelta=getchar();
+
+        clearBuffer();	
+        system("@cls||clear");
    		switch(scelta){
    			case 's':
    				startCooking();

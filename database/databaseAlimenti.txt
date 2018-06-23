@@ -1,4 +1,4 @@
-116
+115
 0 proteine maiale 200 3
 1 proteine vitello 134 3
 2 proteine tacchino 120 3
@@ -99,8 +99,6 @@
 97 proteine guanciale 665 5
 98 latticini formaggio 100 6
 99 condimento pepe 0 20
-100 dolci muffin 296 10
-101 proteine manzo 217 2
 102 frutta banana 65 2
 103 condimento besciamella 200 3
 104 condimento pesto 150 5
@@ -115,3 +113,4 @@
 113 verdura cetrioli 15 7
 114 verdura basilico 15 15
 115 carboidrati semolino 350 15
+116 verdura finocchi 9 10

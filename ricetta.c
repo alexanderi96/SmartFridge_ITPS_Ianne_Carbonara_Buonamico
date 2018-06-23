@@ -195,6 +195,7 @@ void scalarStruct (Ricetta ricette[], int totRicette, int startPoint){
 
 /* La seguente funzione permette di calcolare la ricetta consigliata per l'utente
 * considerando gli alimenti prossimi alla scadenza in base alla dispensa disponibile
+* Questa funzione e' da rivedere pesantemente
 */
 
 int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette){
@@ -220,4 +221,31 @@ int searchRecipesById(int id, Ricetta ricette[], int totRicette){
         }
     }
     return -1;
+}
+
+int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti){
+	//ciclo che gira sulle ricette scorrendo tutti gli ingredienti confrontandoli uno ad uno con tutti quelli presenti in dispensa.
+	//se un ingrediente non è disponibile in quantità necessaria andrà alla ricetta successiva.
+	//se non troverà una ricetta disponibile ritornerà -1 altrimenti l'id della ricetta che è possibile cucinare
+	_Bool flagTrovato=0, flagRicetta=1;
+	for (int i = 0; i < totRicette; ++i){ //giro le ricette
+		for (int j = 0; j < ricette[i].totIngredienti && flagRicetta; ++j){ //giro gli angredienti della singola ricetta
+			flagTrovato=0;
+			for (int k = 0; k < totAlimenti && !flagTrovato; ++k){ //giro gli alimenti disponibili
+				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0 && (dispensa[k].quantita - ricette[i].ingredienti[j].quantita)>0){
+					flagTrovato=1;
+				}
+			}
+			if (!flagTrovato){
+				//vuol dire che non ho trovato quell'ingrediente
+				//dobbiamo cambiare ricetta
+				flagRicetta=0;
+			}
+		}
+		if (flagRicetta){
+			/*questa ricetta è valida, andiamo a comunicarla*/
+			return ricette[i].id_ricetta;
+		}
+	}
+	return -1;
 }

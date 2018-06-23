@@ -1,1 +1,19 @@
-0
+18
+0 pesto condimento 28.6.2018 5 50 150
+2 pistacchi ortaggi 23.7.2018 30 10 100
+3 pepe condimento 13.7.2018 20 10 0
+4 basilico verdura 8.7.2018 15 50 15
+5 olio condimento 3.6.2020 700 20 901
+6 sale condimento 28.6.2019 365 10 0
+7 formaggio latticini 29.6.2018 6 45 100
+8 latte latticini 28.6.2018 5 35 680
+9 farina carboidrati 3.6.2019 340 60 100
+10 burro condimento 23.7.2018 30 15 750
+11 arachidi legumi 23.7.2018 30 15 547
+12 uova proteine 3.7.2018 10 40 130
+13 semolino carboidrati 8.7.2018 15 50 350
+14 ceci legumi 23.8.2018 60 30 120
+15 funghi verdura 8.7.2018 15 100 21
+16 spinaci verdura 23.8.2018 60 50 24
+17 finocchi verdura 3.7.2018 10 20 9
+1 pasta carboidrati 23.9.2018 90 130 365

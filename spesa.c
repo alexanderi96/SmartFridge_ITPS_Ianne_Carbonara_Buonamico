@@ -30,15 +30,14 @@ void showList(Spesa Elementlista[], int totElem){
 */
 
 int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento){
-	printf("copytolist %s\n", alimento.nome);
-	getchar();
    	int posList = searchElement(listaSpesa, *totElemLista, alimento.nome);
    	if (posList>=0){
     	listaSpesa[posList].quantita=listaSpesa[posList].quantita + alimento.quantita;		
     }else{
     	
-    	strcat(listaSpesa[*totElemLista].nome, alimento.nome);
-   		strcat(listaSpesa[*totElemLista].categoria, alimento.categoria);
+    	strcpy(listaSpesa[*totElemLista].nome, alimento.nome);
+    	printf("strcpy %s %s\n", listaSpesa[*totElemLista].nome, alimento.nome);
+   		strcpy(listaSpesa[*totElemLista].categoria, alimento.categoria);
  		listaSpesa[*totElemLista].quantita=alimento.quantita;
      	int id_buffer[maxAlimenti];
         for (int i = 0; i < *totElemLista; ++i){

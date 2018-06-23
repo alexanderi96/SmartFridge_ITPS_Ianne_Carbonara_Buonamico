@@ -24,11 +24,11 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     Menu menuSettimanale[totGiorniSett];
     Alimento dispensa[maxAlimenti];
 
-    Alimento database[100]; //l'elenco di tutti gli alimenti che si possono acquistare
+    Alimento database[maxAlimenti]; //l'elenco di tutti gli alimenti che si possono acquistare
     
     Spesa lista[maxAlimenti];
     char scelta, searchWord[50], userTemp;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     FILE *dis, *spe, *ric, *menuPtr;
     
@@ -103,14 +103,15 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
     system("@cls||clear");
     while(1){
-    	setCurrentDate(&oggi, 0);
-        printf("Benvenuto %s\n\n"
-            "Oggi e' il: %d/%d/%d e sono le ore: %d:%d\n"
-            "Passa una buona giornata!\n\n", username, oggi.gg, oggi.mm, oggi.aaaa, oggi.hh, oggi.min);
+        setCurrentDate(&oggi, 0);
+    	
+        if(flagCoock){
+            checkTimeandcook(ricette, totRicette, menuSettimanale, dispensa, totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
+            flagCoock=0;
+            system("@cls||clear");
+        }
 
 
-
-        
         if(contInScad>0){
         	printf("Ci sono %d prodotti in scadenza\n\n", contInScad);
             //da consigliare una ricetta
@@ -137,7 +138,12 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 
         //andiamo a controllare se è ora di pranzo!
 
-        checkTimeandcook(ricette, totRicette, menuSettimanale, dispensa, totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
+
+
+        printf("Benvenuto %s\n\n"
+            "Oggi e' il: %d/%d/%d e sono le ore: %d:%d\n"
+            "Passa una buona giornata!\n\n", username, oggi.gg, oggi.mm, oggi.aaaa, oggi.hh, oggi.min);
+
     
         fputs("1. Ricettario\n"
             "2. Gestione intolleranze\n" //da completare!
