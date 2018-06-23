@@ -14,5 +14,6 @@ int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta rice
 int searchRecipesById(int id, Ricetta ricette[], int totRicette);
 void showInstructions(Ricetta ricetta);
 int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti);
+int incUsageById(int id_ricetta, Ricetta ricette[], int totRicette);
 
 #endif

@@ -185,11 +185,11 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
 	char scelta;
 	int posRic;
 	_Bool flag=1;
-	if(11<=oggi.hh && oggi.hh<16){
+	if(12<=oggi.hh && oggi.hh<15){
 		ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].mattina, ricette, totRicette)];
         printf("E' ora di pranzo!, il pasto consigliato in questo momento e': %s\n", ricetta.nome);
             
-    }else if(19<=oggi.hh && oggi.hh<=22){
+    }else if(17<=oggi.hh && oggi.hh<=22){
     	ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].sera, ricette, totRicette)];
         printf("E' ora di cena!, il pasto consigliato in questo momento e': %s\n", ricetta.nome);
     }else{
@@ -257,7 +257,7 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
         system("@cls||clear");
    		switch(scelta){
    			case 's':
-   				startCooking(ricetta, dispensa, *&totAlimenti);
+   				startCooking(ricetta, dispensa, *&totAlimenti, ricette, totRicette);
    				return;
    			break;
    			case 'n':
@@ -269,7 +269,7 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
    	}
 }
 
-void startCooking(Ricetta ricetta, Alimento dispensa[], int *totAlimenti){
+void startCooking(Ricetta ricetta, Alimento dispensa[], int *totAlimenti, Ricetta ricette[], int totRicette){
 	//in questa funzione mostriamo gli ingredienti, tempo di cottura ecc. quando l'utilizzatore andrà a premere invio per completare la ricetta andremo a ridurre gli alimenti utilizzati.
 	puts("|--------------------------------------------------------------------------------------------|");  
 	printf("\n|%-92s|\n|%-92s|\n" 
@@ -282,6 +282,8 @@ void startCooking(Ricetta ricetta, Alimento dispensa[], int *totAlimenti){
     showInstructions(ricetta);
     puts("\nPremi invio per terminare la preparazione . . .");
     getchar();
+    rimIng(dispensa, *&totAlimenti, ricetta.ingredienti, ricetta.totIngredienti);
+    incUsageById(ricetta.id_ricetta, ricette, totRicette);
 }
 
 //funzione usata per convertire alimenti in ingredienti

@@ -270,3 +270,14 @@ int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], in
 	}
 	return -1;
 }
+
+int incUsageById(int id_ricetta, Ricetta ricette[], int totRicette){
+	int pos=searchRecipesById(id_ricetta, ricette, totRicette);
+	if (pos>-1){
+		ricette[pos].nVolteUs=ricette[pos].nVolteUs+1;
+		saveRecipes(repiceslocation, ricette, totRicette);
+		return 1;
+	}else{
+		return 0;
+	}
+}

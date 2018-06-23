@@ -319,3 +319,19 @@ int getQuantityR(Alimento dispensa[], int totAlimenti, char alim[], int startPoi
 	return quantita;
 }
 
+void rimIng(Alimento dispensa[], int *totAlimenti, Ingredienti ingredienti[], int totIngredienti){
+	int qIngTemp, disPos;
+	for (int i = 0; i < totIngredienti; ++i){
+		qIngTemp=ingredienti[i].quantita;
+		while(qIngTemp>0){
+			disPos=searchAlimDisp(dispensa, *totAlimenti, ingredienti[i].nome);
+			if(dispensa[disPos].quantita>qIngTemp){
+				dispensa[disPos].quantita=dispensa[disPos].quantita-qIngTemp;
+			}else{
+				qIngTemp=qIngTemp-dispensa[disPos].quantita;
+				scalaStructA(dispensa, *&totAlimenti, disPos);
+			}
+		}
+	}
+	saveStorage(dispensalocation, dispensa, *totAlimenti);
+}

@@ -19,5 +19,6 @@ int rimScad(Alimento dispensa[], int *totAlimenti, Spesa listaSpesa[], int *totE
 void scalaStructA (Alimento alimento[], int *totAlim, int startPoint);
 void showSingleAlim(Alimento alimento);
 int getQuantityR(Alimento dispensa[], int totAlimenti, char alim[], int startPoint);
+void rimIng(Alimento dispensa[], int *totAlimenti, Ingredienti ingredienti[], int totIngredienti);
 
 #endif
