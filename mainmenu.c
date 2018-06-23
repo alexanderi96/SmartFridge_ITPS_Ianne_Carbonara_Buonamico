@@ -106,7 +106,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
         setCurrentDate(&oggi, 0);
     	
         if(flagCoock){
-            checkTimeandcook(ricette, totRicette, menuSettimanale, dispensa, totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
+            checkTimeandcook(ricette, totRicette, menuSettimanale, dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
             flagCoock=0;
             system("@cls||clear");
         }

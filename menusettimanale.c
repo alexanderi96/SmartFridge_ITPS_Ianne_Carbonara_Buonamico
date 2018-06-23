@@ -14,6 +14,7 @@ verrà generato un menù settimanale in comune per tutti, nel momento in cui si 
 #include "spesa.h"
 #include "menuSettimanale.h"
 #include "file.h"
+#include "ingrediente.h"
 
 
 int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
@@ -176,7 +177,7 @@ int ifIngredientsInStorage(Alimento aliTemp[], int totAlitemp, Alimento dispensa
 	return flag;
 }
 
-void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[], Alimento dispensa[], int totAlimenti, Spesa spesa[], int *totLista, Alimento database[], int *totDatabase, char elencoCategorie[][maxCatLen], int *totCat){
+void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[], Alimento dispensa[], int *totAlimenti, Spesa spesa[], int *totLista, Alimento database[], int *totDatabase, char elencoCategorie[][maxCatLen], int *totCat){
 	Alimento aliTemp[maxAlimenti];
 	Ricetta ricetta;
 	Data oggi;
@@ -184,7 +185,7 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
 	char scelta;
 	int posRic;
 	_Bool flag=1;
-	if(11<=oggi.hh && oggi.hh<15){
+	if(11<=oggi.hh && oggi.hh<16){
 		ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].mattina, ricette, totRicette)];
         printf("E' ora di pranzo!, il pasto consigliato in questo momento e': %s\n", ricetta.nome);
             
@@ -197,7 +198,7 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
 
     copyIngredienttoAliment(aliTemp, ricetta.ingredienti, ricetta.totIngredienti);
 
-    while(0!=ifIngredientsInStorage(aliTemp, ricetta.totIngredienti, dispensa, totAlimenti, spesa, *&totLista)){
+    while(0!=ifIngredientsInStorage(aliTemp, ricetta.totIngredienti, dispensa, *totAlimenti, spesa, *&totLista)){
     	puts("Purtroppo non hai a disposizione tutti gli alimenti per cucinare questa ricetta e di conseguenza sono stati inseriti nella lista della spesa.\n");
     	if((12<=oggi.hh && oggi.hh<14) || (19<=oggi.hh && oggi.hh<21)){
     		while(flag){
@@ -213,10 +214,10 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
         		system("@cls||clear");
         		switch(scelta){
         			case '1':
-        				mainmenusel4(dispensa, &totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat);
+        				mainmenusel4(dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat);
         			break;
         			case '2':
-        				posRic=searchRecipesById(getPossibleRepice(ricette, totRicette, dispensa, totAlimenti), ricette, totRicette);
+        				posRic=searchRecipesById(getPossibleRepice(ricette, totRicette, dispensa, *totAlimenti), ricette, totRicette);
         				if(posRic>-1){
         					printf("mo, questaricetta è Purtroppo valida %s\n", ricette[posRic].nome);
         					getchar();
@@ -247,7 +248,7 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
     	getchar();
     	return;
     }
-   	while(flag){
+   	while(1){
    		fputs("Vuoi cominciare a cucinare? s/n\n"
    			">>> ", stdout);
    		scelta=getchar();
@@ -256,7 +257,8 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
         system("@cls||clear");
    		switch(scelta){
    			case 's':
-   				startCooking();
+   				startCooking(ricetta, dispensa, *&totAlimenti);
+   				return;
    			break;
    			case 'n':
    				return;
@@ -267,8 +269,19 @@ void checkTimeandcook(Ricetta ricette[], int totRicette, Menu menuSettimanale[],
    	}
 }
 
-void startCooking(){
-
+void startCooking(Ricetta ricetta, Alimento dispensa[], int *totAlimenti){
+	//in questa funzione mostriamo gli ingredienti, tempo di cottura ecc. quando l'utilizzatore andrà a premere invio per completare la ricetta andremo a ridurre gli alimenti utilizzati.
+	puts("|--------------------------------------------------------------------------------------------|");  
+	printf("\n|%-92s|\n|%-92s|\n" 
+        "|Nome ricetta: %-78s|\n"
+        "|Nazione: %-83s|\n"
+        "|Tempo di preparazione: %-3d min.%-61s|\n"
+        "|La seguente ricetta e' stata preparata %-3d volte%-44s|\n", "Info relative alla ricetta:", "", ricetta.nome, ricetta.paese, ricetta.tempoPrep, "", ricetta.nVolteUs, "");
+    showIngredients(ricetta.ingredienti, ricetta.totIngredienti);
+    printf("|%-92s|Numero totale di kcal:%d\n", "", calcTotKcal(ricetta));
+    showInstructions(ricetta);
+    puts("\nPremi invio per terminare la preparazione . . .");
+    getchar();
 }
 
 //funzione usata per convertire alimenti in ingredienti

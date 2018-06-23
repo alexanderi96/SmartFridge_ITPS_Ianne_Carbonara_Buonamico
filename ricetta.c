@@ -223,6 +223,27 @@ int searchRecipesById(int id, Ricetta ricette[], int totRicette){
     return -1;
 }
 
+void showInstructions(Ricetta ricetta){
+	char buffer[50];
+	FILE *pf;
+	int len;
+	if(NULL==(pf=fopen(ricetta.prepaPos, "r"))){
+        fclose(pf);
+    }else{
+        while(!feof(pf)){
+            //stampa di username, password, admin, nome, cognome ed età     
+            fscanf(pf, "%s", buffer);
+            len=len+strlen(buffer);
+            if(len>90){
+            	puts("");
+            	len=0;
+            }
+        	printf("%s ", buffer);
+        }
+        fclose(pf);
+    }
+}
+
 int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti){
 	//ciclo che gira sulle ricette scorrendo tutti gli ingredienti confrontandoli uno ad uno con tutti quelli presenti in dispensa.
 	//se un ingrediente non è disponibile in quantità necessaria andrà alla ricetta successiva.
