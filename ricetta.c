@@ -244,7 +244,7 @@ void showInstructions(Ricetta ricetta){
     }
 }
 
-int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti){
+int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang){
 	//ciclo che gira sulle ricette scorrendo tutti gli ingredienti confrontandoli uno ad uno con tutti quelli presenti in dispensa.
 	//se un ingrediente non è disponibile in quantità necessaria andrà alla ricetta successiva.
 	//se non troverà una ricetta disponibile ritornerà -1 altrimenti l'id della ricetta che è possibile cucinare
@@ -253,7 +253,7 @@ int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], in
 		for (int j = 0; j < ricette[i].totIngredienti && flagRicetta; ++j){ //giro gli angredienti della singola ricetta
 			flagTrovato=0;
 			for (int k = 0; k < totAlimenti && !flagTrovato; ++k){ //giro gli alimenti disponibili
-				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0 && (dispensa[k].quantita - ricette[i].ingredienti[j].quantita)>0){
+				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0 && (dispensa[k].quantita - (ricette[i].ingredienti[j].quantita*nPerMang))>0){
 					flagTrovato=1;
 				}
 			}
@@ -280,4 +280,43 @@ int incUsageById(int id_ricetta, Ricetta ricette[], int totRicette){
 	}else{
 		return 0;
 	}
+}
+
+int getPossibleRepiceI(Utente utente, Ricetta ricette[], int totRicette){
+	_Bool flag;
+	for (int i = 0; i < totRicette; ++i){
+		flag=1;
+		for (int k = 0; k < utente.totinto; ++k){
+			for (int j = 0; j < ricette[i].totIngredienti; ++j){
+				if(0==strcmp(utente.intolleranze[k], ricette[i].ingredienti[j].categoria)){
+					flag=0;
+				}
+				if(flag==0){
+					j=ricette[i].totIngredienti;
+					k=utente.totinto;
+				}
+			}
+			
+		}
+		if(flag==1){
+			return i;
+		}
+	}
+	return 0;
+}
+
+int ifRepiceGI(Utente utente, Ricetta ricetta){
+	_Bool flag=1;
+	for (int k = 0; k < utente.totinto; ++k){
+		for (int j = 0; j < ricetta.totIngredienti; ++j){
+			if(0==strcmp(utente.intolleranze[k], ricetta.ingredienti[j].categoria)){
+				flag=0;
+			}
+			if(flag==0){
+				return 0;
+			}
+		}
+		
+	}
+	return 1;
 }

@@ -1,1 +1,35 @@
-0
+34
+4 spinaci verdura 26.8.2018 60 100 24
+5 finocchi verdura 6.7.2018 10 40 9
+6 formaggio latticini 2.7.2018 6 40 100
+7 pasta carboidrati 26.9.2018 90 160 365
+8 olio condimento 6.6.2020 700 35 901
+9 sogliola proteine 29.6.2018 3 100 83
+10 limone frutta 6.7.2018 10 50 14
+11 topinambour ortaggi 26.7.2018 30 100 73
+12 scalogno ortaggi 26.7.2018 30 120 72
+13 sedano verdura 3.7.2018 7 40 20
+14 rosmarino condimento 1.7.2019 365 10 20
+15 sale condimento 1.7.2019 365 15 0
+16 carote ortaggi 11.7.2018 15 50 35
+17 pollo proteine 29.6.2018 3 100 111
+18 olive condimento 3.7.2018 7 10 57
+19 fagiolini verdura 5.7.2018 9 30 20
+20 peperoni verdura 11.7.2018 15 150 22
+21 pepe condimento 16.7.2018 20 10 0
+22 zucchine verdura 11.7.2018 15 100 13
+23 basilico verdura 11.7.2018 15 20 15
+24 melanzane ortaggi 11.7.2018 15 100 18
+0 pesto condimento 29.6.2018 5 50 150
+1 pistacchi ortaggi 24.7.2018 30 10 100
+2 pasta carboidrati 24.9.2018 90 200 365
+3 melanzane ortaggi 9.7.2018 15 150 18
+25 olio condimento 4.6.2020 700 50 901
+26 quinoa legumi 29.6.2019 365 100 368
+27 acqua bevande 4.6.2020 700 50 0
+28 asparagi ortaggi 1.7.2018 7 50 50
+29 riso legumi 29.6.2019 365 100 50
+30 semolino carboidrati 9.7.2018 15 50 350
+31 ceci legumi 24.8.2018 60 30 120
+32 latte latticini 29.6.2018 5 15 680
+33 funghi verdura 9.7.2018 15 100 21

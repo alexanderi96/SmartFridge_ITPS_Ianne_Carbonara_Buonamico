@@ -13,7 +13,9 @@ void scalarStruct (Ricetta ricette[], int totRicette, int startPoint);
 int calcolaRicettaConsigliata(Alimento dispensa[], int totAlimenti, Ricetta ricette[], int totRicette);
 int searchRecipesById(int id, Ricetta ricette[], int totRicette);
 void showInstructions(Ricetta ricetta);
-int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti);
+int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang);
 int incUsageById(int id_ricetta, Ricetta ricette[], int totRicette);
+int getPossibleRepiceI(Utente utente, Ricetta ricette[], int totRicette);
+int ifRepiceGI(Utente utente, Ricetta ricetta);
 
 #endif

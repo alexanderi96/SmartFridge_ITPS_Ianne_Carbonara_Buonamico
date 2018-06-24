@@ -126,3 +126,7 @@ void showAccount(Utente utente){
         "|%-30s|%-30s|%-30s|%-30d|%-30s|\n"
         "|------------------------------|------------------------------|------------------------------|------------------------------|------------------------------|\n", "Username","Nome", "Cognome", "Eta'", utente.user, utente.nome, utente.cognome, utente.eta, isadmin);
 }
+
+int modifyUserPrivilege(Utente utenti[], int totUtenti, char Username[]){
+    return 1;
+}

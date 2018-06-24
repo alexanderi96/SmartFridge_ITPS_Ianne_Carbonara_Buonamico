@@ -106,14 +106,20 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
         setCurrentDate(&oggi, 0);
     	
         if(flagCoock){
-            checkTimeandcook(ricette, totRicette, menuSettimanale, dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
+            checkTimeandcook(utenti[searchAccount(utenti, *totUtenti, username)], ricette, totRicette, menuSettimanale, dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
             flagCoock=0;
             system("@cls||clear");
         }
 
 
         if(contInScad>0){
-        	printf("Ci sono %d prodotti in scadenza\n\n", contInScad);
+        	printf("Ci sono %d prodotti in scadenza\n"
+                "Pertanto ti consiglio di andare a vedere quali ricette puoi fare con questi ingredienti attraverso la funzione cerca.\n\n", contInScad);
+            for (int i = 0; i < totAlimenti; ++i){
+                if(isInScadenza(dispensa[i])){
+                    showSingleAlim(dispensa[i]);
+                }
+            }
             //da consigliare una ricetta
         }
         if(contScad>0){
@@ -276,53 +282,6 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                         case '4':
                             mainmenusel4(dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
-                            /*
-                        	while(flag){
-                        		fputs("Che alimenti hai acquistato?\n\n"
-                        			"1. Tutti quelli presenti nella lista della spesa\n"
-        	                		"2. Solo parte degli alimenti presenti nella lista della spesa\n"
-           	    	         		"3. Nessun alimento tra quelli presenti nella lista della spesa\n\n"
-           		             		"0. Indietro\n"
-                  		      		">>> ", stdout);
-                    	    	scelta=getchar();
-                    	    	clearBuffer();
-                    	    	system("@cls||clear");
-                       		 	switch(scelta){
-                       		 		case '1':
-                                        if(totElem>0){
-                                            addAllToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
-                                            loadList(listlocation, lista, &totElem);
-                                            system("@cls||clear");
-                                            puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
-                                        }else{
-                                            puts("<*> Non sono presenti elementi da acquistare, premi 3 per aggiungere un prodotto esterno alla lista della spesa\n");
-                                        }
-                        			break;
-                        			case '2':
-                                        if(totElem>0){
-                                            addPartialToStorage(dispensa, &totAlimenti, lista, &totElem, database, totDatabase);
-                                            loadList(listlocation, lista, &totElem);
-                                            system("@cls||clear");
-                                            puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
-                                        }else{
-                                            puts("<*> Non sono presenti elementi da acquistare, premi 3 per aggiungere un prodotto esterno alla lista della spesa\n");
-                                        }
-                        			break;
-                        			case '3':
-                        				addToStorage(dispensa, &totAlimenti, elencoCategorie, *&totCat, database, &totDatabase);
-                                        system("@cls||clear");
-                                        puts("<*> Tutti gli alimenti sono stati inseriti nella dispensa\n\n");
-                        			break;
-                        			case '0':
-                        				flag=0;
-                        			break;
-                        			default:
-                        				system("@cls||clear");
-                            			puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
-                        			break;
-                        		}
-                        	}
-                            */
                         break;
                         case '0':
                             flag=0;
@@ -423,7 +382,12 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             }
                         break;
                         case '2':
-                            //qualcosa
+                            if(checkAdmin(utenti, *totUtenti, username)){
+                                //modifyUserPrivilege(utenti, totUtenti, username);
+                            }else{
+                                system("@cls||clear");
+                                printf("<!> Non si dispone dei diritti di amministrazione necessari per eseguire questa operazione\n\n");
+                            }
                         break;
                         case '0':
                             flag=0;
