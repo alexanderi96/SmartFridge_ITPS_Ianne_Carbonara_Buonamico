@@ -405,7 +405,12 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                         case '2':
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                //modifyUserPrivilege(utenti, totUtenti, username);
+                                if(modifyUserPrivilege(utenti, *totUtenti)){
+                                    puts("<*> Modifica effettuata correttamente\n");
+                                    saveAccount(accountlocation, utenti, *totUtenti);
+                                }else{
+                                        puts("<!> Inserimento annullato\n");
+                                    }
                             }else{
                                 system("@cls||clear");
                                 printf("<!> Non si dispone dei diritti di amministrazione necessari per eseguire questa operazione\n\n");
