@@ -11,5 +11,6 @@ int checkAdmin(Utente utenti[], int totUtenti, char user[]);
 int searchAccount(Utente utenti[], int totUtenti, char user[]);
 void showAccount(Utente utente);
 int modifyUserPrivilege(Utente utenti[], int totUtenti, char Username[]);
+int modificaPassword(Utente *utente); 
 
 #endif

@@ -2,6 +2,6 @@
 0 alexanderi96 mandorla13 1 alessandro ianne 21 ./database/account/alexanderi96/intolleranze.txt 1
 1 asd asd 0 asd asd 123 ./database/account/asd/intolleranze.txt 0
 2 zxc zxc 0 zxc zxc 123 ./database/account/zxc/intolleranze.txt 0
-3 daniela daniela 1 daniela carbonara 22 ./database/account/daniela/intolleranze.txt 0
+3 daniela dani 1 daniela carbonara 22 ./database/account/daniela/intolleranze.txt 0
 4 rachella 1234 1 rachele d'allessandro 30 ./database/account/rachella/intolleranze.txt 0
 5 ale ale 0 alessandro simone 26 ./database/account/ale/intolleranze.txt 0

@@ -130,3 +130,11 @@ void showAccount(Utente utente){
 int modifyUserPrivilege(Utente utenti[], int totUtenti, char Username[]){
     return 1;
 }
+
+int modificaPassword(Utente *utente){
+    puts("Inserisci la nuova password\n\n");
+    scanf("%s", utente->password);
+    system("@cls||clear");
+    clearBuffer();
+    return 1;
+}

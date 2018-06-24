@@ -351,8 +351,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     fputs("5. Impostazioni\n\n"
                         "1. Inserimento nuovo account\n"
                         "2. Modifica grado utente\n"
-                        "3. Ripristino ai dati di fabbrica\n\n"
-                        "0. indietro\n"
+                        "3. Ripristino ai dati di fabbrica\n"
+                        "4. Modifica password\n"
+                        "0. Indietro\n"
                         ">>> ", stdout);
                     scelta = getchar();
                     system("@cls||clear");
@@ -410,6 +411,41 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                 printf("<!> Non si dispone dei diritti di amministrazione necessari per eseguire questa operazione\n\n");
                             }
                         break;
+                        case '3':
+                            //ripristino ai dati di fabbrica da parte dell'amministratore
+                        break;
+                        case '4':
+                            while(flag){
+                                fputs("Modifica password.\n"
+                                    "1. Modifica password\n\n"
+                                    "0. Indietro\n"
+                                    ">>> ", stdout);
+                                scelta=getchar();
+                                clearBuffer();
+                                system("@cls||clear");
+                                switch(scelta){
+                                    case'1':
+                                        if(modificaPassword(&utenti[searchAccount(utenti, *totUtenti, username)])){
+                                            saveAccount(accountlocation, utenti, *totUtenti);
+                                            puts("<*> Password salvata correttamente\n");
+                                        }else{
+                                            puts("<!> Errore");
+                                        }
+                                        flag=0;
+                                    break;
+                                    case '0':
+                                        flag=0;
+                                        system("@cls||clear");
+                                        getchar();
+                                    break;
+                                    default:
+                                        system("@cls||clear");
+                                        puts("<!> Per favore inserisci una scelta corretta!\n");
+                                    break;
+                                }
+                            }flag=1;
+                        break;
+                        
                         case '0':
                             flag=0;
                             system("@cls||clear");
