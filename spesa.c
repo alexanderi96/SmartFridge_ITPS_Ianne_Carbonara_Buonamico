@@ -36,7 +36,6 @@ int copyToList(Spesa listaSpesa[], int *totElemLista, Alimento alimento){
     }else{
     	
     	strcpy(listaSpesa[*totElemLista].nome, alimento.nome);
-    	printf("strcpy %s %s\n", listaSpesa[*totElemLista].nome, alimento.nome);
    		strcpy(listaSpesa[*totElemLista].categoria, alimento.categoria);
  		listaSpesa[*totElemLista].quantita=alimento.quantita;
      	int id_buffer[maxAlimenti];

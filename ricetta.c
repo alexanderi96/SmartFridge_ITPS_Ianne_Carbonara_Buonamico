@@ -26,10 +26,8 @@ void showRecipes(Ricetta ricette[], int totRicette){
 */
 
 void showSingleRecipe(Ricetta ricetta){
-	printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni");
-	puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
 	printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep, ricetta.nVolteUs);
-	fputs("|------------------------------|------------------------------|------------------------------|------------------------------|", stdout);
+	fputs("|------------------------------|------------------------------|------------------------------|------------------------------|\n", stdout);
 }
 
 /* La seguente funzione permtte di determinare le Kcal totali per una ricetta
@@ -244,17 +242,21 @@ void showInstructions(Ricetta ricetta){
     }
 }
 
+//ritorna la prima ricetta che è possibile fare
 int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang){
 	//ciclo che gira sulle ricette scorrendo tutti gli ingredienti confrontandoli uno ad uno con tutti quelli presenti in dispensa.
 	//se un ingrediente non è disponibile in quantità necessaria andrà alla ricetta successiva.
 	//se non troverà una ricetta disponibile ritornerà -1 altrimenti l'id della ricetta che è possibile cucinare
 	_Bool flagTrovato=0, flagRicetta=1;
 	for (int i = 0; i < totRicette; ++i){ //giro le ricette
-		for (int j = 0; j < ricette[i].totIngredienti && flagRicetta; ++j){ //giro gli angredienti della singola ricetta
+		for (int j = 0; j < ricette[i].totIngredienti && flagRicetta; ++j){ //giro gli ingredienti della singola ricetta
+			flagRicetta=1;
 			flagTrovato=0;
 			for (int k = 0; k < totAlimenti && !flagTrovato; ++k){ //giro gli alimenti disponibili
-				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0 && (dispensa[k].quantita - (ricette[i].ingredienti[j].quantita*nPerMang))>0){
-					flagTrovato=1;
+				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0){
+					if((getQuantityR(dispensa, totAlimenti, dispensa[k].nome, 0) - (ricette[i].ingredienti[j].quantita*nPerMang))>0){
+						flagTrovato=1;
+					}
 				}
 			}
 			if (!flagTrovato){
@@ -302,7 +304,7 @@ int getPossibleRepiceI(Utente utente, Ricetta ricette[], int totRicette){
 			return i;
 		}
 	}
-	return 0;
+	return -1;
 }
 
 int ifRepiceGI(Utente utente, Ricetta ricetta){
@@ -320,3 +322,62 @@ int ifRepiceGI(Utente utente, Ricetta ricetta){
 	}
 	return 1;
 }
+
+int checkIntollerance(char intolleranza[], Ricetta ricetta){
+	for (int i = 0; i < ricetta.totIngredienti; ++i){
+		if(0==strcmp(intolleranza, ricetta.ingredienti[i].categoria)){
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int getPossibleRepiceSingleI(char intolleranza[], Ricetta ricette[], int totRicette){
+	_Bool flag;
+	for (int i = 0; i < totRicette; ++i){
+		flag=1;
+		for (int j = 0; j < ricette[i].totIngredienti; ++j){
+			if(0==strcmp(intolleranza, ricette[i].ingredienti[j].categoria)){
+				flag=0;
+			}
+			if(flag==0){
+				j=ricette[i].totIngredienti;
+			}
+		}
+		if(flag==1){
+			return i;
+		}
+	}
+	
+	return -1;
+}
+
+int showPossibleRecipesD(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang){
+	_Bool flagTrovato=0, flagRicetta=1, flagalmeno1=0;
+	for (int i = 0; i < totRicette; ++i){ //giro le ricette
+		for (int j = 0; j < ricette[i].totIngredienti && flagRicetta; ++j){ //giro gli angredienti della singola ricetta
+			flagRicetta=1;
+			flagTrovato=0;
+			for (int k = 0; k < totAlimenti && !flagTrovato; ++k){ //giro gli alimenti disponibili
+				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0){
+					if((getQuantityR(dispensa, totAlimenti, dispensa[k].nome, 0) - (ricette[i].ingredienti[j].quantita*nPerMang))>0){
+						flagTrovato=1;
+					}
+				}
+			}
+			if (!flagTrovato){
+				//vuol dire che non ho trovato quell'ingrediente
+				//dobbiamo cambiare ricetta
+				flagRicetta=0;
+			}
+		}
+		if (flagRicetta){
+			printf("ciao\n");
+			flagalmeno1=1;
+			/*questa ricetta è valida, andiamo a comunicarla*/
+			showSingleRecipe(ricette[i]);
+		}
+	}
+	return flagalmeno1;
+}
+

@@ -4,6 +4,9 @@
 #include "various.h"
 #include "file.h"
 #include "prodotti.h"
+#include "intolleranze.h"
+
+
 
 int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatLen], int *totCat){
 	loadCategories(catLocation, elencoCategorie, *&totCat);

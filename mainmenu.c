@@ -28,8 +28,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     
     Spesa lista[maxAlimenti];
     char scelta, searchWord[50], userTemp;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
-    _Bool flag;
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    _Bool flag, flagCoock;
     FILE *dis, *spe, *ric, *menuPtr;
     
     /*
@@ -101,16 +101,23 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     }
 
     contaProdScad(dispensa, totAlimenti, &contScad, &contInScad);
+    setCurrentDate(&oggi, 0);
+    if ((oggi.hh>=12 && oggi.hh<15) || (oggi.hh>=19 && oggi.hh<22)){
+        flagCoock=1;
+    }else{
+        flagCoock=0;
+    }
     system("@cls||clear");
     while(1){
+
         setCurrentDate(&oggi, 0);
     	
+
         if(flagCoock){
             checkTimeandcook(utenti[searchAccount(utenti, *totUtenti, username)], ricette, totRicette, menuSettimanale, dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
             flagCoock=0;
             system("@cls||clear");
         }
-
 
         if(contInScad>0){
         	printf("Ci sono %d prodotti in scadenza\n"
@@ -151,12 +158,13 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
             "Passa una buona giornata!\n\n", username, oggi.gg, oggi.mm, oggi.aaaa, oggi.hh, oggi.min);
 
     
-        fputs("1. Ricettario\n"
-            "2. Gestione intolleranze\n" //da completare!
-            "3. Lista della spesa\n"
-            "4. Gestione della dispensa\n"
-            "5. Impostazioni\n"
-            "6. Cerca\n\n" //funzione che permette di effettuare una ricerca in TUTTO il database, stampando informazioni sui risultati! esattamente come una pagina google
+        fputs("1. CUCINIAMO!\n"
+            "2. Ricettario\n"
+            "3. Gestione intolleranze\n" //da completare!
+            "4. Lista della spesa\n"
+            "5. Gestione della dispensa\n"
+            "6. Impostazioni\n"
+            "7. Cerca\n\n" //funzione che permette di effettuare una ricerca in TUTTO il database, stampando informazioni sui risultati! esattamente come una pagina google
             "0. Logout\n"
             ">>> ", stdout);
         scelta = getchar(); 
@@ -164,6 +172,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
         system("@cls||clear");
         switch(scelta){
             case '1':
+                checkTimeandcook(utenti[searchAccount(utenti, *totUtenti, username)], ricette, totRicette, menuSettimanale, dispensa, &totAlimenti, lista, &totElem, database, &totDatabase, elencoCategorie, *&totCat);
+            break;
+            case '2':
                 flag=1;
                 while(flag){
                     fputs("Gestione ricette\n\n"
@@ -221,7 +232,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     }
                 }
             break; 
-            case '2':
+            case '3':
                 fputs("Gestione intolleranze\n\n"
                     "1. Aggiungi intolleranza\n"
                     "2. Rimuovi intolleranza\n\n"
@@ -229,7 +240,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     ">>> ", stdout);
                 //intolleranza
             break;
-            case '3':
+            case '4':
                 flag=1;
                 while(flag){
                     fputs("Gestione lista della spesa\n\n"
@@ -293,11 +304,11 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     }
                 }
             break;
-            case '4':
+            case '5':
             	flag=1;
                 while(flag){
                     flag=1;
-                    fputs("5. Gestione dispensa\n\n"
+                    fputs("Gestione dispensa\n\n"
                         "1. Visualizza gli elementi presenti in dispensa\n\n"
                         "0. indietro\n"
                         ">>> ", stdout);
@@ -323,11 +334,11 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     }
                 }
             break;
-            case '5':
+            case '6':
                 flag=1;
                 while(flag){
                     flag=1;
-                    fputs("5. Impostazioni\n\n"
+                    fputs("Impostazioni\n\n"
                         "1. Inserimento nuovo account\n"
                         "2. Modifica grado utente\n"
                         "3. Ripristino ai dati di fabbrica\n\n"
@@ -401,9 +412,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 }
                 //alimento_input
             break;
-            case '6':
+            case '7':
                 system("@cls||clear");
-                fputs("6. Cerca\n\n"
+                fputs("Cerca\n\n"
                     "Questa funzione ti permette di ottenere informazioni riguardo tutto cio' che e' immagazzinato in questo programma\n"
                     "inserisci semplicemente il nome di un prodotto, una ricetta oppure un username, qua sotto ti comparira' tutto quello di cui hai bisogno!\n\n"
                     ">>> ", stdout);
@@ -413,7 +424,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     system("@cls||clear");
                     puts("<!> Nessuna corrispondenza\n");
                 }else{
-                    puts("\nPremi invio per continuare...");
+                    puts("\nPremi invio per tornare indietro...");
                     getchar();
                     system("@cls||clear");
                 }
@@ -465,8 +476,9 @@ int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento d
                 if(!flagIng){
                     
                     printf("|%-92s|\n"
-                        "|------------------------------|------------------------------|------------------------------|------------------------------|", "Inoltre il prodotto e'presente nelle seguenti ricette:");
-                    
+                        "|%-92s|\n"
+                        "\n|%-30s|%-30s|%-30s|%-30s|\n"
+                        "|%-92s|\n", "Inoltre il prodotto e'presente nelle seguenti ricette:", "------------------------------|------------------------------|------------------------------|------------------------------", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni", "------------------------------|------------------------------|------------------------------|------------------------------");
                     flagIng=1;
                 }
                 showSingleRecipe(ricette[i]);

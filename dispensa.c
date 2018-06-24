@@ -312,8 +312,14 @@ void showSingleAlim(Alimento alimento){
 int getQuantityR(Alimento dispensa[], int totAlimenti, char alim[], int startPoint){
 	int quantita=0; 
 	for (int i = startPoint; i < totAlimenti; ++i){
-		if(strcmp(dispensa[i].nome, alim) == 0){
-			quantita=dispensa[i].quantita+getQuantityR(dispensa, totAlimenti, alim, i+1);
+		if(strcmp(dispensa[i].nome, alim) == 0){			
+			dispensa=getQuantityR(dispensa, totAlimenti, alim, i+1);
+			if(dispensa>-1){
+				quantita=dispensa+dispensa[i].quantita;	
+			}else{
+				quantita=dispensa[i].quantita;
+			}
+			
 		}
 	}
 	return quantita;

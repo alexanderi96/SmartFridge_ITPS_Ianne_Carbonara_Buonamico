@@ -181,8 +181,9 @@ void checkTimeandcook(Utente utente, Ricetta ricette[], int totRicette, Menu men
 	Ricetta ricetta;
 	Data oggi;
 	setCurrentDate(&oggi, 0);
-	char scelta;
+	char scelta, intolleranza[maxCatLen];
 	int nPerMang, posRic;
+	_Bool flag=0, flagSwitch=0;
 	if(12<=oggi.hh && oggi.hh<15){
 		ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].mattina, ricette, totRicette)];
 		if(utente.totinto>0){
@@ -216,43 +217,13 @@ void checkTimeandcook(Utente utente, Ricetta ricette[], int totRicette, Menu men
 		}
         printf("E' ora di cena!, il pasto consigliato in questo momento e': %s\n", ricetta.nome);
     }else{
-    	return;
+    	puts("CUCINIAMO!\n\n");
+    	//mostro le ricette che può fare con gli alimenti presenti presenti in dispensa
+    	flag=1;
     }
 
-     do{
-   		puts("Quante persone devono mangiare?");
-   		nPerMang=getchar();
-   		system("@cls||clear");
-   		clearBuffer();
-   		switch(nPerMang){
-   			case '1':
-   				if(1==checkPresenceForXPeople(ricette, totRicette, ricetta, dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat, 1)){
-   					startCooking(ricetta, dispensa, *&totAlimenti, ricette, totRicette, 1);
-   				}else{
-   					return;
-   				}
-   			break;
-   			case '0':
-   				return;
-   			break;
-   			default:
-   				if (nPerMang>'1'){
-   					do{
-   						puts("Ok, queste persone hanno delle intolleranze tra quelle visualizzate?\n"
-   							"Se si scrivila, altrimenti inserisci n\n");
-   						showCategories(elencoCategorie, *totCat);
-   						fputs(">>> ", stdout);
-   					}while(1);
-   				}else{
-   					puts("<!> Inserisci un valore corretto altrimenti premi 0 per uscire\n");
-   				}
-   			break;
-   		}
-   	}while(nPerMang<'0');
-
-    
-   	while(1){
-   		fputs("Vuoi cominciare a cucinare? s/n\n"
+    while(!flagSwitch){
+   		fputs("\nVuoi cominciare a cucinare? s/n\n"
    			">>> ", stdout);
    		scelta=getchar();
 
@@ -262,16 +233,88 @@ void checkTimeandcook(Utente utente, Ricetta ricette[], int totRicette, Menu men
    			case 's':
    				//chiedere quante persone mangiano, chiedere se è qualcuno degli utenti presenti in memoria
    				//se è presente qualcuno che non ha un account
-   				startCooking(ricetta, dispensa, *&totAlimenti, ricette, totRicette, 1);
-   				return;
+   				flagSwitch=1;
    			break;
    			case 'n':
+
    				return;
    			break;
    			default:
+   				system("@cls||clear");
    			break;
    		}
    	}
+
+     do{
+   		fputs("Quante persone devono mangiare?\n"
+   			">>> ", stdout);
+   		scanf("%d", &nPerMang);
+   		system("@cls||clear");
+   		clearBuffer();
+
+   		if(flag){
+   			if(!showPossibleRecipesD(ricette, totRicette, dispensa, *totAlimenti, nPerMang)){
+   				puts("<!> Non possiedi alimenti sufficiente per cucinare!\n"
+   					"Vai a fare la spesa o ordina qualcosa da justeat.it\n\n"
+   					"Premi invio per torare al menu precedente . . .");
+   				getchar();
+   				system("@cls||clear");
+   				return;
+   			}
+   		}
+
+   		switch(nPerMang){
+   			case '1':
+   				if(1!=checkPresenceForXPeople(ricette, totRicette, ricetta, dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat, 1)){
+   					return;
+   				}
+   			break;
+   			case '0':
+   				return;
+   			break;
+   			default:
+   				if (nPerMang>1){
+   					do{
+   						puts("Ok, queste persone hanno delle intolleranze tra quelle visualizzate?\n"
+   							"Se si scrivila, altrimenti inserisci n\n");
+   						showCategories(elencoCategorie, *totCat);
+   						fputs(">>> ", stdout);
+   						scanf("%s", intolleranza);
+   						system("@cls||clear");
+   						clearBuffer();
+   					}while(strcmp(intolleranza, "n")!=0 && -1==searchCat(elencoCategorie, *totCat, intolleranza));
+   					if(0==checkIntollerance(intolleranza, ricetta)){
+   						puts("Purtroppo questa ricetta non e'adatta a chi non puo' mangiare questi prodotti.");
+   						posRic=getPossibleRepiceSingleI(intolleranza, ricette, totRicette);
+
+   						if(posRic<0){
+   							puts("E sembra non ci siano altre ricette disponibili per questo tipo di intolleranza.\n"
+   								"Ti consiglio di aggiungerne di nuove!\n\n"
+   								"Premi invio per tornare al menu' principale . . .");
+   							getchar();
+   							return;
+   						}else{
+   							printf("In alternativa potresti cucinare %s\n", ricette[posRic].nome);
+   							ricetta=ricette[posRic];
+   							if(1!=checkPresenceForXPeople(ricette, totRicette, ricetta, dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat, nPerMang)){
+   								return;
+   							}
+   						}
+   						
+   					}else{
+						if(1!=checkPresenceForXPeople(ricette, totRicette, ricetta, dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat, nPerMang)){
+   							return;
+   						}
+   					}
+   				}else{
+   					puts("<!> Inserisci un valore corretto altrimenti premi 0 per uscire\n");
+   				}
+   			break;
+   		}
+   	}while(nPerMang<1);
+
+    startCooking(ricetta, dispensa, *&totAlimenti, ricette, totRicette, 1);
+   	
 }
 
 void startCooking(Ricetta ricetta, Alimento dispensa[], int *totAlimenti, Ricetta ricette[], int totRicette, int nPersMang){
@@ -311,17 +354,22 @@ int checkPresenceForXPeople(Ricetta ricette[], int totRicette, Ricetta ricetta, 
 	Data oggi;
 	setCurrentDate(&oggi, 0);
 	char scelta;
-	int posRic;
+	int posRic, isAdded;
 	_Bool flag=1;
 	copyIngredienttoAliment(aliTemp, ricetta.ingredienti, ricetta.totIngredienti);
 
     multiplyForPNum(aliTemp, ricetta.totIngredienti, nPerMang);
-
-    while(0!=ifIngredientsInStorage(aliTemp, ricetta.totIngredienti, dispensa, *totAlimenti, spesa, *&totLista)){
-    	puts("Purtroppo non hai a disposizione tutti gli alimenti per cucinare questa ricetta e di conseguenza sono stati inseriti nella lista della spesa.\n");
+    isAdded=ifIngredientsInStorage(aliTemp, ricetta.totIngredienti, dispensa, *totAlimenti, spesa, *&totLista);
+    while(0!=isAdded){
+    	printf("Purtroppo gli alimenti presenti in dispensa non sono sufficienti per cucinare %s per %d persone.\n", ricetta.nome, nPerMang);
+    	if (isAdded==1){
+    		puts("Anche se sono gia' presenti nella lista della spesa\n");
+    	}else if(isAdded==2){
+    		puts("Di conseguenza sono stati inseriti nella lista della spesa.\n");
+    	}
     	if((12<=oggi.hh && oggi.hh<14) || (19<=oggi.hh && oggi.hh<21)){
     		while(flag){
-    			fputs("Hai ancora a disposizione poco tempo per andare a comprare gli alimenti che ho inserito nella lista della spesa.\n"
+    			fputs("Hai ancora a disposizione poco tempo per andare a comprare gli alimenti presenti nella lista della spesa.\n"
     				"1. Comunica alimenti acquistati\n"
     				"2. Fai una ricetta alternativa\n"
     				"3. Visita justeat.it per ordinare qualcosa (e vai al menu' principale)\n\n"
@@ -338,11 +386,10 @@ int checkPresenceForXPeople(Ricetta ricette[], int totRicette, Ricetta ricetta, 
         			case '2':
         				posRic=searchRecipesById(getPossibleRepice(ricette, totRicette, dispensa, *totAlimenti, nPerMang), ricette, totRicette);
         				if(posRic>-1){
-        					printf("mo, questaricetta e' popo valida %s\n", ricette[posRic].nome);
-        					getchar();
-
+        					checkPresenceForXPeople(ricette, totRicette, ricette[posRic], dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat, nPerMang);
         				}else{
         					puts("Purtroppo non puoi preparare nessuna delle ricette presenti in memoria con gli alimenti presenti in dispensa\n"
+        						"La prossima volta ricordati di andare a fare la spesa!\n\n"
         						"Premi invio per tornare al menu principale . . .\n");
         					getchar();
         					return 0;

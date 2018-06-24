@@ -17,5 +17,8 @@ int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], in
 int incUsageById(int id_ricetta, Ricetta ricette[], int totRicette);
 int getPossibleRepiceI(Utente utente, Ricetta ricette[], int totRicette);
 int ifRepiceGI(Utente utente, Ricetta ricetta);
+int checkIntollerance(char intolleranza[], Ricetta ricetta);
+int getPossibleRepiceSingleI(char intolleranza[], Ricetta ricette[], int totRicette);
+int showPossibleRecipesD(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang);
 
 #endif
