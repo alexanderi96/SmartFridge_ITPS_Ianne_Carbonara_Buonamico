@@ -18,16 +18,7 @@ verrà generato un menù settimanale in comune per tutti, nel momento in cui si 
 
 
 int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
-	/*
-	cosa ci serve ? creare un menù settimanale in maniera casuale adatto a tutti gli utenti
-	nel momento in cui si riscontrano delle intolleranze andiamo a modificare il menù per quella singola persona
-	andando a sostituire gli alimenti problematici con alimenti adatti 
-		METODI DI SALVATAGGIO
-		-su un nuovo file
-		-non salviamo su file, ma nel momento in cui noi avremo bisogno di mostrare un altro alimento
-		 comunicheremo semplcemente l'alimento adatto a quella persona in quella determinata occasione
-
-	*/
+	
 	srand(time(NULL));
 	char tipoDieta;
 	int posRic, kcalSera;
@@ -37,7 +28,7 @@ int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
 		
 		if(i==0){
 
-			//andiamo ad aggiungere senza problemi la prima ricetta per il pranzo, e cerchiamo di mettere una ricetta diversa a cena (possibilmente qualcosa di leggero)
+			//vengono consigliate ricette differenti a pranzo e cena
 			posRic=rand()%totricette;
 
 			menuSett[i].mattina=ricette[posRic].id_ricetta;
@@ -46,8 +37,7 @@ int generaMenu(Menu menuSett[], Ricetta ricette[], int totricette){
 			posRic=rand()%totricette;
 			kcalSera=calcTotKcal(ricette[posRic]);
 			menuSett[i].sera=ricette[posRic].id_ricetta;
-			//printf("mattina %d sera %d kcal sera: %d\n", menuSett[i].mattina, posRic, kcalSera);
-		}while(menuSett[i].mattina==menuSett[i].sera && kcalSera>500); //ripeto a generare ricette finchè non ne trovo una diversa da quella della mattina e che non sia troppo pesante... sappiamo quanto faccia male mangiare pesante la sera
+		}while(menuSett[i].mattina==menuSett[i].sera && kcalSera>500); //genero ricette finchè non ne trovo una diversa da quella della mattina e dei due giorni precedenti
 						
 		}else if(i==1){
 		do{
@@ -130,9 +120,9 @@ int checkListandStorage(Spesa spesa[], int *totLista, Alimento dispensa[], int t
 	}
 	
 	/*
-	ora dobbiamo confrontare ogni alimento presente in temp con quello della dispensa e le relative quantità.
-	Nel momento in cui non fossero sufficienti quelli presenti in dispensa dobbiamo vedere se quelli che ci mancano sono presenti nella lista della spesa.
-	se sono presenti sollecitiamo l'utente a fare l'acquisto, altrimenti aggiungiamoli alla lista della spesa.
+	effettuato confronto con ogni alimento presente in temp con quello della dispensa e le relative quantità.
+	Nel momento in cui non fossero sufficienti quelli presenti in dispensa verificare se quelli che ci mancano sono presenti nella lista della spesa.
+	se sono presenti si sollecita l'utente a fare l'acquisto, altrimenti si aggiungono gli alimenti alla lista della spesa.
 	*/
 
 	return ifIngredientsInStorage(temp, totProdTemp, dispensa, totAlimenti, spesa, *&totLista);
@@ -158,14 +148,14 @@ int ifIngredientsInStorage(Alimento aliTemp[], int totAlitemp, Alimento dispensa
 				qIngre=qIngre-spesa[posList].quantita;
 				if (qIngre>0){
 					if(flag!=2){
-						flag=2; //diciamogli che abbiamo aggiunto delle cose alla sua lista della spesa.
+						flag=2; //viene comunicato che abbiamo aggiunto delle cose alla sua lista della spesa.
 					}
 					//dobbiamo inserire la quantità mancante nella lista della spesa
 					spesa[posList].quantita=spesa[posList].quantita+qIngre;
 				}
 			}else{
 				if(flag!=2){
-						flag=2; //diciamogli che abbiamo aggiunto delle cose alla sua lista della spesa.
+						flag=2; //comunichiamo che abbiamo aggiunto delle cose alla sua lista della spesa.
 				}
 				//l'alimento non è nella lista della spesa e va aggiunto
 				copyToList(spesa, *&totLista, aliTemp[i]);
@@ -231,8 +221,6 @@ void checkTimeandcook(Utente utente, Ricetta ricette[], int totRicette, Menu men
         system("@cls||clear");
    		switch(scelta){
    			case 's':
-   				//chiedere quante persone mangiano, chiedere se è qualcuno degli utenti presenti in memoria
-   				//se è presente qualcuno che non ha un account
    				flagSwitch=1;
    			break;
    			case 'n':

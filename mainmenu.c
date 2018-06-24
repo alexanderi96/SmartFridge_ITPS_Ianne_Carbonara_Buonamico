@@ -87,7 +87,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
      /*
         per andare a creare il menù sommiamo i prodotti presenti in dispensa più quelli presenti nella lista della spesa
         Se la somma dovesse essere essere sufficente a preparare le ricette per i prossimi due giorni si informerà l'utente che deve andare a fare la spesa.
-        Altrimenti si dirà "Zio guarda che nella dispensa non hai i prodotti necessari a fare le ricette per i prossimi due giorni, ti metto tutto nella lista della spesa."
+        Altrimenti si dirà "Nella dispensa non hai i prodotti necessari a fare le ricette per i prossimi due giorni, ti metto tutto nella lista della spesa."
 
         inoltre se il programma dovesse essere avviato tra le 12-15 e 19-22 il programma dirà "è ora di cucinare, per oggi a pranzo ti consiglio questa ricetta. vuoi cominciare a cucinare?"
         altrimenti andrà ad inserire i prodotti necessari nella lista della spesa. (dando come alternativa il link per scaricare l'app di just eat!)
@@ -95,7 +95,6 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 
     if(!isInTime){
             //andiamo a generare il menù settimanale
-            //opzione per creare dieta ipocalorica (1200 kcal o meno totali)
         isInTime=generaMenu(menuSettimanale, ricette, totRicette);
         saveMenu(menulocation, menuSettimanale, isInTime);
     }
@@ -127,7 +126,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     showSingleAlim(dispensa[i]);
                 }
             }
-            //da consigliare una ricetta
+            
         }
         if(contScad>0){
             printf("Ci sono %d prodotti scaduti in dispensa, avvio della procedura per l'eleiminazione\n"

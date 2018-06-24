@@ -80,10 +80,7 @@ void setCurrentDate(Data *data, int giorniSupp){
 	}	
 }
 
-/*
-Dany: Ale cosa fai qui ?
-Ale: ho fatto una funzione ricorsiva per andare a cercare id non utilizzati
-*/
+
 int checkIdPresence(int elencoid[], int totElem, int nextId){
 	for (int i = 0; i < totElem; ++i){
 		if (elencoid[i]==nextId){

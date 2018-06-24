@@ -113,7 +113,6 @@ int addRecipes(Ricetta ricette[], int *totRicette, char elencoCattgorie[][maxCat
     }
 }
 
-//inserimento ricette da approvare <-- Commento di Ale
 
 /* La seguente funzione controlla se data in input una stringa esiste una ricetta con lo stesso nome,
 * La funzione confronterà il nome della nuova ricetta con il nome delle ricette già presenti
@@ -260,7 +259,7 @@ int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], in
 				}
 			}
 			if (!flagTrovato){
-				//vuol dire che non ho trovato quell'ingrediente
+				//ingrediente non trovato
 				//dobbiamo cambiare ricetta
 				flagRicetta=0;
 			}
@@ -366,7 +365,7 @@ int showPossibleRecipesD(Ricetta ricette[], int totRicette, Alimento dispensa[],
 				}
 			}
 			if (!flagTrovato){
-				//vuol dire che non ho trovato quell'ingrediente
+				//ingrediente non trovato
 				//dobbiamo cambiare ricetta
 				flagRicetta=0;
 			}
