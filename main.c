@@ -6,9 +6,6 @@
 #include "mainmenu.h"
 #include "various.h"
 
-
-//@author Alexanderi96
-
 int main() {
     char elencoCategorie[totCategorie][maxCatLen];
     _Bool flag=1;
@@ -48,19 +45,13 @@ int main() {
                     totUtenti++;
                     saveAccount(accountlocation, utenti, totUtenti);
                 }else{
-                    //carico gli account in memoria
                     loadAccount(accountlocation, utenti, &totUtenti);
                 }
                 fclose(pf);
-                //richiesta username e password
-                //passaggio a menù principale 
-                
-               
 
                 flag=0;
                 do{  
                 	puts("Login:\n");
-                    //Schermata di login
                     fputs("Username:\n"
                         ">>> ", stdout);
                     scanf("%s", userLogin);

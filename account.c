@@ -7,7 +7,7 @@
 
 
 
-
+//aggiunge un nuovo account
 int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCategorie[][maxCatLen], int *totCat){
     _Bool flag=1;
     char userTemp[25], scelta;
@@ -37,7 +37,7 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
         system("@cls||clear");
         clearBuffer();
         fputs("Inserisci la password\n"
-            ">>> ", stdout); //vanno integrate le funzioni per la gestione della passwd
+            ">>> ", stdout); 
         scanf("%s", utenti[totUtenti].password);
         system("@cls||clear");
         clearBuffer();
@@ -86,7 +86,7 @@ int createAccount(Utente utenti[], int totUtenti, int isadmin, char elencoCatego
 }
 
 
-
+//permette l'autenticazione
 int userAuth(Utente utenti[], int totUtenti, char user[], char passwd[]){
     for (int i = 0; i < totUtenti; ++i) {
         if(strcmp(user, utenti[i].user) == 0 && strcmp(passwd, utenti[i].password) == 0){
@@ -96,6 +96,7 @@ int userAuth(Utente utenti[], int totUtenti, char user[], char passwd[]){
     return 0;
 }
 
+//consente di capire se un utente è admin o meno
 int checkAdmin(Utente utenti[], int totUtenti, char user[]){
     for (int i = 0; i < totUtenti; ++i){
         if(0 == strcmp(utenti[i].user, user)){
@@ -105,6 +106,7 @@ int checkAdmin(Utente utenti[], int totUtenti, char user[]){
     return -1;
 }
 
+//restituisce la posizione dell'account se presente, altrimenti restituisce -1
 int searchAccount(Utente utenti[], int totUtenti, char user[]){
     for (int i = 0; i < totUtenti; ++i) {
         if(0 == strcmp(user, utenti[i].user)){

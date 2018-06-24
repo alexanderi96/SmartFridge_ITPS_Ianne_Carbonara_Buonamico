@@ -239,6 +239,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                     system("@cls||clear");
                                     puts("<*> Ricetta rimossa correttamente\n");
                                 }  
+                            }else if(totRicette=4){
+                                puts("<!> Attenzione, non è consigliabile avere meno di 4 ricette nel ricettario\n");
                             }else{
                                 puts("<!> Non e' presente alcuna ricetta\n");
                             }
@@ -254,79 +256,11 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 }
             break;                        
             case '3':
-                puts("\n\n!! COMING SOON !!"
+                puts("!! COMING SOON !!"
                     "\n\n Premi invio per tornare indietro . . .");
                 getchar();
                 system("@cls||clear");
-                /*
-                posUtente=searchAccount(utenti, *totUtenti, username);
-                char scelta;
-                do{
-                    fputs("Gestione intolleranze\n\n"
-                    "1. Aggiungi intolleranza\n"
-                    "2. Rimuovi intolleranza\n\n"
-                    "0. Indietro\n"
-                    ">>> ", stdout);
-                //intolleranza
-            break;
-            case '4':
-                    scelta=getchar();
-                    system("@cls||clear");
-                    clearBuffer();
-                    switch(scelta){
-                        case'1':
-                            while(!flag){
-                                system("@cls||clear");
-                                if(utenti[posUtente].totinto=0){
-                                    fputs("Desideri inserire qualche intolleranza?\n"
-                                    "s/n\n"
-                                    ">>> ", stdout);
-                                }else{
-                                    fputs("Desideri inserire qualche altra intolleranza?\n"
-                                    "s/n\n"
-                                    ">>> ", stdout);
-                                }
-                                scelta=getchar();
-                                clearBuffer();
-                                switch(scelta){
-                                    case 's':
-                                        if(addIntollerance(utenti[posUtente].intolleranze[utenti[posUtente].totinto], elencoCategorie, *&totCat)){
-                                            utenti[posUtente].totinto++;
-                                            saveInto(utenti[posUtente].intopos, utenti[posUtente].intolleranze, utenti[posUtente].totinto);
-                                        }
-                                    break;
-                                    case 'n':
-                                        flag=1;
-                                    break;
-                                    default:
-                                        system("@cls||clear");
-                                        puts("<!> Inserisci un valore corretto\n");
-                                    break;
-                                }    
-                            }
-                            flag=0;
-                            saveAccount(accountlocation, utenti, *totUtenti);
-                        break;
-                        case'2':
-                            
-                            puts("2. Rimuovi intolleranze\n\n");
-                            if(utenti[posUtente].totinto==0){
-                                puts("Non sono presenti intolleranze da eliminare\n");
-                            }else{
-                                rmInto(utenti[posUtente].intolleranze, utenti[posUtente].totinto);
-                                saveAccount(accountlocation, utenti, *totUtenti);
-                            } 
-                        break;
-                        case '0':
-                            flag=0;
-                        break;
-                        default:
-                            system("@cls||clear");
-                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
-                        break;
-                    }
-                }while(flag);
-                */
+                
             break;         
             case '4':
                 flag=1;
@@ -375,7 +309,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         case '3':
                             puts("3. Visualizza la lista della spesa\n");
                             showList(lista, totElem);
-                            puts("\n\nPremi un tasto per tornare indietro...\n");
+                            puts("\n\nPremi invio per tornare indietro...\n");
                             getchar();
                             system("@cls||clear");
                         break;
@@ -430,7 +364,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         "1. Inserimento nuovo account\n"
                         "2. Modifica grado utente\n"
                         "3. Ripristino ai dati di fabbrica\n"
-                        "4. Modifica password\n"
+                        "4. Modifica password\n\n"
                         "0. Indietro\n"
                         ">>> ", stdout);
                     scelta = getchar();

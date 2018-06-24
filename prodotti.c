@@ -10,6 +10,10 @@
 #include "various.h"
 #include "file.h"
 
+/* La seguente funzione permette di visualizzare l'elenco completo delle categorie
+*  ...
+*
+*/
 void showCategories(char elencoCategorie[][maxCatLen], int totCat){
 	printf("|%-20s|\n", "Elenco categorie");
   puts("|--------------------|");
@@ -19,6 +23,10 @@ void showCategories(char elencoCategorie[][maxCatLen], int totCat){
 	puts("");
 }
 
+/* La seguente funzione permette di visualizzare l'elenco completo degli alimenti, suddivisi per categoria
+*  la visualizzazione sarà composta dal nome, kcal e dai giorni massimi per l'utilizzo dell'alimento
+*  ...
+*/
 void showAliments(Alimento database[], int totDatabase, char categoria[]){
 	puts("Elenco categorie\n");
 	for (int i = 0; i < totDatabase; ++i){
@@ -28,6 +36,10 @@ void showAliments(Alimento database[], int totDatabase, char categoria[]){
 	}
 }
 
+/* Kri la seguente funzione permette di cercare una determinata categoria in un elenco categorie
+*  ...
+*
+*/
 int searchCat(char categorie[][maxCatLen], int totCat, char elemento[]){
 	for (int i = 0; i < totCat; ++i) {
         if(0 == strcmp(elemento, categorie[i])){
@@ -37,6 +49,10 @@ int searchCat(char categorie[][maxCatLen], int totCat, char elemento[]){
     return -1;
 }
 
+/* Kri la seguente funzione permette di cercare un determinato alimimento tra tutti quelli presenti
+*  ...
+*
+*/
 int searchAlim(Alimento database[], int totAlim, char elemento[], char categoria[]){
 	for (int i = 0; i < totAlim; ++i) {
         if(0 == strcmp(database[i].categoria, categoria)){
@@ -49,6 +65,10 @@ int searchAlim(Alimento database[], int totAlim, char elemento[], char categoria
     return -1;
 } 
 
+/* Kri la seguente funzione permette di cercare un determinato alimento preso in input senza passare da ogni categoria
+*  questa funzione cercherà in tutto il database degli alimenti se l'elemento x cercato dall'utente è gia presente
+*
+*/
 int searchAlimNocat(Alimento database[], int totAlim, char elemento[]){
 	for (int i = 0; i < totAlim; ++i) {
         if (0 == strcmp(database[i].nome, elemento)){

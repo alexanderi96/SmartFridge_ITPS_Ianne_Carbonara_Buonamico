@@ -237,7 +237,7 @@ void showAlimDisp(Alimento dispensa[], int totAlimenti){
 		}
 		printf("\n");
 	}else{
-		puts("<!> Non è presente alcun alimento nella dispensa");
+		puts("<!> Non e' presente alcun alimento nella dispensa");
 	}
 }
 
@@ -265,7 +265,7 @@ int isInScadenza(Alimento alimento){
 			}
 		}else if(alimento.scadenza.mm < data.mm){
 			//da migliorare questo algoritmo... bisogna capire quando è passato solo qualche giorno dall'inizio del mese
-			//per ora lo diamo per scadutp
+			//per ora lo diamo per scaduto
 			return 2;
 		}
 	}else if(alimento.scadenza.aaaa < data.aaaa){

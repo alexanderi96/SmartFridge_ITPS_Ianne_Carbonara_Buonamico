@@ -200,7 +200,7 @@ void checkTimeandcook(Utente utente, Ricetta ricette[], int totRicette, Menu men
 			}
 		}
 		printf("E' ora di pranzo!, il pasto consigliato in questo momento e': %s\n", ricetta.nome);		    
-    }else if(19<=oggi.hh && oggi.hh<=22){
+    }else if(19<=oggi.hh && oggi.hh<22){
     	ricetta=ricette[searchRecipesById(menuSettimanale[searchCurrentMenu(menuSettimanale, oggi)].sera, ricette, totRicette)];
     	if(utente.totinto>0){
         	if(1!=ifRepiceGI(utente, ricetta)){
