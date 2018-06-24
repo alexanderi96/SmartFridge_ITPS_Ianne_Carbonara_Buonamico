@@ -158,3 +158,10 @@ int checkPresenceOrAdd(char elencoCategorie[][maxCatLen], int *totCat, Alimento 
   }
   return pos;
 }
+
+void rimCat(char elencoCategorie[][maxCatLen], int *totCat, int startPoint){
+  for (int i = startPoint; i < *totCat-1; ++i){
+    strcpy(elencoCategorie[i], elencoCategorie[i+1]);
+  }
+  *totCat=*totCat-1;
+}

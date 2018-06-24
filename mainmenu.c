@@ -28,7 +28,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     
     Spesa lista[maxAlimenti];
     char scelta, searchWord[50], userTemp;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, posUtente, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
     FILE *dis, *spe, *ric, *menuPtr;
     
@@ -241,15 +241,79 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                     }
                 }
-            break; 
+            break;                         
             case '2':
-                fputs("Gestione intolleranze\n\n"
+                puts("\n\n!! COMING SOON !!"
+                    "\n\n Premi invio per tornare indietro . . .");
+                getchar();
+                system("@cls||clear");
+                /*
+                posUtente=searchAccount(utenti, *totUtenti, username);
+                char scelta;
+                do{
+                    fputs("Gestione intolleranze\n\n"
                     "1. Aggiungi intolleranza\n"
                     "2. Rimuovi intolleranza\n\n"
                     "0. Indietro\n"
                     ">>> ", stdout);
-                //intolleranza
-            break;
+                    scelta=getchar();
+                    system("@cls||clear");
+                    clearBuffer();
+                    switch(scelta){
+                        case'1':
+                            while(!flag){
+                                system("@cls||clear");
+                                if(utenti[posUtente].totinto=0){
+                                    fputs("Desideri inserire qualche intolleranza?\n"
+                                    "s/n\n"
+                                    ">>> ", stdout);
+                                }else{
+                                    fputs("Desideri inserire qualche altra intolleranza?\n"
+                                    "s/n\n"
+                                    ">>> ", stdout);
+                                }
+                                scelta=getchar();
+                                clearBuffer();
+                                switch(scelta){
+                                    case 's':
+                                        if(addIntollerance(utenti[posUtente].intolleranze[utenti[posUtente].totinto], elencoCategorie, *&totCat)){
+                                            utenti[posUtente].totinto++;
+                                            saveInto(utenti[posUtente].intopos, utenti[posUtente].intolleranze, utenti[posUtente].totinto);
+                                        }
+                                    break;
+                                    case 'n':
+                                        flag=1;
+                                    break;
+                                    default:
+                                        system("@cls||clear");
+                                        puts("<!> Inserisci un valore corretto\n");
+                                    break;
+                                }    
+                            }
+                            flag=0;
+                            saveAccount(accountlocation, utenti, *totUtenti);
+                        break;
+                        case'2':
+                            
+                            puts("2. Rimuovi intolleranze\n\n");
+                            if(utenti[posUtente].totinto==0){
+                                puts("Non sono presenti intolleranze da eliminare\n");
+                            }else{
+                                rmInto(utenti[posUtente].intolleranze, utenti[posUtente].totinto);
+                                saveAccount(accountlocation, utenti, *totUtenti);
+                            } 
+                        break;
+                        case '0':
+                            flag=0;
+                        break;
+                        default:
+                            system("@cls||clear");
+                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        break;
+                    }
+                }while(flag);
+                */
+            break;         
             case '3':
                 flag=1;
                 while(flag){
