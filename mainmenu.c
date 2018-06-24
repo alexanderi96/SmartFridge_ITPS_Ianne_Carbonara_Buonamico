@@ -28,10 +28,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     
     Spesa lista[maxAlimenti];
     char scelta, searchWord[50], userTemp;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check; //isadmin: variabile usata per definire un nuovo account amministratore o non.
-    _Bool flag, flagCoock;
-    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, posUtente, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag;
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, posUtente, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     FILE *dis, *spe, *ric, *menuPtr;
     
     /*
@@ -254,11 +252,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                     }
                 }
-            break; 
+            break;                        
             case '3':
-                fputs("Gestione intolleranze\n\n"
-            break;                         
-            case '2':
                 puts("\n\n!! COMING SOON !!"
                     "\n\n Premi invio per tornare indietro . . .");
                 getchar();
@@ -333,7 +328,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 }while(flag);
                 */
             break;         
-            case '3':
+            case '4':
                 flag=1;
                 while(flag){
                     fputs("Gestione lista della spesa\n\n"
