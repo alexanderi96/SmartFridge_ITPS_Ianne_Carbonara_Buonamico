@@ -52,6 +52,10 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
 }
 
 int rmInto(char intolleranze[][maxCatLen], int intoDim){
+<<<<<<< HEAD
+=======
+    //dobbiamo scalare la struct intolleranze nel momento in cui troviamo una corrispondenza
+>>>>>>> baf051b1fbc81f6ceedd7162d48fceea96960689
     char into[maxCatLen];
     int catPos;
     showCategories(intolleranze, intoDim);
