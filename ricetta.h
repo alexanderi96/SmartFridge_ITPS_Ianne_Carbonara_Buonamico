@@ -17,5 +17,7 @@ int getPossibleRepice(Ricetta ricette[], int totRicette, Alimento dispensa[], in
 int incUsageById(int id_ricetta, Ricetta ricette[], int totRicette);
 int getPossibleRepiceI(Utente utente, Ricetta ricette[], int totRicette);
 int ifRepiceGI(Utente utente, Ricetta ricetta);
+void ordinacalorie(Ricetta ricette[], int totRicette);
+void ordinautilizzo(Ricetta ricette[], int totRicette);
 
 #endif

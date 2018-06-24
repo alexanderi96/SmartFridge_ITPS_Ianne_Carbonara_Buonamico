@@ -191,10 +191,31 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             
                         break;
                         case '2':
-                            puts("2. Visualizzazione delle ricette disponibili\n");
-                            showRecipes(ricette, totRicette);
-                            puts("\n\nPremi invio per tornare indietro...\n");
-                            getchar();
+                            while(flag){
+                                puts("2. Visualizzazione delle ricette disponibili\n");
+                                puts("\n\n1. Visualizza le ricette dalla più calorica alla meno calorica\n");
+                                puts("2. Visualizza le ricette dalla più utilizzata alla meno utilizzata\n\n");
+                                puts("0. Torna al menù\n");
+                                scelta=getchar();
+                                switch (scelta){
+                                    case '1':
+                                        ordinacalorie(ricette, totRicette);
+                                        getchar();
+                                    break;
+                                    case '2':
+                                       ordinautilizzo(ricette, totRicette);
+                                       getchar();
+                                    break;
+                                    case '0':
+                                        flag=0;
+                                    break;
+                                    default:
+                                        system("@cls||clear");
+                                        puts("<!> Per favore inserisci una scelta corretta!\n");
+                                    break;
+                                }
+                            }
+                            flag=1;
                             system("@cls||clear");
                         break;
                         case '3': 
@@ -225,7 +246,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 fputs("Gestione intolleranze\n\n"
                     "1. Aggiungi intolleranza\n"
                     "2. Rimuovi intolleranza\n\n"
-                    "0. Ingietro\n"
+                    "0. Indietro\n"
                     ">>> ", stdout);
                 //intolleranza
             break;
@@ -261,7 +282,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                 rimRis = rimElem(lista, &totElem);
                                 system("@cls||clear");
                                 if(rimRis == 1){
-                                    puts("<!> L'alimento selezionato e'atato ridotto\n\n");
+                                    puts("<!> L'alimento selezionato e'stato ridotto\n\n");
                                 }else if(rimRis == 2){
                                     puts("<!> L'elemento selezionato e'stato rimosso\n\n");
                                     totElem--;

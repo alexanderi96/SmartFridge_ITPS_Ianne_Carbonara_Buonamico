@@ -320,3 +320,57 @@ int ifRepiceGI(Utente utente, Ricetta ricetta){
 	}
 	return 1;
 }
+
+
+void ordinacalorie(Ricetta ricette[], int totRicette){
+    //utilizziamo il bubble sort ottimizzato
+    int p=0;
+    _Bool sorted=0;
+    Ricetta tempRic, tempRicA[totRicette];
+    for (int i = 0; i < totRicette; ++i){
+        tempRicA[i]=ricette[i];
+    }
+    while((p<totRicette)&&(sorted!=1)){
+        sorted=1;
+        for(int i=totRicette-1;i>p;i--){ //scorrimento del vettore
+            if(calcTotKcal(tempRicA[i])>calcTotKcal(tempRicA[i-1])){
+                sorted=0;
+                tempRic=tempRicA[i];
+                tempRicA[i]=tempRicA[i-1];
+                tempRicA[i-1]=tempRic;
+            }
+        }
+        p++;
+    }
+    for (int i = 0; i < totRicette; ++i){
+        showSingleRecipe(tempRicA[i]);
+        printf("%d", calcTotKcal(tempRicA[i]));
+    }
+}
+
+
+
+void ordinautilizzo(Ricetta ricette[], int totRicette){
+     //utilizziamo il bubble sort ottimizzato
+    int p=0;
+    _Bool sorted=0;
+    Ricetta tempRic, tempRicA[totRicette];
+    for (int i = 0; i < totRicette; ++i){
+        tempRicA[i]=ricette[i];
+    }
+    while((p<totRicette)&&(sorted!=1)){
+        sorted=1;
+        for(int i=totRicette-1;i>p;i--){ //scorrimento del vettore
+            if(tempRicA[i].nVolteUs>tempRicA[i-1].nVolteUs){
+                sorted=0;
+                tempRic=tempRicA[i];
+                tempRicA[i]=tempRicA[i-1];
+                tempRicA[i-1]=tempRic;
+            }
+        }
+        p++;
+    }
+    for (int i = 0; i < totRicette; ++i){
+        showSingleRecipe(tempRicA[i]);
+    }
+}
