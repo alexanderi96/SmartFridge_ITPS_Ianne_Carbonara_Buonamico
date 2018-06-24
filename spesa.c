@@ -101,7 +101,7 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
     			system("@cls||clear");
     			strcat(listaSpesa[*totElemLista].nome, databaseAlimenti[pos].nome);
    				strcat(listaSpesa[*totElemLista].categoria, databaseAlimenti[pos].categoria);
- 				fputs("Quanti ne vuoi aggiungere alla lista della spesa?\n"
+ 				fputs("Inserisci la quantita' in g/ml da inserire nella lista della spesa\n"
     				">>> ", stdout);
        			scanf("%d", &listaSpesa[*totElemLista].quantita);
        			clearBuffer(); 

@@ -16,7 +16,7 @@ int main() {
     system("@cls||clear");
     while(flag){
 
-        fputs("Smart Fridge 0.03 Alpha\n\n"        
+        fputs("Smart Fridge 1.01 Beta\n\n"        
             "Nell'inserimento dei dati si raccomanda di non utilizzare spazi\n\n"
             "1. Avviare il programma\n\n"
             "0. Termina programma\n"

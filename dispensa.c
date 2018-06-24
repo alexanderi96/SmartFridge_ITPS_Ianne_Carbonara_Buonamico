@@ -88,7 +88,7 @@ int addToStorage(Alimento dispensa[], int *totAlimenti, char elencoCategorie[][m
     		}else{
     			ifAdded=1;
     			system("@cls||clear");
- 				fputs("Quanti ne vuoi aggiungere alla dispensa?\n"
+ 				fputs("Inserisi la quantita' in g/ml da aggiungere alla dispensa?\n"
     				">>> ", stdout);
        			scanf("%d", &num);
        			clearBuffer(); 
@@ -264,8 +264,6 @@ int isInScadenza(Alimento alimento){
 				return 1;
 			}
 		}else if(alimento.scadenza.mm < data.mm){
-			//da migliorare questo algoritmo... bisogna capire quando è passato solo qualche giorno dall'inizio del mese
-			//per ora lo diamo per scaduto
 			return 2;
 		}
 	}else if(alimento.scadenza.aaaa < data.aaaa){
@@ -307,19 +305,11 @@ void showSingleAlim(Alimento alimento){
 	printf("|%-20s|%-30s|%-20d|%-2d.%2d.%-14d|%-20d|\n", alimento.nome, alimento.categoria, alimento.quantita, alimento.scadenza.gg, alimento.scadenza.mm, alimento.scadenza.aaaa, alimento.kcal);
 }
 
-//ho bisogno di una funzione ricorsiva che mi vada a dire qunante unità di un prodotto sono presenti in dispensa
-//considerando che il prodotto può essere stato acquistato più volte e quindi può avere date di scadenza diverse
 int getQuantityR(Alimento dispensa[], int totAlimenti, char alim[], int startPoint){
 	int quantita=0; 
 	for (int i = startPoint; i < totAlimenti; ++i){
 		if(strcmp(dispensa[i].nome, alim) == 0){			
-			dispensa=getQuantityR(dispensa, totAlimenti, alim, i+1);
-			if(dispensa>-1){
-				quantita=dispensa+dispensa[i].quantita;	
-			}else{
-				quantita=dispensa[i].quantita;
-			}
-			
+			quantita=dispensa[i].quantita+getQuantityR(dispensa, totAlimenti, alim, i+1);	
 		}
 	}
 	return quantita;

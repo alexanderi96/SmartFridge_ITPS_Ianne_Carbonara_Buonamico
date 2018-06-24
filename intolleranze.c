@@ -20,7 +20,7 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
 	scanf("%s", tempCat);
 	clearBuffer();
 	if(searchCat(elencoCategorie, *totCat, tempCat)<0){
-    	//questa categoria non esiste
+    	//se siamo qui questa categoria non esiste
     	while(scelta!='s' || scelta!='n' && !flag){
     		flag=1;
 	   		system("@cls||clear");
@@ -52,7 +52,6 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
 }
 
 int rmInto(char intolleranze[][maxCatLen], int intoDim){
-    //dobbiamo scalare la struct intolleranze nel momenti in cui troviamo una corrispondenza
     char into[maxCatLen];
     int catPos;
     showCategories(intolleranze, intoDim);

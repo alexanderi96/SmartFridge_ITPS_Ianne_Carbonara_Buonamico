@@ -42,7 +42,7 @@ int addIngredientsGuided(Ingredienti ingredienti[], int *totIngredienti, char el
     return 0;
 }
 
-//inserimento guidato di ingredienti in attesa di approvazione
+
 
 
 int searchIngredient(Ingredienti ingredienti[], int totIngredienti, char elemento[]){

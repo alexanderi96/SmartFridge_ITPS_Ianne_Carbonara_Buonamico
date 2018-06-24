@@ -121,12 +121,14 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
 
         if(contInScad>0){
         	printf("Ci sono %d prodotti in scadenza\n"
-                "Pertanto ti consiglio di andare a vedere quali ricette puoi fare con questi ingredienti attraverso la funzione cerca.\n\n", contInScad);
+                "Pertanto ti consiglio di andare a vedere quali ricette puoi fare con questi ingredienti attraverso la funzione cerca.\n\n"
+                "|--------------------|------------------------------|--------------------|--------------------|--------------------|\n", contInScad);
             for (int i = 0; i < totAlimenti; ++i){
                 if(isInScadenza(dispensa[i])){
                     showSingleAlim(dispensa[i]);
                 }
             }
+            puts("");
             //da consigliare una ricetta
         }
         if(contScad>0){
@@ -256,8 +258,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                 }
             break;                        
             case '3':
-                puts("!! COMING SOON !!"
-                    "\n\n Premi invio per tornare indietro . . .");
+                puts("!! COMING SOON !!\n\n"
+                    "Premi invio per tornare indietro . . .");
                 getchar();
                 system("@cls||clear");
                 
@@ -430,6 +432,10 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                         case '3':
                             //ripristino ai dati di fabbrica da parte dell'amministratore
+                            puts("!! COMING SOON !!\n\n"
+                                "Premi invio per tornare indietro . . .");
+                            getchar();
+                            system("@cls||clear");
                         break;
                         case '4':
                             while(flag){
