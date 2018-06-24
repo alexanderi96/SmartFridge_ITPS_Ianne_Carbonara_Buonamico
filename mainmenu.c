@@ -30,6 +30,8 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
     char scelta, searchWord[50], userTemp;
     int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, check; //isadmin: variabile usata per definire un nuovo account amministratore o non.
     _Bool flag, flagCoock;
+    int isadmin, totAlimenti=0, totElem=0, rimRis=0, totRicette=0, totDatabase=0, prodinscad=0, contScad=0, contInScad=0, isInTime=0, posUtente, check, flagCoock=1; //isadmin: variabile usata per definire un nuovo account amministratore o non.
+    _Bool flag;
     FILE *dis, *spe, *ric, *menuPtr;
     
     /*
@@ -202,10 +204,31 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                             
                         break;
                         case '2':
-                            puts("2. Visualizzazione delle ricette disponibili\n");
-                            showRecipes(ricette, totRicette);
-                            puts("\n\nPremi invio per tornare indietro...\n");
-                            getchar();
+                            while(flag){
+                                puts("2. Visualizzazione delle ricette disponibili\n");
+                                puts("\n\n1. Visualizza le ricette dalla più calorica alla meno calorica\n");
+                                puts("2. Visualizza le ricette dalla più utilizzata alla meno utilizzata\n\n");
+                                puts("0. Torna al menù\n");
+                                scelta=getchar();
+                                switch (scelta){
+                                    case '1':
+                                        ordinacalorie(ricette, totRicette);
+                                        getchar();
+                                    break;
+                                    case '2':
+                                       ordinautilizzo(ricette, totRicette);
+                                       getchar();
+                                    break;
+                                    case '0':
+                                        flag=0;
+                                    break;
+                                    default:
+                                        system("@cls||clear");
+                                        puts("<!> Per favore inserisci una scelta corretta!\n");
+                                    break;
+                                }
+                            }
+                            flag=1;
                             system("@cls||clear");
                         break;
                         case '3': 
@@ -234,13 +257,83 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
             break; 
             case '3':
                 fputs("Gestione intolleranze\n\n"
+            break;                         
+            case '2':
+                puts("\n\n!! COMING SOON !!"
+                    "\n\n Premi invio per tornare indietro . . .");
+                getchar();
+                system("@cls||clear");
+                /*
+                posUtente=searchAccount(utenti, *totUtenti, username);
+                char scelta;
+                do{
+                    fputs("Gestione intolleranze\n\n"
                     "1. Aggiungi intolleranza\n"
                     "2. Rimuovi intolleranza\n\n"
-                    "0. Ingietro\n"
+                    "0. Indietro\n"
                     ">>> ", stdout);
                 //intolleranza
             break;
             case '4':
+                    scelta=getchar();
+                    system("@cls||clear");
+                    clearBuffer();
+                    switch(scelta){
+                        case'1':
+                            while(!flag){
+                                system("@cls||clear");
+                                if(utenti[posUtente].totinto=0){
+                                    fputs("Desideri inserire qualche intolleranza?\n"
+                                    "s/n\n"
+                                    ">>> ", stdout);
+                                }else{
+                                    fputs("Desideri inserire qualche altra intolleranza?\n"
+                                    "s/n\n"
+                                    ">>> ", stdout);
+                                }
+                                scelta=getchar();
+                                clearBuffer();
+                                switch(scelta){
+                                    case 's':
+                                        if(addIntollerance(utenti[posUtente].intolleranze[utenti[posUtente].totinto], elencoCategorie, *&totCat)){
+                                            utenti[posUtente].totinto++;
+                                            saveInto(utenti[posUtente].intopos, utenti[posUtente].intolleranze, utenti[posUtente].totinto);
+                                        }
+                                    break;
+                                    case 'n':
+                                        flag=1;
+                                    break;
+                                    default:
+                                        system("@cls||clear");
+                                        puts("<!> Inserisci un valore corretto\n");
+                                    break;
+                                }    
+                            }
+                            flag=0;
+                            saveAccount(accountlocation, utenti, *totUtenti);
+                        break;
+                        case'2':
+                            
+                            puts("2. Rimuovi intolleranze\n\n");
+                            if(utenti[posUtente].totinto==0){
+                                puts("Non sono presenti intolleranze da eliminare\n");
+                            }else{
+                                rmInto(utenti[posUtente].intolleranze, utenti[posUtente].totinto);
+                                saveAccount(accountlocation, utenti, *totUtenti);
+                            } 
+                        break;
+                        case '0':
+                            flag=0;
+                        break;
+                        default:
+                            system("@cls||clear");
+                            puts("<!> Perfavore, scegli tra le opzioni disponibili\n\n");
+                        break;
+                    }
+                }while(flag);
+                */
+            break;         
+            case '3':
                 flag=1;
                 while(flag){
                     fputs("Gestione lista della spesa\n\n"
@@ -272,7 +365,7 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                                 rimRis = rimElem(lista, &totElem);
                                 system("@cls||clear");
                                 if(rimRis == 1){
-                                    puts("<!> L'alimento selezionato e'atato ridotto\n\n");
+                                    puts("<!> L'alimento selezionato e'stato ridotto\n\n");
                                 }else if(rimRis == 2){
                                     puts("<!> L'elemento selezionato e'stato rimosso\n\n");
                                     totElem--;
@@ -341,8 +434,9 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     fputs("Impostazioni\n\n"
                         "1. Inserimento nuovo account\n"
                         "2. Modifica grado utente\n"
-                        "3. Ripristino ai dati di fabbrica\n\n"
-                        "0. indietro\n"
+                        "3. Ripristino ai dati di fabbrica\n"
+                        "4. Modifica password\n"
+                        "0. Indietro\n"
                         ">>> ", stdout);
                     scelta = getchar();
                     system("@cls||clear");
@@ -394,12 +488,52 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                         case '2':
                             if(checkAdmin(utenti, *totUtenti, username)){
-                                //modifyUserPrivilege(utenti, totUtenti, username);
+                                if(modifyUserPrivilege(utenti, *totUtenti)){
+                                    puts("<*> Modifica effettuata correttamente\n");
+                                    saveAccount(accountlocation, utenti, *totUtenti);
+                                }else{
+                                        puts("<!> Inserimento annullato\n");
+                                    }
                             }else{
                                 system("@cls||clear");
                                 printf("<!> Non si dispone dei diritti di amministrazione necessari per eseguire questa operazione\n\n");
                             }
                         break;
+                        case '3':
+                            //ripristino ai dati di fabbrica da parte dell'amministratore
+                        break;
+                        case '4':
+                            while(flag){
+                                fputs("Modifica password.\n"
+                                    "1. Modifica password\n\n"
+                                    "0. Indietro\n"
+                                    ">>> ", stdout);
+                                scelta=getchar();
+                                clearBuffer();
+                                system("@cls||clear");
+                                switch(scelta){
+                                    case'1':
+                                        if(modificaPassword(&utenti[searchAccount(utenti, *totUtenti, username)])){
+                                            saveAccount(accountlocation, utenti, *totUtenti);
+                                            puts("<*> Password salvata correttamente\n");
+                                        }else{
+                                            puts("<!> Errore");
+                                        }
+                                        flag=0;
+                                    break;
+                                    case '0':
+                                        flag=0;
+                                        system("@cls||clear");
+                                        getchar();
+                                    break;
+                                    default:
+                                        system("@cls||clear");
+                                        puts("<!> Per favore inserisci una scelta corretta!\n");
+                                    break;
+                                }
+                            }flag=1;
+                        break;
+                        
                         case '0':
                             flag=0;
                             system("@cls||clear");

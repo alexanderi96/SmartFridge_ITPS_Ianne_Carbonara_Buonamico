@@ -51,6 +51,25 @@ int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatL
     }
 }
 
+int rmInto(char intolleranze[][maxCatLen], int intoDim){
+    //dobbiamo scalare la struct intolleranze nel momenti in cui troviamo una corrispondenza
+    char into[maxCatLen];
+    int catPos;
+    showCategories(intolleranze, intoDim);
+    
+    do{
+        fputs("Inserisci l'intolleranza che vuoi rimuovere."
+            ">>> ", stdout);
+        scanf("%s", into);
+       catPos=searchCat(intolleranze, intoDim, into);
+       if (catPos<0){
+           puts("<!> Intolleranza non presente\n");
+       }else{
+            rimCat(intolleranze, &intoDim, catPos);
+       }
+    }while(0>catPos);
+}
+
 void showInto(char intolleranze[][maxCatLen], int totInto){
 	for (int i = 0; i < totInto; ++i){
 		printf("|%-92s|\n", intolleranze[i]);

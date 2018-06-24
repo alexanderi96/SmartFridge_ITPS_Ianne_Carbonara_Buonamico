@@ -115,7 +115,8 @@ int searchAccount(Utente utenti[], int totUtenti, char user[]){
 }
 
 void showAccount(Utente utente){
-    char isadmin[6];    if(utente.isadmin){
+    char isadmin[6];    
+    if(utente.isadmin){
         strcpy(isadmin, "Admin");
     }else{
         strcpy(isadmin, "Normal");
@@ -127,6 +128,58 @@ void showAccount(Utente utente){
         "|------------------------------|------------------------------|------------------------------|------------------------------|------------------------------|\n", "Username","Nome", "Cognome", "Eta'", utente.user, utente.nome, utente.cognome, utente.eta, isadmin);
 }
 
-int modifyUserPrivilege(Utente utenti[], int totUtenti, char Username[]){
+int modifyUserPrivilege(Utente utenti[], int totUtenti){
+    char user[25];
+    char scelta2;
+    int posUtente;
+    puts("Di seguito gli utenti di cui è possibile modificarne il grado\n\n");
+    while(1){
+        for(int i=0; i<totUtenti; i++){
+            printf("%s\n", utenti[i].user);
+        }
+        printf("\n\nInserisci l'username di cui vuoi modificarne il grado\nPremi 0 per annullare l'operazione\n\n>>> ", stdout);
+        scanf("%s", user);
+        clearBuffer();
+        if(strcmp(user, "0")==0){
+            system("@cls||clear");
+            return 0;
+        }
+        posUtente=searchAccount(utenti, totUtenti, user);
+        while(posUtente>-1){
+            printf("Sei sicuro di voler modificare il grado utente di %s? s/n\n>>> ", utenti[posUtente].user);
+            scelta2=getchar();
+            system("@cls||clear");
+            clearBuffer();
+            switch(scelta2){
+                case 's':
+                    puts("siamo nel case s");
+                    if(utenti[posUtente].isadmin){
+                        utenti[posUtente].isadmin=0;
+                    }else{
+                        utenti[posUtente].isadmin=1;
+                    }
+                    return 1;
+                break;
+                case 'n': 
+                    return 0;
+                    break;
+                default:
+                    system("@cls||clear");
+                    puts("<!> Per favore inserisci una scelta corretta\n");
+                break;
+            }
+        }
+        system("@cls||clear");
+        puts("<!> Per favore inserisci una scelta corretta\n"); 
+    }   
+}
+
+
+
+int modificaPassword(Utente *utente){
+    puts("Inserisci la nuova password\n\n");
+    scanf("%s", utente->password);
+    system("@cls||clear");
+    clearBuffer();
     return 1;
 }

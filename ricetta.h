@@ -20,5 +20,7 @@ int ifRepiceGI(Utente utente, Ricetta ricetta);
 int checkIntollerance(char intolleranza[], Ricetta ricetta);
 int getPossibleRepiceSingleI(char intolleranza[], Ricetta ricette[], int totRicette);
 int showPossibleRecipesD(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang);
+void ordinacalorie(Ricetta ricette[], int totRicette);
+void ordinautilizzo(Ricetta ricette[], int totRicette);
 
 #endif

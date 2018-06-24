@@ -3,5 +3,6 @@
 
 int addIntollerance(char intolleranze[maxCatLen], char elencoCategorie[][maxCatLen], int *totCat);
 void showInto(char Intolleranze[][maxCatLen], int totInto);
+int rmInto(char intolleranze[][maxCatLen], int intoDim);
 
 #endif
