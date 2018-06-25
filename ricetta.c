@@ -13,12 +13,13 @@
 */
 
 void showRecipes(Ricetta ricette[], int totRicette){
-	printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni");
-	puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
+	printf("\n|%-30s|%-30s|%-30s|%-10s|%-10s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni", "kcal");
+	puts("|------------------------------|------------------------------|------------------------------|----------|----------|");
 	for (int i = 0; i < totRicette; ++i){
-		printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep, ricette[i].nVolteUs);
+		printf("|%-30s|%-30s|%-25d min.|%-10d|%-10d|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep, ricette[i].nVolteUs, calcTotKcal(ricette[i]));
+        
 	}
-	fputs("|--------------------------------------------------------------------------------------------|------------------------------|", stdout);
+	fputs("|--------------------------------------------------------------------------------------------|--------------------|", stdout);
 }
 
 /* La seguente funzione permette di visualizzare una singola ricetta
@@ -26,8 +27,8 @@ void showRecipes(Ricetta ricette[], int totRicette){
 */
 
 void showSingleRecipe(Ricetta ricetta){
-	printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep, ricetta.nVolteUs);
-	fputs("|------------------------------|------------------------------|------------------------------|------------------------------|\n", stdout);
+	printf("|%-30s|%-30s|%-25d min.|%-10d|%-10d|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep, ricetta.nVolteUs, calcTotKcal(ricetta));
+	fputs("|------------------------------|------------------------------|------------------------------|----------|----------|\n", stdout);
 }
 
 /* La seguente funzione permtte di determinare le Kcal totali per una ricetta
@@ -402,7 +403,6 @@ void ordinacalorie(Ricetta ricette[], int totRicette){
     }
     for (int i = 0; i < totRicette; ++i){
         showSingleRecipe(tempRicA[i]);
-        printf("%d", calcTotKcal(tempRicA[i]));
     }
 }
 

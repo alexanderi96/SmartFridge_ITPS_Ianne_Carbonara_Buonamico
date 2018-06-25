@@ -127,12 +127,6 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                     showSingleAlim(dispensa[i]);
                 }
             }
-<<<<<<< HEAD
-            puts("");
-            //da consigliare una ricetta
-=======
-            
->>>>>>> baf051b1fbc81f6ceedd7162d48fceea96960689
         }
         if(contScad>0){
             printf("Ci sono %d prodotti scaduti in dispensa, avvio della procedura per l'eleiminazione\n"
@@ -208,18 +202,24 @@ int mainmenu(char username[], char password[], int *totUtenti, Utente utenti[], 
                         break;
                         case '2':
                             while(flag){
-                                puts("2. Visualizzazione delle ricette disponibili\n");
-                                puts("\n\n1. Visualizza le ricette dalla più calorica alla meno calorica\n");
-                                puts("2. Visualizza le ricette dalla più utilizzata alla meno utilizzata\n\n");
-                                puts("0. Torna al menù\n");
+                                system("@cls||clear");
+                                fputs("2. Visualizzazione delle ricette disponibili\n\n"
+                                    "1. Visualizza le ricette dalla piu' calorica alla meno calorica\n"
+                                    "2. Visualizza le ricette dalla piu' utilizzata alla meno utilizzata\n\n"
+                                    "0. Torna al menu'\n"
+                                    ">>> ", stdout);
                                 scelta=getchar();
+                                clearBuffer();
+                                system("@cls||clear");
                                 switch (scelta){
                                     case '1':
                                         ordinacalorie(ricette, totRicette);
+                                        puts("\nPremi invio per tornare indietro . . .");
                                         getchar();
                                     break;
                                     case '2':
                                        ordinautilizzo(ricette, totRicette);
+                                       puts("\nPremi invio per tornare indietro . . .");
                                        getchar();
                                     break;
                                     case '0':
@@ -549,8 +549,8 @@ int globalSearch(char searchWord[], Utente account[], int totAccount, Alimento d
                     
                     printf("|%-92s|\n"
                         "|%-92s|\n"
-                        "\n|%-30s|%-30s|%-30s|%-30s|\n"
-                        "|%-92s|\n", "Inoltre il prodotto e'presente nelle seguenti ricette:", "------------------------------|------------------------------|------------------------------|------------------------------", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni", "------------------------------|------------------------------|------------------------------|------------------------------");
+                        "\n|%-30s|%-30s|%-30s|%-10s|%-10s|\n"
+                        "|%-92s|\n", "Inoltre il prodotto e'presente nelle seguenti ricette:", "------------------------------|------------------------------|------------------------------|----------|----------", "Nome", "Paese", "tempo di preparazione", "C. prep", "Kcal", "------------------------------|------------------------------|------------------------------|----------|----------");
                     flagIng=1;
                 }
                 showSingleRecipe(ricette[i]);
