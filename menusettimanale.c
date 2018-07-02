@@ -241,23 +241,46 @@ void checkTimeandcook(Utente utente, Ricetta ricette[], int totRicette, Menu men
    		clearBuffer();
 
    		if(flag){
-   			if(!showPossibleRecipesD(ricette, totRicette, dispensa, *totAlimenti, nPerMang)){
+        posRic=showPossibleRecipesD(ricette, totRicette, dispensa, *totAlimenti, nPerMang);
+   			if(0>posRic){
    				puts("<!> Non possiedi alimenti sufficiente per cucinare!\n"
    					"Vai a fare la spesa o ordina qualcosa da justeat.it\n\n"
    					"Premi invio per torare al menu precedente . . .");
    				getchar();
    				system("@cls||clear");
    				return;
-   			}
+   			}else{ 
+          while(flagSwitch){
+            fputs("\nVuoi cucinare questa ricetta? s/n\n"
+              ">>> ", stdout);
+            scelta=getchar();
+
+            clearBuffer();  
+            system("@cls||clear");
+            switch(scelta){
+              case 's':
+                ricetta=ricette[posRic];
+                flagSwitch=0;
+              break;
+              case 'n':
+
+                return;
+              break;
+              default:
+                system("@cls||clear");
+              break;
+            }
+          }
+        }
    		}
 
    		switch(nPerMang){
-   			case '1':
+   			case 1:
    				if(1!=checkPresenceForXPeople(ricette, totRicette, ricetta, dispensa, *&totAlimenti, spesa, *&totLista, database, *&totDatabase, elencoCategorie, *&totCat, 1)){
    					return;
    				}
    			break;
-   			case '0':
+   			case 0:
    				return;
    			break;
    			default:
@@ -316,10 +339,11 @@ void startCooking(Ricetta ricetta, Alimento dispensa[], int *totAlimenti, Ricett
     showIngredients(ricetta.ingredienti, ricetta.totIngredienti);
     printf("|%-92s|Numero totale di kcal:%d\n", "", calcTotKcal(ricetta));
     showInstructions(ricetta);
-    puts("\nPremi invio per terminare la preparazione . . .");
+    puts("\n\nPremi invio per terminare la preparazione . . .");
     getchar();
     rimIng(dispensa, *&totAlimenti, ricetta.ingredienti, ricetta.totIngredienti);
     incUsageById(ricetta.id_ricetta, ricette, totRicette);
+    system("@cls||clear");
 }
 
 //funzione usata per convertire alimenti in ingredienti
@@ -338,7 +362,7 @@ void multiplyForPNum(Alimento alimenti[], int totAlimenti, int nPers){
 }
    
 int checkPresenceForXPeople(Ricetta ricette[], int totRicette, Ricetta ricetta, Alimento dispensa[], int *totAlimenti, Spesa spesa[], int *totLista, Alimento database[], int *totDatabase, char elencoCategorie[][maxCatLen], int *totCat, int nPerMang){
-	Alimento aliTemp[maxAlimenti];
+  Alimento aliTemp[maxAlimenti];
 	Data oggi;
 	setCurrentDate(&oggi, 0);
 	char scelta;

@@ -99,9 +99,9 @@ int addtoListGuided(Spesa listaSpesa[], int *totElemLista, char elencoCategorie[
    				}		
     		}else{
     			system("@cls||clear");
-    			strcat(listaSpesa[*totElemLista].nome, databaseAlimenti[pos].nome);
-   				strcat(listaSpesa[*totElemLista].categoria, databaseAlimenti[pos].categoria);
- 				fputs("Inserisci la quantita' in g/ml da inserire nella lista della spesa\n"
+    			strcpy(listaSpesa[*totElemLista].nome, databaseAlimenti[pos].nome);
+   				strcpy(listaSpesa[*totElemLista].categoria, databaseAlimenti[pos].categoria);
+        fputs("Inserisci la quantita' in g/ml da inserire nella lista della spesa\n"
     				">>> ", stdout);
        			scanf("%d", &listaSpesa[*totElemLista].quantita);
        			clearBuffer(); 

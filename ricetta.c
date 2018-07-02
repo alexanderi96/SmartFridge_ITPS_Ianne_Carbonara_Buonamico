@@ -13,12 +13,13 @@
 */
 
 void showRecipes(Ricetta ricette[], int totRicette){
-	printf("\n|%-30s|%-30s|%-30s|%-30s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni");
-	puts("|------------------------------|------------------------------|------------------------------|------------------------------|");
+	printf("\n|%-30s|%-30s|%-30s|%-10s|%-10s|\n", "Nome", "Paese", "tempo di preparazione", "Contatore preparazioni", "kcal");
+	puts("|------------------------------|------------------------------|------------------------------|----------|----------|");
 	for (int i = 0; i < totRicette; ++i){
-		printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep, ricette[i].nVolteUs);
+		printf("|%-30s|%-30s|%-25d min.|%-10d|%-10d|\n", ricette[i].nome, ricette[i].paese, ricette[i].tempoPrep, ricette[i].nVolteUs, calcTotKcal(ricette[i]));
+        
 	}
-	fputs("|--------------------------------------------------------------------------------------------|------------------------------|", stdout);
+	fputs("|--------------------------------------------------------------------------------------------|--------------------|", stdout);
 }
 
 /* La seguente funzione permette di visualizzare una singola ricetta
@@ -26,8 +27,8 @@ void showRecipes(Ricetta ricette[], int totRicette){
 */
 
 void showSingleRecipe(Ricetta ricetta){
-	printf("|%-30s|%-30s|%-25d min.|%-30d|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep, ricetta.nVolteUs);
-	fputs("|------------------------------|------------------------------|------------------------------|------------------------------|\n", stdout);
+	printf("|%-30s|%-30s|%-25d min.|%-10d|%-10d|\n", ricetta.nome, ricetta.paese, ricetta.tempoPrep, ricetta.nVolteUs, calcTotKcal(ricetta));
+	fputs("|------------------------------|------------------------------|------------------------------|----------|----------|\n", stdout);
 }
 
 /* La seguente funzione permtte di determinare le Kcal totali per una ricetta
@@ -352,15 +353,17 @@ int getPossibleRepiceSingleI(char intolleranza[], Ricetta ricette[], int totRice
 }
 
 int showPossibleRecipesD(Ricetta ricette[], int totRicette, Alimento dispensa[], int totAlimenti, int nPerMang){
-	_Bool flagTrovato=0, flagRicetta=1, flagalmeno1=0;
+	_Bool flagTrovato=0, flagRicetta=1;
+	int contIngPres=0;
 	for (int i = 0; i < totRicette; ++i){ //giro le ricette
 		for (int j = 0; j < ricette[i].totIngredienti && flagRicetta; ++j){ //giro gli angredienti della singola ricetta
 			flagRicetta=1;
 			flagTrovato=0;
 			for (int k = 0; k < totAlimenti && !flagTrovato; ++k){ //giro gli alimenti disponibili
 				if (strcmp(ricette[i].ingredienti[j].nome, dispensa[k].nome)==0){
-					if((getQuantityR(dispensa, totAlimenti, dispensa[k].nome, 0) - (ricette[i].ingredienti[j].quantita*nPerMang))>0){
+					if((getQuantityR(dispensa, totAlimenti, dispensa[k].nome, 0) - (ricette[i].ingredienti[j].quantita*nPerMang))>=0){
 						flagTrovato=1;
+						contIngPres++;
 					}
 				}
 			}
@@ -370,14 +373,12 @@ int showPossibleRecipesD(Ricetta ricette[], int totRicette, Alimento dispensa[],
 				flagRicetta=0;
 			}
 		}
-		if (flagRicetta){
-			printf("ciao\n");
-			flagalmeno1=1;
-			/*questa ricetta è valida, andiamo a comunicarla*/
+		if (contIngPres==ricette[i].totIngredienti){
 			showSingleRecipe(ricette[i]);
+			return i;
 		}
 	}
-	return flagalmeno1;
+	return -1;
 }
 
 void ordinacalorie(Ricetta ricette[], int totRicette){
@@ -402,7 +403,6 @@ void ordinacalorie(Ricetta ricette[], int totRicette){
     }
     for (int i = 0; i < totRicette; ++i){
         showSingleRecipe(tempRicA[i]);
-        printf("%d", calcTotKcal(tempRicA[i]));
     }
 }
 

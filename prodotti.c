@@ -151,7 +151,7 @@ int checkPresenceOrAdd(char elencoCategorie[][maxCatLen], int *totCat, Alimento 
        		clearBuffer(); 
 					system("@cls||clear");
     			addAliments(databaseAlimenti, *&totDatabaseAlimenti, categoriaTemp, alimentsTemp, kcal, giorni);
-    			pos= *totDatabaseAlimenti;
+    			pos= *totDatabaseAlimenti-1;
 
     			return pos;
     		break;
