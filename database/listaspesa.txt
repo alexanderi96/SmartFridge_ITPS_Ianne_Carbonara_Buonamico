@@ -1,0 +1,16 @@
+15
+0 pasta carboidrati 80
+1 funghi verdura 150
+2 sale condimento 13
+3 pepe condimento 8
+4 burro condimento 30
+5 prezzemolo condimento 15
+6 semolino carboidrati 150
+7 ceci legumi 30
+8 latte latticini 15
+9 asparagi ortaggi 50
+10 scalogno ortaggi 20
+11 olio condimento 30
+12 formaggio latticini 20
+13 riso carboidrati 100
+14 uova proteine 40
